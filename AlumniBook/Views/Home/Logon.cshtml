@@ -1,0 +1,53 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Logon</title>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+    <div> 
+        <form action="~/Home/LoginAuthentication">
+
+            <button type="button" > 提交</button>
+        </form>
+    </div>
+</body>
+</html>
+<script>
+    $(function () {
+
+        $.post("/Home/LoginAuthentication"
+            , { logonUser: "admin", password: "qwe123s" }
+            , function (reData) {
+                if (reData.Status == "OK") {
+                    //判断登陆类型【普通/管理】
+                    //普通跳转到主页
+                    //location.href = "/Home/Index";
+                    console.log(reData);
+                    $.post("/Home/GetIndexModel", null, function (reData1) {
+                        console.log(reData1);
+                    })
+                    //管理跳转到管理页面
+                } else {
+                    //提醒错误信息
+                    console.log(reData);
+                    alert(reData.Msg);
+                }
+            });
+
+
+        //验证注册方法
+        //$.post("/Home/Regist", { logonUser: "Jerry", password: "Jerry.123" }
+        //    , function (reData) {
+        //        console.log(reData);
+        //    });
+
+    })
+</script>
