@@ -43,19 +43,19 @@
                         <label class="control-label">登录用户名 <span class="text-danger">*</span></label>
                         <div class="row row-space-10">
                             <div class="col-md-12 m-b-15">
-                                <input type="text" class="form-control" placeholder="请输入用户名" required id="Username" />
+                                <input type="text" class="form-control" placeholder="请输入用户名" value="13221" required id="Username" />
                             </div>
                         </div>
                         <label class="control-label">账号密码 <span class="text-danger">*</span></label>
                         <div class="row m-b-15">
                             <div class="col-md-12">
-                                <input type="password" class="form-control" placeholder="登录密码" required id="Password" />
+                                <input type="password" class="form-control" placeholder="登录密码" value="13221" required id="Password" />
                             </div>
                         </div>
                         <label class="control-label">QQ号码 <span class="text-danger">*</span></label>
                         <div class="row m-b-15">
                             <div class="col-md-12">
-                                <input type="number" class="form-control" placeholder="用于获取头像" required id="QQ" />
+                                <input type="number" class="form-control" placeholder="用于获取头像" value="13221" required id="QQ" />
                             </div>
                         </div>
                         <label class="control-label">选择班级：并回到对应问题<span class="text-danger">*</span></label>
@@ -66,29 +66,26 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <li><a href="#">1班</a></li>
-                                <li><a href="#">2班</a></li>
-                                <li><a href="#">3班</a></li>
-                                <li><a href="#">4班</a></li>
+
                             </ul>
                         </div>
 
                         <label class="control-label">问题1: <span id="Question1">2班班长是谁？</span><span class="text-danger">*</span></label>
                         <div class="row m-b-15">
                             <div class="col-md-12">
-                                <input type="text" class="form-control" placeholder="" required id="answer1" />
+                                <input type="text" class="form-control" placeholder="" value="13221" required id="answer1" />
                             </div>
                         </div>
                         <label class="control-label">问题2:<span id="Question2">2班班长是谁？</span><span class="text-danger">*</span></label>
                         <div class="row m-b-15">
                             <div class="col-md-12">
-                                <input type="text" class="form-control" placeholder="" required id="answer2" />
+                                <input type="text" class="form-control" placeholder="" value="13221" required id="answer2" />
                             </div>
                         </div>
-                        <label class="control-label">问题3:<span id="Question2">2班班长是谁？</span><span class="text-danger">*</span></label>
+                        <label class="control-label">问题3:<span id="Question3">2班班长是谁？</span><span class="text-danger">*</span></label>
                         <div class="row m-b-15">
                             <div class="col-md-12">
-                                <input type="text" class="form-control" placeholder="" required id="answer3" />
+                                <input type="text" class="form-control" placeholder="" value="13221" required id="answer3" />
                             </div>
                         </div>
                         <div class="register-buttons">
@@ -117,43 +114,93 @@
         $(document).ready(function () {
             App.init();
         });
-        $('#VCodeShow').click(function () {
-            //$(this).attr('src', '/index.php?s=func/VCode.html');
-            $('#VCode').val('');
-        });
-        $('#Reg').submit(function () {
-            $('#Button').attr('disabled', 'disabled');
+        window.onload = function () {
             $.ajax({
-                url: "../User/Regist",
+                url: "../ClassInfo/GetAllClassForSelect",
                 data: {
-                    UserName: "dsadsada",
-                    Password: "abc123456",
-                    QqId: "240269961"
-                    //UserName: $('#Username').val(),
-                    //Password: $('#Password').val(),
-                    //ClassPassword: $('#ClassPassword').val(),
-                    //QqId: $('#QQ').val(),
-                    //VCode: $('#VCode').val(),
                 },
                 success: function (data) {
-                    console.log(data);
-                    //if (data.Code == 1) {
-                    //    notify(data.Message, 'success');
-                    //    setTimeout(function () {
-                    //        window.location.href = "/index.php?s=Index.html";
-                    //    }, 1000);
-                    //} else {
-                    //    $('#Button').removeAttr('disabled');
-                    //    notify(data.Message, 'danger');
-                    //    $('#VCodeShow').click();
-                    //}
+                    $(data).each(function () {
+                        $(".dropdown-menu").append(
+                            `<li class='classNum' id='` + this.Key + `'><a href="#">` + this.Value+`</a></li>`
+                        );
+                    });
+
+                    $(".classNum").on("click", function () {
+                        var classNum = $(this).attr("id");
+
+                        $.ajax({
+                            url: "../ClassInfo/GetClassQuestionByClassId",
+                            data: {
+                                classId: classNum
+                            },
+                            success: function (data) {
+                                console.log(data);
+                                $("#Question1").text(data[0].Question);
+                                $("#Question2").text(data[1].Question);
+                                $("#Question3").text(data[2].Question);
+                            },
+                            error: function () {
+
+                            }
+                        });
+                        $('#Reg').submit(function () {
+                            $('#Button').attr('disabled', 'disabled');
+
+                            $.ajax({
+                                url: "../User/Regist",
+                                data: {
+                                    UserName: "dsadsada",
+                                    Password: "abc123456",
+                                    QqId: "240269961",
+                                    ClassId: classNum,
+                                    //question: [$('#answer1').val(), $('#answer2').val(), $('#answer3').val()],
+                                    question: ["Q1", "Q2", "Q3"],
+                                    //question:"Q1"
+                                    //UserName: $('#Username').val(),
+                                    //Password: $('#Password').val(),
+                                    //ClassPassword: $('#ClassPassword').val(),
+                                    //QqId: $('#QQ').val(),
+                                    //VCode: $('#VCode').val(),
+                                },
+                                success: function (data) {
+                                    console.log(data);
+                                    //if (data.result == true) {
+                                    //    window.location.herf = "home/login"
+                                    //} else {
+                                    //    $('#Button').removeAttr('disabled');
+                                    //    alert("注册失败:" + data.Msg + "，请重新注册！");
+                                    //}
+                                    //if (data.Code == 1) {
+                                    //    notify(data.Message, 'success');
+                                    //    setTimeout(function () {
+                                    //        window.location.href = "/index.php?s=Index.html";
+                                    //    }, 1000);
+                                    //} else {
+                                    //    $('#Button').removeAttr('disabled');
+                                    //    notify(data.Message, 'danger');
+                                    //    $('#VCodeShow').click();
+                                    //}
+                                },
+                                error: function () {
+
+                                }
+                            });
+                            return false;
+                        });
+                    });
                 },
                 error: function () {
 
                 }
             });
-            return false;
+        };
+
+        $('#VCodeShow').click(function () {
+            //$(this).attr('src', '/index.php?s=func/VCode.html');
+            $('#VCode').val('');
         });
+
     </script>
 </body>
 </html>

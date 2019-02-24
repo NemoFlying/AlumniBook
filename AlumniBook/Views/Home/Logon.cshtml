@@ -63,7 +63,7 @@
 
                         <div class="m-t-20 m-b-40 p-b-40 text-inverse">
                             没有账号？
-                            <a href="reg">点击这里注册</a>。
+                            <a href="/Home/reg">点击这里注册</a>。
                         </div>
                     </form>
                 </div>
@@ -87,23 +87,22 @@
         $('#Login').submit(function () {
             $('#Button').attr('disabled', 'disabled');
             $.ajax({
-                url: "",
+                url: "../User/LogonAuthen",
                 data: {
-                    Username: $('#Username').val(),
-                    Password: $('#Password').val()
+                    //userName: $('#Username').val(),
+                    //password: $('#Password').val(),
+                    userName: "admin",
+                    password:"admin"
                 },
-                cache: false,
                 success: function (data) {
                     console.log(data);
-                    //if (data.Code == 1) {
-                    //    notify(data.Message, 'success');
-                    //    setTimeout(function () {
-                    //        window.location.href = "/index.php?s=Index.html";
-                    //    }, 1000);
-                    //} else {
-                    //    $('#Button').removeAttr('disabled');
-                    //    notify(data.Message, 'danger');
-                    //}
+
+                    if (data.result == true) {
+                        window.location.herf = "home/login"
+                    } else {
+                        $('#Button').removeAttr('disabled');
+                        alert("登录失败" + data.Msg +"，请重新登录！");
+                    }
                 },
                 error: function () {
                     //$('#Button').removeAttr('disabled');
