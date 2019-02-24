@@ -87,27 +87,27 @@
         $('#Login').submit(function () {
             $('#Button').attr('disabled', 'disabled');
             $.ajax({
-                url: "/index.php?s=func/User/Login.html",
+                url: "",
                 data: {
                     Username: $('#Username').val(),
                     Password: $('#Password').val()
                 },
                 cache: false,
-                dataType: 'json',
                 success: function (data) {
-                    if (data.Code == 1) {
-                        notify(data.Message, 'success');
-                        setTimeout(function () {
-                            window.location.href = "/index.php?s=Index.html";
-                        }, 1000);
-                    } else {
-                        $('#Button').removeAttr('disabled');
-                        notify(data.Message, 'danger');
-                    }
+                    console.log(data);
+                    //if (data.Code == 1) {
+                    //    notify(data.Message, 'success');
+                    //    setTimeout(function () {
+                    //        window.location.href = "/index.php?s=Index.html";
+                    //    }, 1000);
+                    //} else {
+                    //    $('#Button').removeAttr('disabled');
+                    //    notify(data.Message, 'danger');
+                    //}
                 },
                 error: function () {
-                    $('#Button').removeAttr('disabled');
-                    notify('连接失败...请重试', 'danger');
+                    //$('#Button').removeAttr('disabled');
+                    //notify('连接失败...请重试', 'danger');
                 }
             });
             return false;
