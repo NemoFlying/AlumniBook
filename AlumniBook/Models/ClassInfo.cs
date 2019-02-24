@@ -30,7 +30,7 @@ namespace AlumniBook.Models
         /// <summary>
         /// 创建人员信息
         /// </summary>
-        public virtual RegisteredUser CreateUser { get; set; }
+        public string  CreateUser { get; set; }
 
         /// <summary>
         /// 创建时间
@@ -42,6 +42,26 @@ namespace AlumniBook.Models
         /// </summary>
         [Required]
         public string Introduce { get; set; }
+
+        /// <summary>
+        /// 用户信息
+        /// </summary>
+        public virtual List<User> Users { get; set; }
+
+        /// <summary>
+        /// 班级相册列表
+        /// </summary>
+        public virtual List<ClassAlbum> ClassAlbum { get; set; }
+
+        /// <summary>
+        /// 班级留言信息
+        /// </summary>
+        public virtual List<ClassLeavingMessage> ClassLeavingMessage { get; set; }
+
+        /// <summary>
+        /// 班级公告
+        /// </summary>
+        public virtual List<ClassNotice> ClassNotice { get; set; }
 
 
     }
