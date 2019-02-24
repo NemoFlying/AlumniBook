@@ -49,7 +49,11 @@ namespace AlumniBook.BLL.UserService.Dto
         /// <summary>
         /// 问题答案
         /// </summary>
-        public List<string> question { get; set; }
+        public List<string> question { get {
+                return strquestion.Split(';').ToList();
+            } }
+
+        public string strquestion { get; set; }
 
         ///// <summary>
         ///// 真实姓名
