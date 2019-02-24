@@ -15,7 +15,7 @@ namespace AlumniBook.Controllers
         /// <summary>
         /// 全局用户信息
         /// </summary>
-        protected UserInfo GuserInfo => (UserInfo)HttpContext.Session["userinfo"];
+        protected UserViewModel GuserInfo => (UserViewModel)HttpContext.Session["userinfo"];
 
 
     }

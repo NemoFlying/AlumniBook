@@ -22,11 +22,13 @@ namespace AlumniBook
                 {
                     //用户输出
                     config.CreateMap<User, UserInfoOutput>();
-                    config.CreateMap<UserInfoOutput, UserInfo>();
+                    config.CreateMap<User, UserViewModel>();
+                    config.CreateMap<UserInfoOutput, UserViewModel>();
+                    
                     config.CreateMap<RegistUserInput, User>();
                     config.CreateMap<ClassQuestion, ClassQuestionViewModel>();
-                    //config.CreateMap<ClassQustion, ClassQuestionViewModel>();
-                    //config.CreateMap<GoodsInfoInput, Goods>();
+                    config.CreateMap<ClassLeavingMessage, LeavingMsgInfo>();
+                    config.CreateMap<ClassNotice, NoticeInfo>();
 
                     ////店铺转换
                     //config.CreateMap<Shop, ShopOutPutViewModel>()

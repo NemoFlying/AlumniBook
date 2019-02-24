@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using AlumniBook.Models;
 
 namespace AlumniBook.ViewModels
 {
-    public class UserInfo
+    public class UserViewModel
     {
         public int Id { get; set; }
         /// <summary>
@@ -56,10 +55,5 @@ namespace AlumniBook.ViewModels
         /// 1.管理员
         /// </summary>
         public int UserType { get; set; }
-
-        /// <summary>
-        /// 当前查看班级
-        /// </summary>
-        public ClassInfo ClassInfo { get; set; }
     }
 }

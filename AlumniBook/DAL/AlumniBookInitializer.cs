@@ -33,7 +33,7 @@ namespace AlumniBook.DAL
             var adminUser = new User()
             {
                 UserName = "admin",
-                Password = "9FD966C8E14B44EEF8F685DCAB3395E7",
+                Password = "F6FDFFE48C908DEB0F4C3BD36C032E72",
                 UserType = 1,
                 Certification = "Y",
                 HeadPortrait = "/img/defaultHead",
