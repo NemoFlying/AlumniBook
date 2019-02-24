@@ -14,7 +14,6 @@ namespace AlumniBook.DAL
             : base("AlumniBookContext")
         {
         }
-        public DbSet<RegisteredUser> RegisteredUser { get; set; }
 
         public DbSet<ClassInfo> ClassInfo { get; set; }
 
@@ -22,7 +21,8 @@ namespace AlumniBook.DAL
 
         public DbSet<ClassNotice> ClassNotice { get; set; }
 
-        public DbSet<UserClass> UserClass { get; set; }
+        public DbSet<User> User { get; set; }
+
 
         public DbSet<ClassLeavingMessage> ClassLeavingMessage { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

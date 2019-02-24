@@ -16,13 +16,6 @@ namespace AlumniBook.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] //设置自动增长
         public int Id { get; set; }
 
-        public virtual ClassInfo ClassInfo { get; set; }
-
-        /// <summary>
-        /// 创建人信息
-        /// </summary>
-        public virtual RegisteredUser CreateUser { get; set; }
-
         /// <summary>
         /// 创建时间
         /// </summary>
@@ -32,5 +25,15 @@ namespace AlumniBook.Models
         /// 留言信息
         /// </summary>
         public string Msg { get; set; }
+
+        /// <summary>
+        /// 班级信息
+        /// </summary>
+        public virtual ClassInfo ClassInfo { get; set; }
+
+        /// <summary>
+        /// 创建人信息
+        /// </summary>
+        public virtual User CreateUser { get; set; }
     }
 }

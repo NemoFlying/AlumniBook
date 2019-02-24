@@ -21,8 +21,6 @@ namespace AlumniBook.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] //设置自动增长
         public int Id { get; set; }
 
-        public virtual ClassInfo ClassInfo { get; set; }
-
         /// <summary>
         /// 照片路径
         /// </summary>
@@ -38,9 +36,9 @@ namespace AlumniBook.Models
         public string IsCover { get; set; }
 
         /// <summary>
-        /// 创建人信息
+        /// 创建人姓名
         /// </summary>
-        public virtual RegisteredUser CreateUser { get; set; }
+        public string CreateUser { get; set; }
 
         /// <summary>
         /// 创建时间
@@ -50,11 +48,16 @@ namespace AlumniBook.Models
         /// <summary>
         /// 修改人信息
         /// </summary>
-        public virtual RegisteredUser UpdateUser { get; set; }
+        public string UpdateUser { get; set; }
 
         /// <summary>
         /// 修改时间
         /// </summary>
         public DateTime UpdateDate { get; set; }
+
+        /// <summary>
+        /// 班级信息
+        /// </summary>
+        public virtual ClassInfo ClassInfo { get; set; }
     }
 }
