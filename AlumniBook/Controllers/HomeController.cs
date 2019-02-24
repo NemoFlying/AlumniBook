@@ -30,6 +30,12 @@ namespace AlumniBook.Controllers
             var kk = dbcontext.ClassInfo.ToList();
             return View();
         }
+
+        public ActionResult Reg()
+        {
+            return View();
+        }
+
         [HttpPost]
         public JsonResult GetIndexModel()
         {

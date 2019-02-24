@@ -929,7 +929,10 @@
     -moz-border-radius: 3px;
 }
 .btn{
-    width:100%;
+    width:98%;
+    margin-left:1%;
+    margin-right:1%;
+
 }
 .classNum{
     width:98%;

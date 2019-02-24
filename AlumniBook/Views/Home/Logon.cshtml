@@ -4,6 +4,7 @@
 }
 
 
+
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="cn" class="ie8"> <![endif]-->
 <!--[if !IE]><!-->
@@ -11,147 +12,60 @@
 <!--<![endif]-->
 <head>
     <meta charset="utf-8" />
-    <title>班级同学录 | 注册</title>
+    <title>班级同学录 | 登录</title>
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 
-    <link href="~/css/jquery-ui.min.css" rel="stylesheet">
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
-    <link href="~/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//lib.baomitu.com/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet">
+    <link href="//lib.baomitu.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="~/css/animate.min.css" rel="stylesheet">
     <link href="~/css/app_1.min.css" rel="stylesheet" />
     <link href="~/css/app_2.min.css" rel="stylesheet" />
     <link href="~/css/style.css" rel="stylesheet" />
+
 </head>
 <body class="pace-top bgm-white">
+    <div id="page-loader" class="fade in"><span class="spinner"></span></div>
+
     <div id="page-container" class="fade">
-        <div class="register register-with-news-feed">
+        <div class="login login-with-news-feed">
             <div class="news-feed">
                 <div class="news-image">
-                    <img src="~/assets/img/bg.jpg" alt="" />
+                    <img src="~/assets/img/bg.jpg" data-id="login-cover-image" alt="" />
                 </div>
                 <div class="news-caption">
-                    <h4 class="caption-title"><i class="fa fa-edit text-success"></i> 欢迎使用 班级同学录~</h4>
+                    <h4 class="caption-title"><i class="fa fa-diamond text-success"></i> 欢迎使用 班级同学录~</h4>
                 </div>
             </div>
             <div class="right-content">
-                <h1 class="register-header">
-                    注册
-                    <small>在班级同学录注册一个账号，注册后您将会拥有自己的个人主页并且可以查看其他同学的资料。</small>
-                </h1>
-                <div class="register-content">
-                    <form id="Reg" class="margin-bottom-0">
-                        <label class="control-label">登录用户名 <span class="text-danger">*</span></label>
-                        <div class="row row-space-10">
-                            <div class="col-md-12 m-b-15">
-                                <input type="text" class="form-control" placeholder="请输入用户名" required id="Username" />
-                            </div>
+                <div class="login-header">
+                    <div class="brand">
+                        <span class="logo"></span> 登录
+                        <small>
+                            用户名为[你的姓名]，默认密码为[管理员给你的六位数字]。请您登录后务必尽快修改密码！
+                        </small>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-sign-in"></i>
+                    </div>
+                </div>
+                <div class="login-content">
+                    <form id="Login" class="margin-bottom-0">
+                        <div class="form-group m-b-15">
+                            <input type="text" class="form-control input-lg" id="Username" placeholder="你的大名" required />
                         </div>
-                        <label class="control-label">账号密码 <span class="text-danger">*</span></label>
-                        <div class="row m-b-15">
-                            <div class="col-md-12">
-                                <input type="password" class="form-control" placeholder="登录密码" required id="Password" />
-                            </div>
+                        <div class="form-group m-b-15">
+                            <input type="password" class="form-control input-lg" id="Password" placeholder="登录密码" required />
                         </div>
-                        <label class="control-label">QQ号码 <span class="text-danger">*</span></label>
-                        <div class="row m-b-15">
-                            <div class="col-md-12">
-                                <input type="number" class="form-control" placeholder="用于获取头像" required id="QQ" />
-                            </div>
-                        </div>
-                        <label class="control-label">选择班级：并回到对应问题<span class="text-danger">*</span></label>
-
-                        <div class="dropup row m-b-15">
-                            <button class="col-md-12 btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                <span class="classNum">选择班级</span>
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <li><a href="#">1班</a></li>
-                                <li><a href="#">2班</a></li>
-                                <li><a href="#">3班</a></li>
-                                <li><a href="#">4班</a></li>
-                            </ul>
+                        <div class="login-buttons">
+                            <button type="submit" id="Button" class="btn btn-success btn-block btn-lg">登 录</button>
                         </div>
 
-                        <label class="control-label">问题1: <span id="Question1">2班班长是谁？</span><span class="text-danger">*</span></label>
-                        <div class="row m-b-15">
-                            <div class="col-md-12">
-                                <input type="text" class="form-control" placeholder="" required id="answer1" />
-                            </div>
-                        </div>
-                        <label class="control-label">问题2:<span id="Question2">2班班长是谁？</span><span class="text-danger">*</span></label>
-                        <div class="row m-b-15">
-                            <div class="col-md-12">
-                                <input type="text" class="form-control" placeholder="" required id="answer2" />
-                            </div>
-                        </div>
-                        <label class="control-label">问题3:<span id="Question2">2班班长是谁？</span><span class="text-danger">*</span></label>
-                        <div class="row m-b-15">
-                            <div class="col-md-12">
-                                <input type="text" class="form-control" placeholder="" required id="answer3" />
-                            </div>
-                        </div>
-                        <div class="register-buttons">
-                            <button type="submit" required="required" id="Button" class="btn btn-primary btn-block btn-lg">注册</button>
-                        </div>
                         <div class="m-t-20 m-b-40 p-b-40 text-inverse">
-                            已经有账号了？ 点击 <a href="">这里</a> 登录。
+                            没有账号？
+                            <a href="reg">点击这里注册</a>。
                         </div>
                     </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="IKnow" tabindex="-1" role="dialog" aria-labelledby="IKnowT">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="IKnowT">注册须知</h4>
-                </div>
-                <div class="modal-body">
-                    <p>
-                        <span style="font-size: 18px;" font-size:16px;"="">欢迎您使用绚丽彩虹同学录！</span>
-                    </p>
-                    <p>
-                        <br />
-                    </p>
-                    <p>
-                        <span style=""><span style="font-size:18px;">在注册之前，</span><strong><span style="font-size:18px;">请您阅读以下注意事项：</span></strong></span>
-                    </p>
-                    <p>
-                        <span style=""><span style="font-size:18px;">1.非本班人</span><strong><span style="font-size:18px;">请勿注册</span></strong><span style="font-size:18px;">。</span></span>
-                    </p>
-                    <p>
-                        <span style=""><span style="font-size:18px;">2.您需要获得</span><strong><span style="font-size:18px;">班级密码</span></strong><span style="font-size:18px;">，才能够注册本站账户，请联系网站管理员获取。</span></span>
-                    </p>
-                    <p>
-                        <span style=""><span style="font-size:18px;">3.请您尊重他人，请勿</span><strong><span style="font-size:18px;">发表过激言论、上传淫秽信息、辱骂他人</span></strong><span style="font-size:18px;">。</span></span>
-                    </p>
-                    <p>
-                        <span style=""><span style="font-size:18px;">4.请您做好</span><strong><span style="font-size:18px;">保密工作</span></strong><span style="font-size:18px;">。请勿</span><strong><span style="font-size:18px;">将其他同学的资料发布给站外人员</span></strong><span style="font-size:18px;">。</span></span>
-                    </p>
-                    <p>
-                        <span style=""><span style="font-size:18px;">5.不要</span><strong><span style="font-size:18px;">泄露</span></strong><span style="font-size:18px;">班级密码。</span></span>
-                    </p>
-                    <p>
-                        <span style="">
-                            <br />
-                        </span>
-                    </p>
-                    <p>
-                        <span style="font-size:18px;"><span style="font-size:18px;">注册成功后，您将可以进入同学录系统。请您在个人主页完善您的资料以及密保信息。</span></span>
-                    </p>
-                    <p>
-                        <span style="font-size:18px;"><span style="font-size:18px;">您可以在【同学录】查看其他同学的资料以及对他留言，在【相册】查看其他同学上传的照片以及分享你的照片，在【留言板】可以进行留言。</span></span>
-                    </p>
-                    <p>
-                        <br />
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 </div>
             </div>
         </div>
@@ -163,10 +77,6 @@
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/waves.min.js"></script>
     <script src="~/Scripts/bootstrap-growl.min.js"></script>
-    <!--[if lt IE 9]>
-        <script src="//lib.baomitu.com/html5shiv/r29/html5.min.js"></script>
-        <script src="//lib.baomitu.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
     <script src="~/Scripts/jquery.slimscroll.min.js"></script>
     <script src="~/Scripts/jquery.cookie.min.js"></script>
     <script src="~/Scripts/app.js"></script>
@@ -174,39 +84,30 @@
         $(document).ready(function () {
             App.init();
         });
-        $('#VCodeShow').click(function () {
-            //$(this).attr('src', '/index.php?s=func/VCode.html');
-            $('#VCode').val('');
-        });
-        $('#Reg').submit(function () {
+        $('#Login').submit(function () {
             $('#Button').attr('disabled', 'disabled');
             $.ajax({
-                url: "../User/Regist",
+                url: "/index.php?s=func/User/Login.html",
                 data: {
-                    UserName: "dsadsada",
-                    Password: "abc123456",
-                    QqId: "240269961"
-                    //UserName: $('#Username').val(),
-                    //Password: $('#Password').val(),
-                    //ClassPassword: $('#ClassPassword').val(),
-                    //QqId: $('#QQ').val(),
-                    //VCode: $('#VCode').val(),
+                    Username: $('#Username').val(),
+                    Password: $('#Password').val()
                 },
+                cache: false,
+                dataType: 'json',
                 success: function (data) {
-                    console.log(data);
-                    //if (data.Code == 1) {
-                    //    notify(data.Message, 'success');
-                    //    setTimeout(function () {
-                    //        window.location.href = "/index.php?s=Index.html";
-                    //    }, 1000);
-                    //} else {
-                    //    $('#Button').removeAttr('disabled');
-                    //    notify(data.Message, 'danger');
-                    //    $('#VCodeShow').click();
-                    //}
+                    if (data.Code == 1) {
+                        notify(data.Message, 'success');
+                        setTimeout(function () {
+                            window.location.href = "/index.php?s=Index.html";
+                        }, 1000);
+                    } else {
+                        $('#Button').removeAttr('disabled');
+                        notify(data.Message, 'danger');
+                    }
                 },
                 error: function () {
-
+                    $('#Button').removeAttr('disabled');
+                    notify('连接失败...请重试', 'danger');
                 }
             });
             return false;
