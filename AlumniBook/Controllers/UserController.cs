@@ -10,7 +10,7 @@ namespace AlumniBook.Controllers
 {
     public class UserController : AlumniBookControllerBase
     {
-        private readonly IUserServiceApplication _userService { get; set; }
+        private IUserServiceApplication _userService { get; set; }
         // GET: User
         public ActionResult Index()
         {
