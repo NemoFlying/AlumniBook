@@ -23,7 +23,7 @@ namespace AlumniBook.DAL
 
         public DbSet<User> User { get; set; }
 
-
+        public DbSet<ClassQuestion> ClassQuestion { get; set; }
         public DbSet<ClassLeavingMessage> ClassLeavingMessage { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

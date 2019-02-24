@@ -35,13 +35,8 @@ namespace AlumniBook.ViewModels
         public int UserType { get; set; }
 
         /// <summary>
-        /// 所属班级列表
-        /// </summary>
-        public List<int> ClassId { get; set; }
-
-        /// <summary>
         /// 当前查看班级
         /// </summary>
-        public ClassInfo CurrentClass { get; set; }
+        public ClassInfo ClassInfo { get; set; }
     }
 }
