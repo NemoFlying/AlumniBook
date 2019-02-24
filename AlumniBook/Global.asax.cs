@@ -25,7 +25,7 @@ namespace AlumniBook
                     config.CreateMap<UserInfoOutput, UserInfo>();
                     config.CreateMap<RegistUserInput, User>();
                     config.CreateMap<ClassQuestion, ClassQuestionViewModel>();
-                    config.CreateMap<ClassInfo, ClassQuestionViewModel>();
+                    //config.CreateMap<ClassQustion, ClassQuestionViewModel>();
                     //config.CreateMap<GoodsInfoInput, Goods>();
 
                     ////店铺转换

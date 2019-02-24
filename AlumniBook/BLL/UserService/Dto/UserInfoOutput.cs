@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using AlumniBook.Models;
 
 namespace AlumniBook.BLL.UserService.Dto
 {
@@ -52,5 +53,7 @@ namespace AlumniBook.BLL.UserService.Dto
         /// 手机号码
         /// </summary>
         public string Phone { get; set; }
+
+        public ClassInfo classInfo { get; set; }
     }
 }
