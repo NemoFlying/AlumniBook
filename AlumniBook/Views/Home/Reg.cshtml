@@ -146,6 +146,7 @@
                         });
                         $('#Reg').submit(function () {
                             $('#Button').attr('disabled', 'disabled');
+                            var aa = [{ "Q1": "Q1" }, { "Q2": "Q2" }, { "Q3": "Q3" }];
                             $.ajax({
                                 url: "../User/Regist",
                                 data: {
@@ -153,8 +154,8 @@
                                     Password: "abc123456",
                                     QqId: "240269961",
                                     ClassId: classNum,
-                                    //question: [$('#answer1').val(), $('#answer2').val(), $('#answer3').val()],
-                                    question: ["Q1", "Q2", "Q3"],
+                                    strquestion: [$('#answer1').val()+";" +$('#answer2').val()+";"+ $('#answer3').val()],
+                                    //question: "Q1;Q2;Q3",
                                     //question:"Q1"
                                     //UserName: $('#Username').val(),
                                     //Password: $('#Password').val(),
@@ -162,6 +163,7 @@
                                     //QqId: $('#QQ').val(),
                                     //VCode: $('#VCode').val(),
                                 },
+                                //data: { list1:aa},
                                 success: function (data) {
                                     console.log(data);
                                     //if (data.result == true) {

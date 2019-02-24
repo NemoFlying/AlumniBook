@@ -48,7 +48,7 @@ namespace AlumniBook.Controllers
         /// <returns></returns>
         public JsonResult GetClassQuestionByClassId(int classId)
         {
-            return Json(Mapper.Map<List<ClassQuestionViewModel>>(
+            return Json(Mapper.Map<List<QuestionViewModel>>(
                 _classInfoService.GetClassInfoById(classId).ClassQustion
                 ), JsonRequestBehavior.AllowGet);
             

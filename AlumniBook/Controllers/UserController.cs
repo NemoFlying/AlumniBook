@@ -34,7 +34,6 @@ namespace AlumniBook.Controllers
 
             return Json(_userService.RegistUser(newUser), JsonRequestBehavior.AllowGet);
         }
-
         /// <summary>
         /// 用户认证
         /// </summary>

@@ -139,6 +139,7 @@ namespace AlumniBook.BLL.UserService
             return result;
         }
 
+        
         /// <summary>
         /// 根据用户获得班级信息
         /// </summary>
