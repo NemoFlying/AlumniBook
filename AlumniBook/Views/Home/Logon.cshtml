@@ -87,29 +87,22 @@
         $('#Login').submit(function () {
             $('#Button').attr('disabled', 'disabled');
             $.ajax({
-                url: "",
+                url: "../User/LogonAuthen",
                 data: {
-                    Username: $('#Username').val(),
-                    Password: $('#Password').val()
+                    //userName: $('#Username').val(),
+                    //password: $('#Password').val(),
+                    userName: "admin",
+                    password:"admin"
                 },
-                cache: false,
                 success: function (data) {
                     console.log(data);
+
                     if (data.result == true) {
                         window.location.herf = "home/login"
                     } else {
                         $('#Button').removeAttr('disabled');
-                        alert("注册失败" + data.Msg +"，请重新注册！");
+                        alert("登录失败" + data.Msg +"，请重新登录！");
                     }
-                    //if (data.Code == 1) {
-                    //    notify(data.Message, 'success');
-                    //    setTimeout(function () {
-                    //        window.location.href = "/index.php?s=Index.html";
-                    //    }, 1000);
-                    //} else {
-                    //    $('#Button').removeAttr('disabled');
-                    //    notify(data.Message, 'danger');
-                    //}
                 },
                 error: function () {
                     //$('#Button').removeAttr('disabled');
