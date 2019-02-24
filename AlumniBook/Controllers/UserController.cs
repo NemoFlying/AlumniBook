@@ -49,6 +49,7 @@ namespace AlumniBook.Controllers
                 //表示认证通过
                 //Keeper Session
                 HttpContext.Session["userinfo"] = Mapper.Map<UserInfo>((UserInfoOutput)result.Data);
+                result.Data = null;
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
