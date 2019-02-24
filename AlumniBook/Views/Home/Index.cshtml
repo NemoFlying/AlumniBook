@@ -1,31 +1,194 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿
+@{
+    Layout = null;
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="cn" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="cn">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+    <title>班级同学录 | 注册</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+
+    <link href="~/css/jquery-ui.min.css" rel="stylesheet">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/css/animate.min.css" rel="stylesheet">
+    <link href="~/css/app_1.min.css" rel="stylesheet" />
+    <link href="~/css/app_2.min.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
+</head>
+<body class="pace-top bgm-white">
+    <div id="page-container" class="fade">
+        <div class="register register-with-news-feed">
+            <div class="news-feed">
+                <div class="news-image">
+                    <img src="~/assets/img/bg.jpg" alt="" />
+                </div>
+                <div class="news-caption">
+                    <h4 class="caption-title"><i class="fa fa-edit text-success"></i> 欢迎使用 班级同学录~</h4>
+                    <p>
+                        绚丽彩虹同学录是一款以简洁、高效为目的的自适应同学录，内有同学录、相册、留言板三大功能，当您真正使用之时，方能见证其功能强大。完备的加密技术确保用户资料不被窃取。
+                    </p>
+                </div>
+            </div>
+            <div class="right-content">
+                <h1 class="register-header">
+                    注册
+                    <small>在班级同学录注册一个账号，注册后您将会拥有自己的个人主页并且可以查看其他同学的资料。</small>
+                </h1>
+                <div class="register-content">
+                    <form id="Reg" class="margin-bottom-0">
+                        <label class="control-label">你的大名 <span class="text-danger">*</span></label>
+                        <div class="row row-space-10">
+                            <div class="col-md-12 m-b-15">
+                                <input type="text" class="form-control" placeholder="请输入真实姓名" required id="Username" />
+                            </div>
+                        </div>
+                        <label class="control-label">账号密码 <span class="text-danger">*</span></label>
+                        <div class="row m-b-15">
+                            <div class="col-md-12">
+                                <input type="password" class="form-control" placeholder="登录密码" required id="Password" />
+                            </div>
+                        </div>
+                        <label class="control-label">QQ号码 <span class="text-danger">*</span></label>
+                        <div class="row m-b-15">
+                            <div class="col-md-12">
+                                <input type="number" class="form-control" placeholder="用于获取头像" required id="QQ" />
+                            </div>
+                        </div>
+                        <label class="control-label">班级密码(没有密码不允许注册) <span class="text-danger">*</span></label>
+                        <div class="row m-b-15">
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" placeholder="请向本站管理员获取" required id="ClassPassword" />
+                            </div>
+                        </div>
+
+                        <div class="register-buttons">
+                            <button type="submit" required="required" id="Button" class="btn btn-primary btn-block btn-lg">注册</button>
+                        </div>
+                        <div class="m-t-20 m-b-40 p-b-40 text-inverse">
+                            已经有账号了？ 点击 <a href="">这里</a> 登录。
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+
+    <div class="modal fade" id="IKnow" tabindex="-1" role="dialog" aria-labelledby="IKnowT">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="IKnowT">注册须知</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <span style="font-size: 18px;" font-size:16px;"="">欢迎您使用绚丽彩虹同学录！</span>
+                    </p>
+                    <p>
+                        <br />
+                    </p>
+                    <p>
+                        <span style="font-family:" font-size:16px;"=""><span style="font-size:18px;">在注册之前，</span><strong><span style="font-size:18px;">请您阅读以下注意事项：</span></strong></span>
+                    </p>
+                    <p>
+                        <span style="font-family:" font-size:16px;"=""><span style="font-size:18px;">1.非本班人</span><strong><span style="font-size:18px;">请勿注册</span></strong><span style="font-size:18px;">。</span></span>
+                    </p>
+                    <p>
+                        <span style="font-family:" font-size:16px;"=""><span style="font-size:18px;">2.您需要获得</span><strong><span style="font-size:18px;">班级密码</span></strong><span style="font-size:18px;">，才能够注册本站账户，请联系网站管理员获取。</span></span>
+                    </p>
+                    <p>
+                        <span style="font-family:" font-size:16px;"=""><span style="font-size:18px;">3.请您尊重他人，请勿</span><strong><span style="font-size:18px;">发表过激言论、上传淫秽信息、辱骂他人</span></strong><span style="font-size:18px;">。</span></span>
+                    </p>
+                    <p>
+                        <span style="font-family:" font-size:16px;"=""><span style="font-size:18px;">4.请您做好</span><strong><span style="font-size:18px;">保密工作</span></strong><span style="font-size:18px;">。请勿</span><strong><span style="font-size:18px;">将其他同学的资料发布给站外人员</span></strong><span style="font-size:18px;">。</span></span>
+                    </p>
+                    <p>
+                        <span style="font-family:" font-size:16px;"=""><span style="font-size:18px;">5.不要</span><strong><span style="font-size:18px;">泄露</span></strong><span style="font-size:18px;">班级密码。</span></span>
+                    </p>
+                    <p>
+                        <span style="font-family:" font-size:16px;"="">
+                            <br />
+                        </span>
+                    </p>
+                    <p>
+                        <span style="font-size:18px;"><span style="font-size:18px;">注册成功后，您将可以进入同学录系统。请您在个人主页完善您的资料以及密保信息。</span></span>
+                    </p>
+                    <p>
+                        <span style="font-size:18px;"><span style="font-size:18px;">您可以在【同学录】查看其他同学的资料以及对他留言，在【相册】查看其他同学上传的照片以及分享你的照片，在【留言板】可以进行留言。</span></span>
+                    </p>
+                    <p>
+                        <br />
+                    </p>
+                    <p>
+                        <span><span><span style="font-size:18px;">感谢您的使用，</span><a href="http://Flandre-Studio.cn" target="_blank"><span style="font-size:18px;">绚丽彩虹工作室</span></a><span style="font-size:18px;">全体成员敬上√</span></span></span>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="//lib.baomitu.com/jquery-migrate/1.1.0/jquery-migrate.min.js"></script>
+    <script src="//lib.baomitu.com/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="//lib.baomitu.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/waves.min.js"></script>
+    <script src="~/Scripts/bootstrap-growl.min.js"></script>
+    <!--[if lt IE 9]>
+        <script src="//lib.baomitu.com/html5shiv/r29/html5.min.js"></script>
+        <script src="//lib.baomitu.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="//lib.baomitu.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
+    <script src="//lib.baomitu.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="~/Scripts/app.js"></script>
+    <script>
+        $(document).ready(function () {
+            App.init();
+        });
+        $('#VCodeShow').click(function () {
+            $(this).attr('src', '/index.php?s=func/VCode.html');
+            $('#VCode').val('');
+        });
+        $('#Reg').submit(function () {
+            $('#Button').attr('disabled', 'disabled');
+            $.ajax({
+                url: "/index.php?s=func/User/Register.html",
+                data: {
+                    Username: $('#Username').val(),
+                    Password: $('#Password').val(),
+                    ClassPassword: $('#ClassPassword').val(),
+                    QQ: $('#QQ').val(),
+                    VCode: $('#VCode').val(),
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.Code == 1) {
+                        notify(data.Message, 'success');
+                        setTimeout(function () {
+                            window.location.href = "/index.php?s=Index.html";
+                        }, 1000);
+                    } else {
+                        $('#Button').removeAttr('disabled');
+                        notify(data.Message, 'danger');
+                        $('#VCodeShow').click();
+                    }
+                },
+                error: function () {
+                    $('#Button').removeAttr('disabled');
+                    notify('连接失败...请重试', 'danger');
+                }
+            });
+            return false;
+        });
+    </script>
+</body>
+</html><!-- 页面加载完成！共用了 0.61264801025391 MB内存，查询了 0 次SQL，用时 0.014692068099976 秒-->

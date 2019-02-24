@@ -18,6 +18,11 @@ namespace AlumniBook.Controllers
             return View();
         }
 
+
+        public ActionResult Home()
+        {
+            return View();
+        }
         //登陆
 
         public ActionResult Logon()
