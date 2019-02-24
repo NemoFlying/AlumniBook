@@ -46,6 +46,11 @@ namespace AlumniBook.BLL.UserService.Dto
         /// </summary>
         public int ClassId { get; set; }
 
+        /// <summary>
+        /// 问题答案
+        /// </summary>
+        public List<string> question { get; set; }
+
         ///// <summary>
         ///// 真实姓名
         ///// </summary>
