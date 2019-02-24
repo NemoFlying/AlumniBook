@@ -93,26 +93,46 @@ namespace AlumniBook.BLL.UserService
             if(user != null)
             {
                 result.result = false;
-                result.Msg = "用户名已经存在";
+                result.Msg = "用户名已经存在！";
             }
             else
             {
-                user = Mapper.Map<User>(newUserInfo);
-                //密码加密
-                var md5 = new MD5CryptoServiceProvider();
-                user.Password = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(user.UserName + user.Password))).Replace("-", "");
-                user.ClassInfo = _classInfoDAL.GetModels(con => con.Id == newUserInfo.ClassId).FirstOrDefault();
-                _userDAL.Add(user);
-                try
-                {
-                    _userDAL.SaveChanges();
-                    result.result = true;
-                }
-                catch (Exception ex)
+                //问题答案验证
+                var classInfo = _classInfoDAL.GetModels(con => con.Id == newUserInfo.ClassId).FirstOrDefault();
+                var compareResult = true;
+                classInfo.ClassQustion.ForEach(
+                    item => {
+                        if (!newUserInfo.question.Contains(item.QuestionAnswer))
+                        {
+                            compareResult = false;
+                        }
+                    }
+                    );
+                if(!compareResult)
                 {
                     result.result = false;
-                    result.Data = ex;
+                    result.Msg = "问题回答错误！";
                 }
+                else
+                {
+                    user = Mapper.Map<User>(newUserInfo);
+                    //密码加密
+                    var md5 = new MD5CryptoServiceProvider();
+                    user.Password = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(user.UserName + user.Password))).Replace("-", "");
+                    user.ClassInfo = classInfo;
+                    _userDAL.Add(user);
+                    try
+                    {
+                        _userDAL.SaveChanges();
+                        result.result = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        result.result = false;
+                        result.Data = ex;
+                    }
+                }
+                
             }
             
            

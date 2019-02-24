@@ -53,9 +53,13 @@ namespace AlumniBook.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        public void GetUserClassBaseInfo()
+        /// <summary>
+        /// 获取当前用户主页信息
+        /// </summary>
+        public void GetUserIndexInfo()
         {
-            var kk = _userService.GetClassInfoByUid(1);
+            var kk = GuserInfo;
+            //var kk = _userService.GetClassInfoByUid(1);
         }
 
         

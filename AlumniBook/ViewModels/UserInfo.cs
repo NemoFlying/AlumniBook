@@ -13,7 +13,7 @@ namespace AlumniBook.ViewModels
         /// 用户名
         /// 昵称/登录名
         /// </summary>
-        public string LogonUser { get; set; }
+        public string UserName { get; set; }
 
         /// <summary>
         /// 是否实名认证
@@ -26,7 +26,30 @@ namespace AlumniBook.ViewModels
         /// 头像地址
         /// </summary>
         public string HeadPortrait { get; set; }
+        /// <summary>
+        /// 真实姓名
+        /// </summary>
+        public string RealName { get; set; }
 
+        /// <summary>
+        /// 性别
+        /// </summary>
+        public string Sex { get; set; }
+
+        /// <summary>
+        /// 手机号码
+        /// </summary>
+        public string Phone { get; set; }
+
+        /// <summary>
+        /// 注册时间
+        /// </summary>
+        public DateTime RegistDate { get; set; }
+
+        /// <summary>
+        /// QQ
+        /// </summary>
+        public string QqId { get; set; }
         /// <summary>
         /// 用户类型
         /// 0:普通用户
