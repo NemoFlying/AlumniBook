@@ -5,7 +5,7 @@ using System.Web;
 
 namespace AlumniBook.ViewModels
 {
-    public class ClassLeavingMessageViewModel
+    public class LeavingMessageViewModel
     {
         public int Id { get; set; }
 

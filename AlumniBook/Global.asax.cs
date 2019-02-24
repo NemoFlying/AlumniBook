@@ -26,7 +26,7 @@ namespace AlumniBook
                     config.CreateMap<UserInfoOutput, UserViewModel>();
                     
                     config.CreateMap<RegistUserInput, User>();
-                    config.CreateMap<ClassQuestion, ClassQuestionViewModel>();
+                    config.CreateMap<ClassQuestion, QuestionViewModel>();
                     config.CreateMap<ClassLeavingMessage, LeavingMsgInfo>();
                     config.CreateMap<ClassNotice, NoticeInfo>();
 

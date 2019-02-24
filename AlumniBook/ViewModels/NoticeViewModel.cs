@@ -5,11 +5,7 @@ using System.Web;
 
 namespace AlumniBook.ViewModels
 {
-    public class ClassQuestionViewModel
+    public class NoticeViewModel
     {
-        public int Id { get; set; }
-
-        public string Question { get; set; }
-
     }
 }
