@@ -169,6 +169,7 @@
     <Compile Include="BLL\UserService\UserServiceApplication.cs" />
     <Compile Include="Controllers\AlumniBookControllerBase.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\AlumniBookContext.cs" />
     <Compile Include="DAL\AlumniBookContextFactory.cs" />
     <Compile Include="DAL\AlumniBookInitializer.cs" />
@@ -236,6 +237,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\AlumniBookControllerBase\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
