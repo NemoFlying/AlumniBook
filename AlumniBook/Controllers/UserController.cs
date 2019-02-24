@@ -48,7 +48,7 @@ namespace AlumniBook.Controllers
             {
                 //表示认证通过
                 //Keeper Session
-                HttpContext.Session["userinfo"] = Mapper.Map<UserInfo>((UserInfoOutput)result.Data);
+                HttpContext.Session["userinfo"] = Mapper.Map<UserViewModel>((UserInfoOutput)result.Data);
                 result.Data = null;
             }
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -57,10 +57,20 @@ namespace AlumniBook.Controllers
         /// <summary>
         /// 获取当前用户主页信息
         /// </summary>
-        public void GetUserIndexInfo()
+        public JsonResult GetUserIndexInfo()
         {
-            var kk = GuserInfo;
-            //var kk = _userService.GetClassInfoByUid(1);
+            var classInfo = _userService.GetClassInfoByUid(GuserInfo.Id);
+            var indexView = new IndexViewModel()
+            {
+                UserInfo = GuserInfo,
+                AlumCoverImgUrl = classInfo.ClassAlbum.Find(con => con.IsCover == "Y").PhotoUrl,
+                BannerImgUrl = classInfo.ClassAlbum.Find(con => con.IsCover == "Y").PhotoUrl,
+                Classmate = Mapper.Map<List<UserViewModel>>(classInfo.Users),
+                Bbs = Mapper.Map<List<LeavingMsgInfo>>(classInfo.ClassLeavingMessage),
+                Notices = Mapper.Map<List<NoticeInfo>>(classInfo.ClassNotice)
+            };
+            return Json(indexView, JsonRequestBehavior.AllowGet);
+
         }
 
         
