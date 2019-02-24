@@ -40,10 +40,10 @@
                 </h1>
                 <div class="register-content">
                     <form id="Reg" class="margin-bottom-0">
-                        <label class="control-label">你的大名 <span class="text-danger">*</span></label>
+                        <label class="control-label">登录用户名 <span class="text-danger">*</span></label>
                         <div class="row row-space-10">
                             <div class="col-md-12 m-b-15">
-                                <input type="text" class="form-control" placeholder="请输入真实姓名" required id="Username" />
+                                <input type="text" class="form-control" placeholder="请输入用户名" required id="Username" />
                             </div>
                         </div>
                         <label class="control-label">账号密码 <span class="text-danger">*</span></label>
@@ -58,13 +58,39 @@
                                 <input type="number" class="form-control" placeholder="用于获取头像" required id="QQ" />
                             </div>
                         </div>
-                        <label class="control-label">班级密码(没有密码不允许注册) <span class="text-danger">*</span></label>
-                        <div class="row m-b-15">
-                            <div class="col-md-12">
-                                <input type="text" class="form-control" placeholder="请向本站管理员获取" required id="ClassPassword" />
-                            </div>
+                        <label class="control-label">选择班级：并回到对应问题<span class="text-danger">*</span></label>
+
+                        <div class="dropup row m-b-15">
+                            <button class="col-md-12 btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <span class="classNum">选择班级</span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li><a href="#">1班</a></li>
+                                <li><a href="#">2班</a></li>
+                                <li><a href="#">3班</a></li>
+                                <li><a href="#">4班</a></li>
+                            </ul>
                         </div>
 
+                        <label class="control-label">问题1: <span id="Question1">2班班长是谁？</span><span class="text-danger">*</span></label>
+                        <div class="row m-b-15">
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" placeholder="" required id="answer1" />
+                            </div>
+                        </div>
+                        <label class="control-label">问题2:<span id="Question2">2班班长是谁？</span><span class="text-danger">*</span></label>
+                        <div class="row m-b-15">
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" placeholder="" required id="answer2" />
+                            </div>
+                        </div>
+                        <label class="control-label">问题3:<span id="Question2">2班班长是谁？</span><span class="text-danger">*</span></label>
+                        <div class="row m-b-15">
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" placeholder="" required id="answer3" />
+                            </div>
+                        </div>
                         <div class="register-buttons">
                             <button type="submit" required="required" id="Button" class="btn btn-primary btn-block btn-lg">注册</button>
                         </div>
@@ -92,25 +118,25 @@
                         <br />
                     </p>
                     <p>
-                        <span style="font-family:" font-size:16px;"=""><span style="font-size:18px;">在注册之前，</span><strong><span style="font-size:18px;">请您阅读以下注意事项：</span></strong></span>
+                        <span style=""><span style="font-size:18px;">在注册之前，</span><strong><span style="font-size:18px;">请您阅读以下注意事项：</span></strong></span>
                     </p>
                     <p>
-                        <span style="font-family:" font-size:16px;"=""><span style="font-size:18px;">1.非本班人</span><strong><span style="font-size:18px;">请勿注册</span></strong><span style="font-size:18px;">。</span></span>
+                        <span style=""><span style="font-size:18px;">1.非本班人</span><strong><span style="font-size:18px;">请勿注册</span></strong><span style="font-size:18px;">。</span></span>
                     </p>
                     <p>
-                        <span style="font-family:" font-size:16px;"=""><span style="font-size:18px;">2.您需要获得</span><strong><span style="font-size:18px;">班级密码</span></strong><span style="font-size:18px;">，才能够注册本站账户，请联系网站管理员获取。</span></span>
+                        <span style=""><span style="font-size:18px;">2.您需要获得</span><strong><span style="font-size:18px;">班级密码</span></strong><span style="font-size:18px;">，才能够注册本站账户，请联系网站管理员获取。</span></span>
                     </p>
                     <p>
-                        <span style="font-family:" font-size:16px;"=""><span style="font-size:18px;">3.请您尊重他人，请勿</span><strong><span style="font-size:18px;">发表过激言论、上传淫秽信息、辱骂他人</span></strong><span style="font-size:18px;">。</span></span>
+                        <span style=""><span style="font-size:18px;">3.请您尊重他人，请勿</span><strong><span style="font-size:18px;">发表过激言论、上传淫秽信息、辱骂他人</span></strong><span style="font-size:18px;">。</span></span>
                     </p>
                     <p>
-                        <span style="font-family:" font-size:16px;"=""><span style="font-size:18px;">4.请您做好</span><strong><span style="font-size:18px;">保密工作</span></strong><span style="font-size:18px;">。请勿</span><strong><span style="font-size:18px;">将其他同学的资料发布给站外人员</span></strong><span style="font-size:18px;">。</span></span>
+                        <span style=""><span style="font-size:18px;">4.请您做好</span><strong><span style="font-size:18px;">保密工作</span></strong><span style="font-size:18px;">。请勿</span><strong><span style="font-size:18px;">将其他同学的资料发布给站外人员</span></strong><span style="font-size:18px;">。</span></span>
                     </p>
                     <p>
-                        <span style="font-family:" font-size:16px;"=""><span style="font-size:18px;">5.不要</span><strong><span style="font-size:18px;">泄露</span></strong><span style="font-size:18px;">班级密码。</span></span>
+                        <span style=""><span style="font-size:18px;">5.不要</span><strong><span style="font-size:18px;">泄露</span></strong><span style="font-size:18px;">班级密码。</span></span>
                     </p>
                     <p>
-                        <span style="font-family:" font-size:16px;"="">
+                        <span style="">
                             <br />
                         </span>
                     </p>
@@ -155,16 +181,19 @@
         $('#Reg').submit(function () {
             $('#Button').attr('disabled', 'disabled');
             $.ajax({
-                url: "/index.php?s=func/User/Register.html",
+                url: "../User/Regist",
                 data: {
-                    Username: $('#Username').val(),
-                    Password: $('#Password').val(),
-                    ClassPassword: $('#ClassPassword').val(),
-                    QQ: $('#QQ').val(),
-                    VCode: $('#VCode').val(),
+                    UserName: "dsadsada",
+                    Password: "abc123456",
+                    QqId: "240269961"
+                    //UserName: $('#Username').val(),
+                    //Password: $('#Password').val(),
+                    //ClassPassword: $('#ClassPassword').val(),
+                    //QqId: $('#QQ').val(),
+                    //VCode: $('#VCode').val(),
                 },
-                dataType: 'json',
                 success: function (data) {
+                    console.log(data);
                     //if (data.Code == 1) {
                     //    notify(data.Message, 'success');
                     //    setTimeout(function () {

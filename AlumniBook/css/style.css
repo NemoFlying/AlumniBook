@@ -928,3 +928,10 @@
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
 }
+.btn{
+    width:100%;
+}
+.classNum{
+    width:98%;
+    display:inline-block;
+}

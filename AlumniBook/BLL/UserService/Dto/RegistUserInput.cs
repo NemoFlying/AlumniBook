@@ -14,6 +14,11 @@ namespace AlumniBook.BLL.UserService.Dto
         public string UserName { get; set; }
 
         /// <summary>
+        /// 登陆用户名
+        /// 不能重复
+        /// </summary>
+        public string Password { get; set; }
+        /// <summary>
         /// 用户类型
         /// 0:普通用户
         /// 1.管理员
