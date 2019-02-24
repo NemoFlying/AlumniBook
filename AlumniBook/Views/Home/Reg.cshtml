@@ -154,8 +154,7 @@
                                     Password: "abc123456",
                                     QqId: "240269961",
                                     ClassId: classNum,
-                                    strquestion: [$('#answer1').val()+";" +$('#answer2').val()+";"+ $('#answer3').val()],
-                                    //question: "Q1;Q2;Q3",
+                                    question: ["Q1","Q2","Q3"],
                                     //question:"Q1"
                                     //UserName: $('#Username').val(),
                                     //Password: $('#Password').val(),
@@ -163,6 +162,7 @@
                                     //QqId: $('#QQ').val(),
                                     //VCode: $('#VCode').val(),
                                 },
+                                traditional: true,
                                 //data: { list1:aa},
                                 success: function (data) {
                                     console.log(data);
