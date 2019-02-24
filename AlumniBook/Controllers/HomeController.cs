@@ -10,7 +10,7 @@ using AlumniBook.ViewModels;
 
 namespace AlumniBook.Controllers
 {
-    public class HomeController : AlumniBookControllerBase
+    public class HomeController : AlumniBookBaseController
     {
         
         public ActionResult Index()
@@ -39,18 +39,18 @@ namespace AlumniBook.Controllers
         [HttpPost]
         public JsonResult GetIndexModel()
         {
-            var indexViewModel = new IndexViewModel();
-            indexViewModel.UserInfo = GuserInfo;
-            indexViewModel.BannerImgUrl = new List<string>();
-            indexViewModel.Classmate = new List<UserInfo>();
-            indexViewModel.Notices = new List<NoticeInfo>();
-            indexViewModel.Bbs = new List<LeavingMsgInfo>();
-            //获取Banner
-            dbcontext.ClassAlbum
-                .Where(con => con.ClassInfo.Id == GuserInfo.CurrentClass.Id)
-                .Where(con => con.IsCover == "Y")
-                .ToList()
-                .ForEach(item => indexViewModel.BannerImgUrl.Add(item.PhotoUrl));
+            //var indexViewModel = new IndexViewModel();
+            //indexViewModel.UserInfo = GuserInfo;
+            //indexViewModel.BannerImgUrl = new List<string>();
+            //indexViewModel.Classmate = new List<UserInfo>();
+            //indexViewModel.Notices = new List<NoticeInfo>();
+            //indexViewModel.Bbs = new List<LeavingMsgInfo>();
+            ////获取Banner
+            //dbcontext.ClassAlbum
+            //    .Where(con => con.ClassInfo.Id == GuserInfo.CurrentClass.Id)
+            //    .Where(con => con.IsCover == "Y")
+            //    .ToList()
+            //    .ForEach(item => indexViewModel.BannerImgUrl.Add(item.PhotoUrl));
             //获取班级成员列表
             //dbcontext.UserClass
             //    .Where(con => con.ClassInfo.Id == GuserInfo.CurrentClass.Id)
@@ -81,21 +81,21 @@ namespace AlumniBook.Controllers
             //       }
             //        ));
             //获取公告信息
-            dbcontext.ClassNotice
-                .Where(con => con.ClassInfo.Id == GuserInfo.CurrentClass.Id)
-                .ToList()
-                .ForEach(item => indexViewModel.Notices.Add(
-                   new NoticeInfo()
-                   {
-                       ClassName = item.ClassInfo.ClassName,
-                       Notice = item.Notice,
-                       Id = item.Id,
-                       NoticDate= item.CreateDate
-                   }
-                    ));
-            //获取相册【当前为Banner】
-            indexViewModel.AlumCoverImgUrl = indexViewModel.BannerImgUrl.Count <= 0 ? null : indexViewModel.BannerImgUrl[0];
-            return Json(indexViewModel, JsonRequestBehavior.AllowGet);
+            //dbcontext.ClassNotice
+            //    .Where(con => con.ClassInfo.Id == GuserInfo.CurrentClass.Id)
+            //    .ToList()
+            //    .ForEach(item => indexViewModel.Notices.Add(
+            //       new NoticeInfo()
+            //       {
+            //           ClassName = item.ClassInfo.ClassName,
+            //           Notice = item.Notice,
+            //           Id = item.Id,
+            //           NoticDate= item.CreateDate
+            //       }
+            //        ));
+            ////获取相册【当前为Banner】
+            //indexViewModel.AlumCoverImgUrl = indexViewModel.BannerImgUrl.Count <= 0 ? null : indexViewModel.BannerImgUrl[0];
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
 
 

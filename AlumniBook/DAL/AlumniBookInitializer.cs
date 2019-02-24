@@ -20,7 +20,15 @@ namespace AlumniBook.DAL
                 Introduce = "因为有梦，所以远方！"
 
             };
+            var classInfo2 = new ClassInfo()
+            {
+                ClassName = "启航2",
+                CreateUser = "admin",
+                Introduce = "因为有梦，所以远方！"
+
+            };
             context.ClassInfo.Add(classInfo);
+            context.ClassInfo.Add(classInfo2);
             //admin用户注册
             var adminUser = new User()
             {
@@ -143,7 +151,48 @@ namespace AlumniBook.DAL
                 }
             };
             classAlbum.ForEach(item => context.ClassAlbum.Add(item));
-            
+
+            //班级问题
+            var Q1 = new List<ClassQuestion>(){
+                new ClassQuestion()
+                {
+                    ClassInfo = classInfo,
+                    Question = "Q1",
+                    QuestionAnswer = "Q1"
+                },
+                new ClassQuestion()
+                {
+                    ClassInfo = classInfo,
+                    Question = "Q2",
+                    QuestionAnswer = "Q2"
+                },
+                new ClassQuestion()
+                {
+                    ClassInfo = classInfo,
+                    Question = "Q3",
+                    QuestionAnswer = "Q3"
+                },
+                new ClassQuestion()
+                {
+                    ClassInfo = classInfo2,
+                    Question = "Q4",
+                    QuestionAnswer = "Q1"
+                },
+                new ClassQuestion()
+                {
+                    ClassInfo = classInfo2,
+                    Question = "Q5",
+                    QuestionAnswer = "Q5"
+                },
+                new ClassQuestion()
+                {
+                    ClassInfo = classInfo2,
+                    Question = "Q6",
+                    QuestionAnswer = "Q6"
+                },
+            };
+
+            Q1.ForEach(item => context.ClassQuestion.Add(item));
             context.SaveChanges();
         }
     }

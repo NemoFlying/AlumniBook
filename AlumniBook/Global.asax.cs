@@ -7,6 +7,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using AlumniBook.BLL.UserService.Dto;
 using AlumniBook.Models;
+using AlumniBook.ViewModels;
 using AutoMapper;
 
 namespace AlumniBook
@@ -21,8 +22,9 @@ namespace AlumniBook
                 {
                     //用户输出
                     config.CreateMap<User, UserInfoOutput>();
+                    config.CreateMap<UserInfoOutput, UserInfo>();
                     config.CreateMap<RegistUserInput, User>();
-                    //config.CreateMap<RegistUserInfoInput, User>();
+                    config.CreateMap<ClassQuestion, ClassQuestionViewModel>();
                     //config.CreateMap<ShopInfoInput, Shop>();
                     //config.CreateMap<GoodsInfoInput, Goods>();
 
@@ -54,7 +56,7 @@ namespace AlumniBook
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            //MappingConfig.RegisterMaps();
+            MappingConfig.RegisterMaps();
         }
     }
 }

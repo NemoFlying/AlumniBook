@@ -8,7 +8,7 @@ using AlumniBook.ViewModels;
 
 namespace AlumniBook.Controllers
 {
-    public class AlumniBookControllerBase : Controller
+    public class AlumniBookBaseController : Controller
     {
         protected AlumniBookContext dbcontext = new AlumniBookContext();
 

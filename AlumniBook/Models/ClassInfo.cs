@@ -63,6 +63,9 @@ namespace AlumniBook.Models
         /// </summary>
         public virtual List<ClassNotice> ClassNotice { get; set; }
 
-
+        /// <summary>
+        /// 申请班级Q&A
+        /// </summary>
+        public virtual List<ClassQuestion> ClassQustion { get; set; }
     }
 }

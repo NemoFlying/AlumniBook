@@ -65,7 +65,6 @@ namespace AlumniBook.Models
         /// 头像地址
         /// </summary>
         [MaxLength(150)]
-        [Required]
         public string HeadPortrait { get; set; }
 
         /// <summary>

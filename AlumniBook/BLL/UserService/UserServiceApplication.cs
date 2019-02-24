@@ -15,6 +15,7 @@ namespace AlumniBook.BLL.UserService
     {
 
         private readonly IUserDAL _userDAL;
+        private readonly IClassInfoDAL _classInfoDAL;
 
         /// <summary>
         /// 构造函数
@@ -23,6 +24,7 @@ namespace AlumniBook.BLL.UserService
         public UserServiceApplication()
         {
             _userDAL = new UserDAL();
+            _classInfoDAL = new ClassInfoDAL();
         }
 
         /// <summary>
@@ -32,9 +34,6 @@ namespace AlumniBook.BLL.UserService
         /// <param name="password">密码</param>
         /// <returns>
         /// 返回登录信息
-        /// 1.0  => 登录成功
-        /// 2.1     => 账号不存在
-        /// 3.2     => 账号密码不符
         /// </returns>
         public LogonResultOutput LogonAuthen(string userName,string password)
         {
@@ -96,23 +95,39 @@ namespace AlumniBook.BLL.UserService
                 result.result = false;
                 result.Msg = "用户名已经存在";
             }
+            else
+            {
+                user = Mapper.Map<User>(newUserInfo);
+                //密码加密
+                var md5 = new MD5CryptoServiceProvider();
+                user.Password = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(user.UserName + user.Password))).Replace("-", "");
+                user.ClassInfo = _classInfoDAL.GetModels(con => con.Id == newUserInfo.ClassId).FirstOrDefault();
+                _userDAL.Add(user);
+                try
+                {
+                    _userDAL.SaveChanges();
+                    result.result = true;
+                }
+                catch (Exception ex)
+                {
+                    result.result = false;
+                    result.Data = ex;
+                }
+            }
             
-            user = Mapper.Map<User>(newUserInfo);
-            //密码加密
-            var md5 = new MD5CryptoServiceProvider();
-            user.Password = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(user.UserName + user.Password))).Replace("-", "");
-            _userDAL.Add(user);
-            try
-            {
-                _userDAL.SaveChanges();
-                result.result = true;
-            }
-            catch(Exception ex)
-            {
-                result.result = false;
-                result.Data = ex;
-            }
+           
             return result;
+        }
+
+        /// <summary>
+        /// 根据用户获得班级信息
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public ClassInfo GetClassInfoByUid(int userId)
+        {
+            return _userDAL.GetModels(con => con.Id == userId).FirstOrDefault().ClassInfo;
+
         }
 
         //public List<UserInfoOutput> GetAllUserInfo()
