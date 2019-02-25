@@ -215,6 +215,8 @@
     <Content Include="assets\Images\Class1\20190225220454.jpg" />
     <Content Include="assets\Images\Class1\20190225220508.jpg" />
     <Content Include="assets\img\bg.jpg" />
+    <Content Include="assets\img\off.png" />
+    <Content Include="assets\img\userBg.jpg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
