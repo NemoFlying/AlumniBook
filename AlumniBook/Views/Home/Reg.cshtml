@@ -114,6 +114,17 @@
         $(document).ready(function () {
             App.init();
         });
+        Array.prototype.serializeObject = function (lName) {
+            var o = {};
+            $t = this;
+
+            for (var i = 0; i < $t.length; i++) {
+                for (var item in $t[i]) {
+                    o[lName + '[' + i + '].' + item.toString()] = $t[i][item].toString();
+                }
+            }
+            return o;
+        };
         window.onload = function () {
             $.ajax({
                 url: "../ClassInfo/GetAllClassForSelect",
@@ -146,7 +157,21 @@
                         });
                         $('#Reg').submit(function () {
                             $('#Button').attr('disabled', 'disabled');
-                            var aa = [{ "Q1": "Q1" }, { "Q2": "Q2" }, { "Q3": "Q3" }];
+                            var aa = [{ "q": "q1", "a": "a1" }, { "q": "q2", "a": "a2" }];
+                            data= {
+                                    UserName: "dsadsada",
+                                    Password: "abc123456",
+                                    QqId: "240269961",
+                                    ClassId: classNum,
+                                    question: ["Q1", "Q2", "Q3"],
+                                    qaa: [{ "q": "q1", "a": "a1" }, { "q": "q2", "a": "a2" }]
+                                    //question:"Q1"
+                                    //UserName: $('#Username').val(),
+                                    //Password: $('#Password').val(),
+                                    //ClassPassword: $('#ClassPassword').val(),
+                                    //QqId: $('#QQ').val(),
+                                    //VCode: $('#VCode').val(),
+                                }
                             $.ajax({
                                 url: "../User/Regist",
                                 data: {
@@ -154,7 +179,7 @@
                                     Password: "abc123456",
                                     QqId: "240269961",
                                     ClassId: classNum,
-                                    question: ["Q1","Q2","Q3"],
+                                    question: ["Q1", "Q2", "Q3"]
                                     //question:"Q1"
                                     //UserName: $('#Username').val(),
                                     //Password: $('#Password').val(),
@@ -162,6 +187,7 @@
                                     //QqId: $('#QQ').val(),
                                     //VCode: $('#VCode').val(),
                                 },
+                                //data: $.param(data.serializeObject("list1")),
                                 traditional: true,
                                 //data: { list1:aa},
                                 success: function (data) {
