@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 using AlumniBook.Models;
 
 namespace AlumniBook.DAL
 {
-    public interface IClassInfoDAL : IBaseDAL<ClassInfo>
+    public class ClassNoticeDAL:BaseDAL<ClassNotice>, IClassNoticeDAL
     {
     }
 }

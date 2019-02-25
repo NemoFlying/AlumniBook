@@ -2,18 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using AlumniBook.BLL.Dto;
 using AlumniBook.DAL;
 using AlumniBook.Models;
+using AutoMapper;
 
 namespace AlumniBook.BLL.ClassInfoService
 {
     public class ClassInfoServiceApplication: IClassInfoServiceApplication
     {
         private IClassInfoDAL _classDAL { get; set; }
+        private IClassNoticeDAL _noticeDAL { get; set; }
         //private IClass _classDAL { get; set; }
         public ClassInfoServiceApplication()
         {
             _classDAL = new ClassInfoDAL();
+            _noticeDAL = new ClassNoticeDAL();
 
         }
 
@@ -28,12 +32,80 @@ namespace AlumniBook.BLL.ClassInfoService
 
         /// <summary>
         /// 根据班级ID获取班级问题答案
+        /// 若ClassId 为空返回所有班级Notice信息
         /// </summary>
         /// <returns></returns>
-        public ClassInfo GetClassInfoById(int classId)
+        public ClassInfo GetClassInfoById(int? classId)
         {
-            return _classDAL.GetModels(con => con.Id == classId).FirstOrDefault();
+            return _classDAL.GetModels(con => classId.HasValue ? con.Id == classId : 1 == 1).FirstOrDefault();
         }
+
+        /// <summary>
+        /// 获取班级所有公告信息
+        /// </summary>
+        /// <param name="classId"></param>
+        /// <returns></returns>
+        public List<ClassNotice> GetAllNotices(int? classId)
+        {
+            return _classDAL.GetModels(con => classId.HasValue ? con.Id == classId : 1 == 1).FirstOrDefault()
+                .ClassNotice.ToList();
+        }
+
+
+
+        /// <summary>
+        /// 删除NoticeId
+        /// </summary>
+        /// <param name="noticeId"></param>
+        /// <returns></returns>
+        public ResultBaseOutput DeleteNoticeId( int noticeId)
+        {
+            var result = new ResultBaseOutput();
+            var notice = _noticeDAL.GetModels(con => con.Id == noticeId).FirstOrDefault();
+            _noticeDAL.Delete(notice);
+
+            try
+            {
+                _noticeDAL.SaveChanges();
+                result.result = true;
+            }
+            catch (Exception ex)
+            {
+                result.result = false;
+                result.Msg = "删除失败";
+                result.Data = ex;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 添加新的公告
+        /// </summary>
+        /// <param name="classId"></param>
+        /// <param name="newnotice"></param>
+        /// <returns></returns>
+        public ResultBaseOutput AddClassNotice(int classId,NoticeInput newnotice)
+        {
+            var notice = Mapper.Map<ClassNotice>(newnotice);
+            notice.ClassInfo = _classDAL.GetModels(con => con.Id == classId).FirstOrDefault();
+            _noticeDAL.Add(notice);
+            var result = new ResultBaseOutput();
+            try
+            {
+                _noticeDAL.SaveChanges();
+                result.result = true;
+            }
+            catch (Exception ex)
+            {
+                result.result = false;
+                result.Msg = "添加失败";
+                result.Data = ex;
+            }
+            return result;
+        }
+
+
+
 
     }
 }

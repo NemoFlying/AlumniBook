@@ -55,5 +55,11 @@ namespace AlumniBook.ViewModels
         /// 1.管理员
         /// </summary>
         public int UserType { get; set; }
+
+        /// <summary>
+        /// 班级名称
+        /// 
+        /// </summary>
+        public string ClassName { get; set; }
     }
 }

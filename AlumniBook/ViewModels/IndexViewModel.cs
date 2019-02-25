@@ -31,12 +31,15 @@ namespace AlumniBook.ViewModels
         /// <summary>
         /// 公告列表
         /// </summary>
-        public List<NoticeInfo> Notices { get; set; }
+        public List<NoticeViewModel> Notices { get; set; }
 
         /// <summary>
         /// 留言信息列表
         /// </summary>
-        public List<LeavingMsgInfo> Bbs { get; set; }
-
+        public List<LeavingMessageViewModel> Bbs { get; set; }
+        /// <summary>
+        /// 班级信息
+        /// </summary>
+        public ClassInfoViewModel ClassInfo { get; set; }
     }
 }

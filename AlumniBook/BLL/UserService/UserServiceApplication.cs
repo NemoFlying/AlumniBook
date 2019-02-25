@@ -150,6 +150,74 @@ namespace AlumniBook.BLL.UserService
             return _userDAL.GetModels(con => con.Id == userId).FirstOrDefault().ClassInfo;
 
         }
+        /// <summary>
+        /// 获取所有用户
+        /// </summary>
+        /// <returns></returns>
+        public List<UserInfoOutput> GetAllUser()
+        {
+            return Mapper.Map<List<UserInfoOutput>>(
+                _userDAL.GetModels(con => 1==1)
+                .FirstOrDefault()
+                );
+
+        }
+
+
+        /// <summary>
+        /// 根据班级获取班级所有学生
+        /// </summary>
+        /// <param name="classId"></param>
+        /// <returns></returns>
+        public List<UserInfoOutput> GetAllClassUser(int classId)
+        {
+            return Mapper.Map<List<UserInfoOutput>>(_classInfoDAL.GetModels(con => con.Id == classId)
+                .FirstOrDefault().Users.ToList());
+        }
+
+        /// <summary>
+        /// 根据用户ID删除用户
+        /// </summary>
+        /// <param name="userId"></param>
+        public ResultBaseOutput DeleteUserById(int userId)
+        {
+            var result = new ResultBaseOutput();
+            var user = _userDAL.GetModels(con => con.Id == userId).FirstOrDefault();
+            _userDAL.Delete(user);
+            try
+            {
+                _userDAL.SaveChanges();
+                result.result = true;
+            }
+            catch(Exception ex)
+            {
+                result.result = false;
+                result.Msg = "删除失败";
+                result.Data = ex;
+            }
+            return result;
+
+        }
+
+        public ResultBaseOutput SetUserAdmin(int userId)
+        {
+            var result = new ResultBaseOutput();
+            var user = _userDAL.GetModels(con => con.Id == userId).FirstOrDefault();
+            user.UserType = 1;
+            _userDAL.Update(user);
+            try
+            {
+                _userDAL.SaveChanges();
+                result.result = true;
+            }
+            catch
+            {
+                result.result = false;
+                result.Msg = "数据库执行失败";
+            }
+            return result;
+        }
+
 
         //public List<UserInfoOutput> GetAllUserInfo()
         //{

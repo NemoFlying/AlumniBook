@@ -35,5 +35,7 @@ namespace AlumniBook.Models
         /// 创建人信息
         /// </summary>
         public virtual User CreateUser { get; set; }
+
+        
     }
 }
