@@ -15,7 +15,7 @@ namespace AlumniBook.Models
 
         public string Question { get; set; }
 
-        public string QuestionAnswer { get; set; }
+        public string Answer { get; set; }
 
         /// <summary>
         /// 班级信息

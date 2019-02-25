@@ -28,11 +28,6 @@ namespace AlumniBook.Models
         public string ClassName { get; set; }
 
         /// <summary>
-        /// 创建人员信息
-        /// </summary>
-        public string  CreateUser { get; set; }
-
-        /// <summary>
         /// 创建时间
         /// </summary>
         public DateTime CreateDate { get; set; }
@@ -42,6 +37,16 @@ namespace AlumniBook.Models
         /// </summary>
         [Required]
         public string Introduce { get; set; }
+
+        /// <summary>
+        /// 创建人员信息
+        /// </summary>
+        public User CreateUser { get; set; }
+
+        /// <summary>
+        /// 管理员
+        /// </summary>
+        public virtual List<User> adminUser { get; set; }
 
         /// <summary>
         /// 用户信息

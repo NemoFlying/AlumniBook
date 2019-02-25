@@ -12,23 +12,7 @@ namespace AlumniBook.DAL
         protected override void Seed(AlumniBookContext context)
         {
 
-            //默认班级
-            var classInfo = new ClassInfo()
-            {
-                ClassName = "启航",
-                CreateUser = "admin",
-                Introduce = "48个快乐的孩子，怀着对梦的执着；对美好青春的渴望；对未来无限的憧憬；踏进了六年五班。这是一个团结上进的班集体；一个温馨和谐的大家庭，一个充满爱的乐园。一个团结的群体，一个充满活力的群体，一个不甘落后的群体，一个饱含热情的群体 ；它不会因为矛盾而分散，不会因为压力而沉寂，不会因为失败而丧气，不会因为竞争而冷漠。我们，是一个整体，我们，是不可分割的一织血脉。纵然有过羞涩，纵然有过隔阂，但一切的不愉快都随风飘逝，所有的不和都随波消散，友好，和睦，亲密无间，成为了永恒的旋律。心灵与心灵相交融，友爱和友爱相重叠，平平淡淡的生活中，所涂抹出来的，是一幅没有灰色，没有黑色，没有夜的暗，没有冬之寒的油画。这就是五班。"
-
-            };
-            var classInfo2 = new ClassInfo()
-            {
-                ClassName = "启航2",
-                CreateUser = "admin",
-                Introduce = "因为有梦，所以远方！"
-
-            };
-            context.ClassInfo.Add(classInfo);
-            context.ClassInfo.Add(classInfo2);
+            
 
             //添加用户班级 1班
             var user = new List<User>()
@@ -37,44 +21,61 @@ namespace AlumniBook.DAL
             {
                 UserName = "admin",
                 Password = "F6FDFFE48C908DEB0F4C3BD36C032E72",
-                UserType = 1,
                 Certification = "Y",
                 HeadPortrait = "/img/defaultHead",
                 NikeName = "admin",
                 RealName = "admin",
-                QqId = "895190626",
-                ClassInfo = classInfo
+                QqId = "895190626"
 
             },
                 new User()
             {
                 UserName = "Jerry",
                 Password = "9FD966C8E14B44EEF8F685DCAB3395E7",
-                UserType = 0,
                 Certification = "Y",
                 HeadPortrait = "/img/defaultHead",
                 QqId = "240269961",
                 NikeName = "Nemo",
-                RealName = "Nemo",
-                ClassInfo = classInfo
+                RealName = "Nemo"
             },
                 new User()
             {
                 UserName = "miao",
                 Password = "9FD966C8E14B44EEF8F685DCAB3395E7",
-                UserType = 0,
                 Certification = "Y",
                 HeadPortrait = "/img/defaultHead",
                 QqId = "544088599",
                 NikeName = "Nemo",
-                RealName = "Nemo",
-                ClassInfo = classInfo
+                RealName = "Nemo"
             }
             };
             //admin用户注册
 
             user.ForEach(item => context.User.Add(item));
-            //context.SaveChanges();
+            context.SaveChanges();
+
+            //默认班级
+            var classInfo = new ClassInfo()
+            {
+                ClassName = "启航",
+                CreateUser = user[0],
+                Introduce = "48个快乐的孩子，怀着对梦的执着；对美好青春的渴望；对未来无限的憧憬；踏进了六年五班。这是一个团结上进的班集体；一个温馨和谐的大家庭，一个充满爱的乐园。一个团结的群体，一个充满活力的群体，一个不甘落后的群体，一个饱含热情的群体 ；它不会因为矛盾而分散，不会因为压力而沉寂，不会因为失败而丧气，不会因为竞争而冷漠。我们，是一个整体，我们，是不可分割的一织血脉。纵然有过羞涩，纵然有过隔阂，但一切的不愉快都随风飘逝，所有的不和都随波消散，友好，和睦，亲密无间，成为了永恒的旋律。心灵与心灵相交融，友爱和友爱相重叠，平平淡淡的生活中，所涂抹出来的，是一幅没有灰色，没有黑色，没有夜的暗，没有冬之寒的油画。这就是五班。",
+                adminUser = new List<User>() { user[0] },
+                Users= new List<User>() { user[0], user[1], user[2] },
+            };
+            var classInfo2 = new ClassInfo()
+            {
+                ClassName = "启航2",
+                CreateUser = user[1],
+                Introduce = "因为有梦，所以远方！",
+                adminUser = new List<User>() { user[1] },
+                Users = new List<User>() { user[0], user[1], user[2] },
+
+            };
+            context.ClassInfo.Add(classInfo);
+            context.ClassInfo.Add(classInfo2);
+            context.SaveChanges();
+
 
             //留言信息
             var classLeavingMessage = new List<ClassLeavingMessage>() {
@@ -129,7 +130,7 @@ namespace AlumniBook.DAL
 
             classNotice.ForEach(item => context.ClassNotice.Add(item));
 
-            //context.SaveChanges();
+            context.SaveChanges();
 
             //班级相册
             var classAlbum = new List<ClassAlbum>()
@@ -166,44 +167,44 @@ namespace AlumniBook.DAL
                 }
             };
             classAlbum.ForEach(item => context.ClassAlbum.Add(item));
-
+            context.SaveChanges();
             //班级问题
             var Q1 = new List<ClassQuestion>(){
                 new ClassQuestion()
                 {
                     ClassInfo = classInfo,
                     Question = "Q1",
-                    QuestionAnswer = "Q1"
+                    Answer = "Q1"
                 },
                 new ClassQuestion()
                 {
                     ClassInfo = classInfo,
                     Question = "Q2",
-                    QuestionAnswer = "Q2"
+                    Answer = "Q2"
                 },
                 new ClassQuestion()
                 {
                     ClassInfo = classInfo,
                     Question = "Q3",
-                    QuestionAnswer = "Q3"
+                    Answer = "Q3"
                 },
                 new ClassQuestion()
                 {
                     ClassInfo = classInfo2,
                     Question = "Q4",
-                    QuestionAnswer = "Q1"
+                    Answer = "Q1"
                 },
                 new ClassQuestion()
                 {
                     ClassInfo = classInfo2,
                     Question = "Q5",
-                    QuestionAnswer = "Q5"
+                    Answer = "Q5"
                 },
                 new ClassQuestion()
                 {
                     ClassInfo = classInfo2,
                     Question = "Q6",
-                    QuestionAnswer = "Q6"
+                    Answer = "Q6"
                 },
             };
 

@@ -83,59 +83,110 @@ namespace AlumniBook.BLL.UserService
         /// </summary>
         /// <param name="newUserInfo"></param>
         /// <returns></returns>
-        public RegistResultOutput RegistUser(RegistUserInput newUserInfo)
+        public ServiceBaseOutput RegistUser(RegistUserInput newUserInfo)
         {
-            var result = new RegistResultOutput();
+            var result = new ServiceBaseOutput();
             //基本输入信息验证判断
             //判断用户是否存在
             var user = _userDAL.GetModels(con=>con.UserName==newUserInfo.UserName)
                 .FirstOrDefault();
-            if(user != null)
+            var md5 = new MD5CryptoServiceProvider();
+            if (user != null)
             {
-                result.result = false;
+                result.Status = false;
                 result.Msg = "用户名已经存在！";
+                return result;
             }
-            else
+            if(newUserInfo.UserType==1) //管理员用户
+            {
+                //检查创建班级名称是否存在
+                var classInfo = _classInfoDAL.GetModels(con => con.ClassName == newUserInfo.ClassName).FirstOrDefault();
+                if(classInfo != null)
+                {
+                    result.Status = false;
+                    result.Msg = "班级名称已经存在！";
+                    return result;
+                }
+                //创建用户
+                user = Mapper.Map<User>(newUserInfo);
+                user.Password = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(user.UserName + user.Password))).Replace("-", "");
+                //创建问题&答案
+                var qa = new List<ClassQuestion>() {
+                    new ClassQuestion(){
+                        Question = newUserInfo.Question[0],
+                        Answer = newUserInfo.Anser[0]
+                    },
+                    new ClassQuestion(){
+                        Question = newUserInfo.Question[1],
+                        Answer = newUserInfo.Anser[1]
+                    },
+                    new ClassQuestion(){
+                        Question = newUserInfo.Question[2],
+                        Answer = newUserInfo.Anser[2]
+                    },
+                };
+                //创建班级
+                var newClassInfo = new ClassInfo()
+                {
+                    ClassName = newUserInfo.ClassName,
+                    CreateUser = user,
+                    Users = new List<User>() { user },
+                    Introduce = newUserInfo.Introduce,
+                    adminUser = new List<User>() { user },
+                    ClassQustion = qa
+                };
+                _classInfoDAL.Add(newClassInfo);
+                try
+                {
+                    _classInfoDAL.SaveChanges();
+                    result.Status = true;
+                }
+                catch (Exception ex)
+                {
+                    result.Status = false;
+                    result.Msg = ex.ToString();
+                    result.Data = ex;
+                }
+            }
+            else //普通用户
             {
                 //问题答案验证
                 var classInfo = _classInfoDAL.GetModels(con => con.Id == newUserInfo.ClassId).FirstOrDefault();
-                var compareResult = true;
+                var anSwerResult = true;
                 classInfo.ClassQustion.ForEach(
                     item => {
-                        if (!newUserInfo.question.Contains(item.QuestionAnswer))
+                        if (!newUserInfo.Anser.Contains(item.Answer))
                         {
-                            compareResult = false;
+                            anSwerResult = false;
                         }
                     }
                     );
-                if(!compareResult)
+                if(!anSwerResult)
                 {
-                    result.result = false;
-                    result.Msg = "问题回答错误！";
+                    result.Status = false;
+                    result.Msg = "班级问题验证失败！";
                 }
                 else
                 {
                     user = Mapper.Map<User>(newUserInfo);
                     //密码加密
-                    var md5 = new MD5CryptoServiceProvider();
                     user.Password = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(user.UserName + user.Password))).Replace("-", "");
-                    user.ClassInfo = classInfo;
+                    user.ClassInfo = new List<ClassInfo>() { classInfo };
                     _userDAL.Add(user);
                     try
                     {
                         _userDAL.SaveChanges();
-                        result.result = true;
+                        result.Status = true;
                     }
                     catch (Exception ex)
                     {
-                        result.result = false;
+                        result.Status = false;
+                        result.Msg = ex.ToString();
                         result.Data = ex;
                     }
                 }
                 
             }
-            
-           
             return result;
         }
 
@@ -147,7 +198,7 @@ namespace AlumniBook.BLL.UserService
         /// <returns></returns>
         public ClassInfo GetClassInfoByUid(int userId)
         {
-            return _userDAL.GetModels(con => con.Id == userId).FirstOrDefault().ClassInfo;
+            return _userDAL.GetModels(con => con.Id == userId).FirstOrDefault().ClassInfo.FirstOrDefault();
 
         }
         /// <summary>
@@ -202,19 +253,19 @@ namespace AlumniBook.BLL.UserService
         public ResultBaseOutput SetUserAdmin(int userId)
         {
             var result = new ResultBaseOutput();
-            var user = _userDAL.GetModels(con => con.Id == userId).FirstOrDefault();
-            user.UserType = 1;
-            _userDAL.Update(user);
-            try
-            {
-                _userDAL.SaveChanges();
-                result.result = true;
-            }
-            catch
-            {
-                result.result = false;
-                result.Msg = "数据库执行失败";
-            }
+            ////var user = _userDAL.GetModels(con => con.Id == userId).FirstOrDefault();
+            ////user.UserType = 1;
+            ////_userDAL.Update(user);
+            ////try
+            ////{
+            ////    _userDAL.SaveChanges();
+            ////    result.result = true;
+            ////}
+            ////catch
+            ////{
+            ////    result.result = false;
+            ////    result.Msg = "数据库执行失败";
+            ////}
             return result;
         }
 

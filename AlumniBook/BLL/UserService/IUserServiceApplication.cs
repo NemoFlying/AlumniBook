@@ -25,7 +25,7 @@ namespace AlumniBook.BLL.UserService
         /// </summary>
         /// <param name="newUserInfo"></param>
         /// <returns></returns>
-        RegistResultOutput RegistUser(RegistUserInput newUserInfo);
+        ServiceBaseOutput RegistUser(RegistUserInput newUserInfo);
 
 
         /// <summary>

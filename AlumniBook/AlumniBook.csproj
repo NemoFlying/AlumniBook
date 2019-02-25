@@ -165,8 +165,8 @@
     <Compile Include="BLL\ClassInfoService\IClassInfoServiceApplication.cs" />
     <Compile Include="BLL\ClassQustionService\ClassQustionServiceApplication.cs" />
     <Compile Include="BLL\ClassQustionService\IClassQustionServiceApplication.cs" />
+    <Compile Include="BLL\ServiceBaseOutput.cs" />
     <Compile Include="BLL\UserService\Dto\LogonResultOutput.cs" />
-    <Compile Include="BLL\UserService\Dto\RegistResultOutput.cs" />
     <Compile Include="BLL\UserService\Dto\RegistUserInput.cs" />
     <Compile Include="BLL\UserService\Dto\UserInfoOutput.cs" />
     <Compile Include="BLL\UserService\IUserServiceApplication.cs" />
@@ -210,10 +210,10 @@
     <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\Images\Class1\20190225220359.png" />
-    <Content Include="assets\Images\Class1\20190225220446.jpg" />
-    <Content Include="assets\Images\Class1\20190225220454.jpg" />
-    <Content Include="assets\Images\Class1\20190225220508.jpg" />
+    <Content Include="assets\Images\Album\Class1\20190225220359.png" />
+    <Content Include="assets\Images\Album\Class1\20190225220446.jpg" />
+    <Content Include="assets\Images\Album\Class1\20190225220454.jpg" />
+    <Content Include="assets\Images\Album\Class1\20190225220508.jpg" />
     <Content Include="assets\img\bg.jpg" />
     <Content Include="assets\img\off.png" />
     <Content Include="assets\img\userBg.jpg" />
