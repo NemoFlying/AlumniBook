@@ -7,6 +7,24 @@ body {
     width: 100%;
     overflow: hidden;
 }
+.leftBottom::-webkit-scrollbar {
+    display: none;
+}
+h1 {
+    margin: 0 !important;
+    padding: 28px 3%;
+    color:white !important;
+    width:95%;
+    display:inline-block;
+}
+h3{
+    margin:0 !important;
+    padding:20px 0;
+}
+.glyphicon-off{
+    display:inline-block !important;
+    height:30px;
+}
 
 li {
     list-style: none;
@@ -14,7 +32,7 @@ li {
 
 .header {
     width: 100%;
-    background: yellowgreen;
+    background: #02a1d6;
 }
 
 .leftDiv {
@@ -26,8 +44,19 @@ li {
 
 .leftTop, .leftBottom {
     height: 50%;
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:auto;
 }
-
+.leftTop ul{
+    width:70%;
+    display:flex;
+    justify-content:center;
+    flex-direction:column;
+    align-items:center;
+}
 .rightDiv {
     float: left;
     height: 100%;
@@ -35,27 +64,90 @@ li {
 }
 
 .rightTop, .rightCenter, .rightBottom {
-    height: 30%;
-    width: 98%;
+    height: 33%;
+    width: 100%;
 }
 
 .rightCenterL, .rightCenterR, .rightBottomL, .rightBottomR {
     float: left;
-    width: 46%;
+    width: 49%;
     height: 94%;
     margin: 0.5%;
-    padding: 1%;
     overflow: hidden;
     background: #e2e2e2;
+    display: flex;
+    flex-direction: column;
 }
 
 .titleName :nth-child(1) {
     float: left;
-    width: 80%;
+    width: 70%;
+    padding:0 2.5%;
+    color:white;
 }
 
 .titleName :nth-child(2) {
     float: right;
     width: 20%;
     text-align: center;
+    padding:0 2.5%;
+    color:white;
+}
+.classHomeImg img, .ClassmateImg, .MessageBoardImg {
+    border-radius: 50%;
+    border: 2px solid #bcbcbc;
+}
+.UserBtn, .UserBtn  button{
+    width: 100%;
+    margin:4px 0;
+}
+.userNameLi{
+    margin:10px 0;
+}
+.leftBottom{
+    display:flex;
+    flex-direction:column;
+    overflow-y:scroll;
+}
+.leftBottomDiv {
+    display: flex;
+    flex-direction: column;
+}
+.leftTop{
+    background:url("../assets/img/userBg.jpg") no-repeat;
+    background-size:240%;
+}
+.offBtn{
+    width:32px;
+    height:32px;
+    background:url("../assets/img/off.png");
+    background-size:100%;
+    border:none;
+}
+.StudentsInformation, .MessageBoard {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    width: 90%;
+    padding: 1% 5%;
+}
+.StudentsInformation::-webkit-scrollbar, .MessageBoard::-webkit-scrollbar {
+    display: none;
+}
+    
+.rightCenterL h3 {
+    background: #27ded3;
+    width: 100%;
+}
+.rightCenterR h3 {
+    background: #8c27de;
+    width: 100%;
+}
+.rightBottomL h3 {
+    background: #e787c6;
+    width: 100%;
+}
+.rightBottomR h3 {
+    background: #ffbd11;
+    width: 100%;
 }
