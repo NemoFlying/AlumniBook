@@ -93,6 +93,13 @@ window.onload = function () {
                             <span>`+ this.Notice+`</span>
                         </p>
                     </li>
+                    <li title='`+ this.Id + `'>
+                        <p>
+                            <img class='MessageBoardImg' src="http://q1.qlogo.cn/g?b=qq&nk=`+ data.QqId + `&s=140" alt="Alternate Text" />
+                            <span>`+ this.FromUser + `</span>
+                            <span>`+ this.Notice +`</span>
+                        </p>
+                    </li>
                 `);
             });
 

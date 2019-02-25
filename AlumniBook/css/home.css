@@ -10,6 +10,9 @@ body {
 .leftBottom::-webkit-scrollbar {
     display: none;
 }
+button{
+    outline:none;
+}
 h1 {
     margin: 0 !important;
     padding: 28px 3%;
