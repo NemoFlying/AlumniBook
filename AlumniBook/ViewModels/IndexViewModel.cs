@@ -36,7 +36,7 @@ namespace AlumniBook.ViewModels
         /// <summary>
         /// 留言信息列表
         /// </summary>
-        public List<LeavingMsgInfo> Bbs { get; set; }
+        public List<LeavingMessageViewModel> Bbs { get; set; }
         /// <summary>
         /// 班级信息
         /// </summary>

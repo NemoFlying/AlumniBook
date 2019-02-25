@@ -28,7 +28,13 @@ namespace AlumniBook
                     
                     config.CreateMap<RegistUserInput, User>();
                     config.CreateMap<ClassQuestion, QuestionViewModel>();
-                    config.CreateMap<ClassLeavingMessage, LeavingMsgInfo>();
+
+                    //留言信息
+                    config.CreateMap<ClassLeavingMessage, LeavingMessageViewModel>()
+                    .ForMember(dest => dest.createUserName, opt => opt.MapFrom(src => src.CreateUser.UserName))
+                    .ForMember(dest => dest.QqId, opt => opt.MapFrom(src => src.CreateUser.QqId))
+                    .ForMember(dest => dest.HeadPortrait, opt => opt.MapFrom(src => src.CreateUser.HeadPortrait));
+                    
                     config.CreateMap<ClassNotice, NoticeViewModel>()
                     .ForMember(dest => dest.ClassName, opt => opt.MapFrom(src => src.ClassInfo.ClassName));
                     config.CreateMap<NoticeViewModel, NoticeInput>();

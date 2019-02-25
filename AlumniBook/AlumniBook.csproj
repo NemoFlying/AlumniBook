@@ -203,7 +203,6 @@
     <Compile Include="ViewModels\IndexViewModel.cs" />
     <Compile Include="ViewModels\JsonReMsg.cs" />
     <Compile Include="ViewModels\LeavingMessageViewModel.cs" />
-    <Compile Include="ViewModels\LeavingMsgInfo.cs" />
     <Compile Include="ViewModels\LoginInput.cs" />
     <Compile Include="ViewModels\NoticeViewModel.cs" />
     <Compile Include="ViewModels\QuestionViewModel.cs" />
@@ -211,6 +210,10 @@
     <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\Images\Class1\20190225220359.png" />
+    <Content Include="assets\Images\Class1\20190225220446.jpg" />
+    <Content Include="assets\Images\Class1\20190225220454.jpg" />
+    <Content Include="assets\Images\Class1\20190225220508.jpg" />
     <Content Include="assets\img\bg.jpg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -271,7 +274,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="assets\Images\Class1\" />
     <Folder Include="Views\AlumniBookControllerBase\" />
     <Folder Include="Views\ClassInfo\" />
     <Folder Include="Views\User\" />

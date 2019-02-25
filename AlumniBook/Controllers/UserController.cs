@@ -65,7 +65,7 @@ namespace AlumniBook.Controllers
                 AlumCoverImgUrl = classInfo.ClassAlbum.Find(con => con.IsCover == "Y").PhotoUrl,
                 BannerImgUrl = classInfo.ClassAlbum.Find(con => con.IsCover == "Y").PhotoUrl,
                 Classmate = Mapper.Map<List<UserViewModel>>(classInfo.Users),
-                Bbs = Mapper.Map<List<LeavingMsgInfo>>(classInfo.ClassLeavingMessage),
+                Bbs = Mapper.Map<List<LeavingMessageViewModel>>(classInfo.ClassLeavingMessage),
                 Notices = Mapper.Map<List<NoticeViewModel>>(classInfo.ClassNotice),
                 ClassInfo = Mapper.Map<ClassInfoViewModel>(classInfo)
             };
