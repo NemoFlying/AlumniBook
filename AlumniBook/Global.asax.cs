@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using AlumniBook.BLL.Dto;
 using AlumniBook.BLL.UserService.Dto;
 using AlumniBook.Models;
 using AlumniBook.ViewModels;
@@ -28,7 +29,10 @@ namespace AlumniBook
                     config.CreateMap<RegistUserInput, User>();
                     config.CreateMap<ClassQuestion, QuestionViewModel>();
                     config.CreateMap<ClassLeavingMessage, LeavingMsgInfo>();
-                    config.CreateMap<ClassNotice, NoticeInfo>();
+                    config.CreateMap<ClassNotice, NoticeViewModel>()
+                    .ForMember(dest => dest.ClassName, opt => opt.MapFrom(src => src.ClassInfo.ClassName));
+                    config.CreateMap<NoticeViewModel, NoticeInput>();
+                    config.CreateMap<NoticeInput, ClassNotice>();
 
                     ////店铺转换
                     //config.CreateMap<Shop, ShopOutPutViewModel>()

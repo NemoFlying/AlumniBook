@@ -161,6 +161,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BLL\ClassInfoService\ClassInfoServiceApplication.cs" />
+    <Compile Include="BLL\ClassInfoService\Dto\NoticeInput.cs" />
     <Compile Include="BLL\ClassInfoService\IClassInfoServiceApplication.cs" />
     <Compile Include="BLL\ClassQustionService\ClassQustionServiceApplication.cs" />
     <Compile Include="BLL\ClassQustionService\IClassQustionServiceApplication.cs" />
@@ -181,6 +182,8 @@
     <Compile Include="DAL\BaseDAL.cs" />
     <Compile Include="DAL\ClassInfoDAL\ClassInfoDAL.cs" />
     <Compile Include="DAL\ClassInfoDAL\IClassInfoDAL.cs" />
+    <Compile Include="DAL\ClassNoticeDAL\ClassNoticeDAL.cs" />
+    <Compile Include="DAL\ClassNoticeDAL\IClassNoticeDAL.cs" />
     <Compile Include="DAL\ClassQuestionDAL\ClassQuestionDAL.cs" />
     <Compile Include="DAL\ClassQuestionDAL\IClassQuestionDAL.cs" />
     <Compile Include="DAL\IBaseDAL.cs" />
@@ -202,7 +205,6 @@
     <Compile Include="ViewModels\LeavingMessageViewModel.cs" />
     <Compile Include="ViewModels\LeavingMsgInfo.cs" />
     <Compile Include="ViewModels\LoginInput.cs" />
-    <Compile Include="ViewModels\NoticeInfo.cs" />
     <Compile Include="ViewModels\NoticeViewModel.cs" />
     <Compile Include="ViewModels\QuestionViewModel.cs" />
     <Compile Include="ViewModels\SelectViewModel.cs" />
@@ -269,8 +271,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="assets\Images\" />
-    <Folder Include="BLL\ClassInfoService\Dto\" />
+    <Folder Include="assets\Images\Class1\" />
     <Folder Include="Views\AlumniBookControllerBase\" />
     <Folder Include="Views\ClassInfo\" />
     <Folder Include="Views\User\" />

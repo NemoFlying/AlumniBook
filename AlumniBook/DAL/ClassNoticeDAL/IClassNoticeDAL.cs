@@ -7,7 +7,7 @@ using AlumniBook.Models;
 
 namespace AlumniBook.DAL
 {
-    public interface IClassInfoDAL : IBaseDAL<ClassInfo>
+    public interface IClassNoticeDAL : IBaseDAL<ClassNotice>
     {
     }
 }

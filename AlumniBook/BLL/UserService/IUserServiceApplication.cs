@@ -35,5 +35,17 @@ namespace AlumniBook.BLL.UserService
         /// <returns></returns>
         ClassInfo GetClassInfoByUid(int userId);
 
+        /// <summary>
+        /// 根据班级获取班级所有学生
+        /// </summary>
+        /// <param name="classId"></param>
+        /// <returns></returns>
+        List<UserInfoOutput> GetAllClassUser(int classId);
+
+        /// <summary>
+        /// 根据用户ID删除用户
+        /// </summary>
+        /// <param name="userId"></param>
+        ResultBaseOutput DeleteUserById(int userId);
     }
 }
