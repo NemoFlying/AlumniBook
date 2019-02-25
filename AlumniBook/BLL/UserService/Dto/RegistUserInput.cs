@@ -49,11 +49,10 @@ namespace AlumniBook.BLL.UserService.Dto
         /// <summary>
         /// 问题答案
         /// </summary>
-        public List<string> question { get {
-                return strquestion.Split(';').ToList();
-            } }
-
-        public string strquestion { get; set; }
+        public List<string> question
+        {
+            get;set;
+        }
 
         ///// <summary>
         ///// 真实姓名
@@ -69,5 +68,11 @@ namespace AlumniBook.BLL.UserService.Dto
         ///// 手机号码
         ///// </summary>
         //public string Phone { get; set; }
+    }
+
+    public class qa
+    {
+        public string q { get; set; }
+        public string a { get; set; }
     }
 }

@@ -28,7 +28,7 @@ namespace AlumniBook.Controllers
         /// 注册新用户接收方法
         /// </summary>
         /// <returns></returns>
-        public JsonResult Regist(RegistUserInput newUser)
+        public JsonResult Regist(RegistUserInput newUser,List<qa> list1)
         {
             //基本判断
 

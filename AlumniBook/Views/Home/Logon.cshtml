@@ -89,22 +89,24 @@
             $.ajax({
                 url: "../User/LogonAuthen",
                 data: {
-                    userName: $('#Username').val(),
-                    password: $('#Password').val(),
+                    //userName: $('#Username').val(),
+                    //password: $('#Password').val(),
+                    userName: "admin",
+                    password:"admin"
                 },
                 success: function (data) {
                     console.log(data);
 
                     if (data.result == true) {
-                        window.location.href = "home/home"
+                        window.location.href = "../home/home"
                     } else {
                         $('#Button').removeAttr('disabled');
-                        alert("登录失败:  " + data.Msg +"");
+                        alert("登录失败" + data.Msg +"，请重新登录！");
                     }
                 },
                 error: function () {
-                    $('#Button').removeAttr('disabled');
-                    notify('连接失败...请重试', 'danger');
+                    //$('#Button').removeAttr('disabled');
+                    //notify('连接失败...请重试', 'danger');
                 }
             });
             return false;
