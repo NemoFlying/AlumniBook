@@ -1,0 +1,73 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>主页</title>
+    <link rel="stylesheet" href="~/css/home.css">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/imgList.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+    <div>
+        <div class="header">
+            <h1>在线同学录</h1>
+            <button type="button" class="offBtn"></button>
+        </div>
+        <div class="body">
+            <div class="leftDiv">
+                <div class="leftTop">
+                    <ul>
+                        <li class="classHomeImg">
+                            @*<img src="#" alt="Alternate Text" />*@
+                        </li>
+                        <li class="userNameLi">
+                            <span>用户名：</span>
+                            <span class="userNames"></span>
+                        </li>
+                        @*<li>
+                                <p><span>类型:</span><span>普通</span><span>/</span><span>管理</span></p>
+                            </li>*@
+                        <li class="UserBtn">
+                            <button type="button" class="btn btn-warning">管理员设置</button>
+                        </li>
+                        <li class="UserBtn"><button class="btn btn-primary">修改个人资料</button></li>
+                    </ul>
+                </div>
+                <div class="leftBottom">
+                    <div class="leftBottomDiv"></div>
+                </div>
+            </div>
+            <div class="rightDiv">
+                <div>
+                    <div class="imgDivL">
+                        <h2>相册</h2>
+                        <p class="ImgIntro">您可以在这里查阅、分享照片。</p>
+                    </div>
+                    <div class="imgDivR">
+                        <button type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-open" aria-hidden="true"></span> 上传
+                        </button>
+                    </div>
+                </div>
+                <ul class="imglist">
+                    <li><img src="~/assets/Images/Album/Class1/20190225220359.png" alt="Alternate Text" /><div class="imgMsg"><p>2019年2月26日15:38:38</p><span>username</span><span>上傳至</span><span>《相冊》</span></div></li>
+                    <li><img src="~/assets/Images/Album/Class1/20190225220359.png" alt="Alternate Text" /><div class="imgMsg"><p>2019年2月26日15:38:38</p><span>username</span><span>上傳至</span><span>《相冊》</span></div></li>
+                    <li><img src="~/assets/Images/Album/Class1/20190225220359.png" alt="Alternate Text" /><div class="imgMsg"><p>2019年2月26日15:38:38</p><span>username</span><span>上傳至</span><span>《相冊》</span></div></li>
+                    <li><img src="~/assets/Images/Album/Class1/20190225220359.png" alt="Alternate Text" /><div class="imgMsg"><p>2019年2月26日15:38:38</p><span>username</span><span>上傳至</span><span>《相冊》</span></div></li>
+                    <li><img src="~/assets/Images/Album/Class1/20190225220359.png" alt="Alternate Text" /><div class="imgMsg"><p>2019年2月26日15:38:38</p><span>username</span><span>上傳至</span><span>《相冊》</span></div></li>
+
+                </ul>
+                <div class="modal-footer"><p><span>我是一个有底线的人！</span></p></div>
+            </div>
+        </div>
+    </div>
+    <script src="~/js/imgList.js"></script>
+</body>
+</html>
