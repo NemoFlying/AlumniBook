@@ -7,7 +7,7 @@ window.onload = function () {
     $(".body").css({
         "height": (bodyH * 0.9) + "px", "margin-top": (bodyH * 0.1) + "px"
     });
-
+    var imgW = $(".imglist li div").width();
     $(".offBtn").on("click", function () {
 
         window.location.href = "../home/logon";
@@ -50,40 +50,32 @@ window.onload = function () {
                 `);
             });
 
-            $(data.Classmate).each(function () {
-                $(".StudentsInformation ul").append(`
-                    <li>
-                        <p>
-                            <img class='ClassmateImg' src="http://q1.qlogo.cn/g?b=qq&nk=`+ this.QqId + `&s=40" alt="">
-                            <span>`+ this.UserName + `</span>
-                            <span>`+ this.QqId + `</span>
-                        </p>
-                    </li>
-
-                `);
-            });
-
-            $(data.Bbs).each(function () {
-                $(".MessageBoard ul").append(`
-                    <li title='`+ this.Id + `'>
-                        <p>
-                            <img class='MessageBoardImg' src="http://q1.qlogo.cn/g?b=qq&nk=`+ data.QqId + `&s=140" alt="Alternate Text" />
-                            <span>`+ this.FromUser + `</span>
-                            <span>`+ this.Notice + `</span>
-                        </p>
-                    </li>
-                    <li title='`+ this.Id + `'>
-                        <p>
-                            <img class='MessageBoardImg' src="http://q1.qlogo.cn/g?b=qq&nk=`+ data.QqId + `&s=140" alt="Alternate Text" />
-                            <span>`+ this.FromUser + `</span>
-                            <span>`+ this.Notice + `</span>
-                        </p>
-                    </li>
-                `);
-            });
-
         }
 
+    });
+    $.ajax({
+        dataType: "json",
+        url: "../ClassInfo/GetCurrentClassAlbums",
+        data: {
+            //userName: $('#Username').val(),
+            //password: $('#Password').val(),
+        },
+        success: function (data) {
+            console.log(data);
+            $(data).each(function () {
+                $(".imglist").append(`
+                    <li title='`+ this.Id +`'>
+                        <div>
+                            <img src="`+ this.PhotoUrl +`" alt="Alternate Text" />
+                        </div>
+                        <div class="imgMsg">
+                            <p>`+ (new Date(parseInt(this.CreateDate.replace(/\D/igm, "")))).toLocaleString() + `</p><span>` + this.CreateUser +`</span><span>上傳至</span><span>《相冊》</span>
+                            <button type="button" class='delImgBtn'></button>
+                        </div>
+                    </li>
+                `);
+            });
+        }
     });
 }
 
