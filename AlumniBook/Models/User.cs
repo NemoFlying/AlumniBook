@@ -95,5 +95,7 @@ namespace AlumniBook.Models
         public virtual ICollection<ClassInfo> UserClass { get; set; }
 
         public virtual ICollection<ClassInfo> AdminClass { get; set; }
+
+        public virtual ICollection<ClassLeavingMessage> ClassLeavingMessage { get; set; }
     }
 }

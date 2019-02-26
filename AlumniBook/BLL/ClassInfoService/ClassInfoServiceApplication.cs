@@ -14,11 +14,12 @@ namespace AlumniBook.BLL.ClassInfoService
     {
         private IClassInfoDAL _classDAL { get; set; }
         private IClassNoticeDAL _noticeDAL { get; set; }
-        //private IClass _classDAL { get; set; }
+        private IUserDAL _userDAL { get; set; }
         public ClassInfoServiceApplication()
         {
             _classDAL = new ClassInfoDAL();
             _noticeDAL = new ClassNoticeDAL();
+            _userDAL = new UserDAL();
 
         }
 
@@ -161,6 +162,41 @@ namespace AlumniBook.BLL.ClassInfoService
                 result.Data = ex;
             }
             return result;
+        }
+
+        /// <summary>
+        /// 添加BBS留言
+        /// </summary>
+        /// <param name="classId"></param>
+        /// <param name="userId"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public ResultBaseOutput AddClassBbs(int classId, int userId,string msg)
+        {
+            var result = new ResultBaseOutput();
+            var classinfo = _classDAL.GetModels(con => con.Id == classId).FirstOrDefault();
+            var bbs = new ClassLeavingMessage()
+            {
+                ClassInfo = classinfo,
+                Msg = msg,
+                User = _userDAL.GetModels(con=>con.Id==userId).FirstOrDefault()
+            };
+            classinfo.ClassLeavingMessage.Add(bbs);
+            try
+            {
+                _classDAL.Update(classinfo);
+                _classDAL.SaveChanges();
+                result.Status = true;
+                result.Data = bbs;
+            }
+            catch (Exception ex)
+            {
+                result.Status = false;
+                result.Msg = "删除失败";
+                result.Data = ex;
+            }
+            return result;
+
         }
 
     }

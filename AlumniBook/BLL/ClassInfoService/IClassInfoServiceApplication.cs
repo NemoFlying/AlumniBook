@@ -61,5 +61,14 @@ namespace AlumniBook.BLL.ClassInfoService
         /// <param name="url"></param>
         /// <returns></returns>
         ResultBaseOutput AddClassAlbums(int classId, string userName, string url);
+
+        /// <summary>
+        /// 添加BBS留言
+        /// </summary>
+        /// <param name="classId"></param>
+        /// <param name="userId"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        ResultBaseOutput AddClassBbs(int classId, int userId, string msg);
     }
 }

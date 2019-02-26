@@ -76,20 +76,20 @@ namespace AlumniBook.DAL
             var classLeavingMessage = new List<ClassLeavingMessage>() {
                  new ClassLeavingMessage(){
                       ClassInfo =classInfo,
-                       CreateUser = user[0],
+                       User = user[0],
                         CreateDate = DateTime.Now,
                          Msg = "Nemo留言，好好学习天天向上!"
 
                  },
                  new ClassLeavingMessage(){
                      ClassInfo =classInfo,
-                       CreateUser = user[1],
+                       User = user[1],
                         CreateDate = DateTime.Now,
                          Msg = "Jerry留言，好好学习天天向上!"
                  },
                  new ClassLeavingMessage(){
                      ClassInfo =classInfo,
-                       CreateUser = user[2],
+                       User = user[2],
                         CreateDate = DateTime.Now,
                          Msg = "miao留言，好好学习天天向上!"
                  },
