@@ -39,6 +39,7 @@ namespace AlumniBook
                     .ForMember(dest => dest.ClassName, opt => opt.MapFrom(src => src.ClassInfo.ClassName));
                     config.CreateMap<NoticeViewModel, NoticeInput>();
                     config.CreateMap<NoticeInput, ClassNotice>();
+                    config.CreateMap<ClassAlbum, AlbumViewModel>();
 
                     ////店铺转换
                     //config.CreateMap<Shop, ShopOutPutViewModel>()

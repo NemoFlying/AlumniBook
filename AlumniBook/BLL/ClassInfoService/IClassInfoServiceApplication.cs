@@ -46,5 +46,11 @@ namespace AlumniBook.BLL.ClassInfoService
         /// <returns></returns>
         ResultBaseOutput AddClassNotice(int classId, NoticeInput newnotice);
 
+        // <summary>
+        /// 删除班级相册
+        /// </summary>
+        /// <param name="albumsId"></param>
+        /// <returns></returns>
+        ResultBaseOutput DeleteClassAlbums(int classId, int albumsId);
     }
 }

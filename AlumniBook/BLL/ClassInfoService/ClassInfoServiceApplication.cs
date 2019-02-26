@@ -5,6 +5,7 @@ using System.Web;
 using AlumniBook.BLL.Dto;
 using AlumniBook.DAL;
 using AlumniBook.Models;
+using AlumniBook.ViewModels;
 using AutoMapper;
 
 namespace AlumniBook.BLL.ClassInfoService
@@ -104,7 +105,31 @@ namespace AlumniBook.BLL.ClassInfoService
             return result;
         }
 
-
+        /// <summary>
+        /// 删除班级相册
+        /// </summary>
+        /// <param name="albumsId"></param>
+        /// <returns></returns>
+        public ResultBaseOutput DeleteClassAlbums(int classId,int albumsId)
+        {
+            var result = new ResultBaseOutput();
+            var classInfo = _classDAL.GetModels(con => con.Id == classId)
+                .FirstOrDefault();
+            classInfo.ClassAlbum.Remove(classInfo.ClassAlbum.FirstOrDefault(con => con.Id == albumsId));
+            _classDAL.Update(classInfo);
+            try
+            {
+                _noticeDAL.SaveChanges();
+                result.result = true;
+            }
+            catch (Exception ex)
+            {
+                result.result = false;
+                result.Msg = "删除失败";
+                result.Data = ex;
+            }
+            return result;
+        }
 
 
     }
