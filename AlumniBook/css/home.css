@@ -164,6 +164,7 @@ li {
     overflow-y: scroll;
     width: 100%;
     padding: 1% 5%;
+    position: relative;
 }
 .StudentsInformation::-webkit-scrollbar, .MessageBoard::-webkit-scrollbar {
     display: none;
@@ -202,15 +203,19 @@ li {
     margin:6px 0;
 }
 .addMessageBoardBtn {
-    width: 100px;
-    height: 60px;
+    width: 105.5px;
+    height: 30px;
     background: #ffda9a no-repeat;
-    background-image: url("../assets/img/upImg.png");
+    /*background-image: url("../assets/img/upImg.png");*/
     background-position:30px 10px;
     border:none;
 }
-.upMessageBoardDiv{
-    position:fixed;
-    z-index:999;
-    bottom:6px;
+.upMessageBoardDiv {
+    position: fixed;
+    z-index: 999;
+    bottom: 18px;
+    background: #8787ff;
+    width: 700px;
+    width: 731px;
+    right: 9px;
 }

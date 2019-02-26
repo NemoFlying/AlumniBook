@@ -25,7 +25,9 @@ window.onload = function () {
         window.location.href = "../home/imglist";
     });
     //PhotoAlbum
+    function getBbs(data) {
 
+    }
     $.ajax({
         dataType: "json",
         url: "../User/GetUserIndexInfo",
@@ -76,14 +78,13 @@ window.onload = function () {
 
 
             $(data.Bbs).each(function () {
-                console.log(this)
                 $(".MessageBoard ul").append(`
                     <li title='`+ this.Id + `'>
                         <p>
                             <img class='MessageBoardImg' src="http://q1.qlogo.cn/g?b=qq&nk=`+ this.QqId + `&s=40" alt="Alternate Text" />
                             <span>`+ this.createUserName + `</span>
                             <p class='Msg'>`+ this.Msg + `</p>
-                            <span class='MsgTimes'>`+(new Date(parseInt(this.CreateDate.replace(/\D/igm, "")))).toLocaleString()+`</span>
+                            <span class='MsgTimes'>`+ (new Date(parseInt(this.CreateDate.replace(/\D/igm, "")))).toLocaleString() + `</span>
                         </p>
                     </li>
                 `);
@@ -94,7 +95,29 @@ window.onload = function () {
         
     });
 }
-
+$(".addMessageBoardBtn").on("click", function () {
+    var texts = $(".upMessageBoardDiv input").val();
+    $.ajax({
+        dataType: "json",
+        url: "../Class/AddClassBbs",
+        data: {
+            Msg:texts
+        },
+        success: function (data) {
+            console.log(data);
+            $(".MessageBoard li:last").append(`
+                <li title = '`+ this.Id + `' >
+                    <p>
+                        <img class='MessageBoardImg' src="http://q1.qlogo.cn/g?b=qq&nk=`+ this.QqId + `&s=40" alt="Alternate Text" />
+                        <span>`+ this.createUserName + `</span>
+                        <p class='Msg'>`+ this.Msg + `</p>
+                        <span class='MsgTimes'>`+ (new Date(parseInt(this.CreateDate.replace(/\D/igm, "")))).toLocaleString() + `</span>
+                    </p>
+                </li >
+            `);
+        }
+    });
+});
 //$(function () {
 //    var dt = '/Date(1436595149269)/';
 //    var formatTime1 = convertTime(dt, "yyyy-MM-dd hh:mm:ss");//2015-07-11 14:12:29
