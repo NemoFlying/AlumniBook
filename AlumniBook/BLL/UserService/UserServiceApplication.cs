@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -40,7 +41,7 @@ namespace AlumniBook.BLL.UserService
             var md5 = new MD5CryptoServiceProvider();
             var pwd = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(userName + password)));
             pwd = pwd.Replace("-", "");
-            var user = _userDAL.GetModels(con => con.UserName == userName).FirstOrDefault();
+            var user = _userDAL.GetModels(con => con.UserName == userName).Include("UserClass").FirstOrDefault();
 
             var result = new ResultBaseOutput();
             result.result = false;

@@ -54,6 +54,6 @@ namespace AlumniBook.BLL.UserService.Dto
         /// </summary>
         public string Phone { get; set; }
 
-        public ClassInfo classInfo { get; set; }
+        public List<ClassInfo> UserClass { get; set; }
     }
 }

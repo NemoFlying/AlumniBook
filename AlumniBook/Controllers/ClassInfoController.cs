@@ -63,7 +63,7 @@ namespace AlumniBook.Controllers
         {
             var reJson = new JsonReMsg() { Status = "OK" };
             reJson.Data = Mapper.Map<List<NoticeViewModel>>(_classInfoService.GetAllNotices(
-                GuserInfo.classInfo.Id
+                GuserInfo.UserClass[0].Id
                 ));
             return Json(reJson, JsonRequestBehavior.AllowGet);
         }
@@ -93,7 +93,7 @@ namespace AlumniBook.Controllers
                 if (delResult.result)
                 {
                     reJson.Status = "OK";
-                    reJson.Data = Mapper.Map<List<NoticeViewModel>>(_classInfoService.GetAllNotices(GuserInfo.classInfo.Id));
+                    reJson.Data = Mapper.Map<List<NoticeViewModel>>(_classInfoService.GetAllNotices(GuserInfo.UserClass[0].Id));
                 }
                 else
                 {
@@ -117,11 +117,11 @@ namespace AlumniBook.Controllers
             }
             else
             {
-                var addresult = _classInfoService.AddClassNotice(GuserInfo.classInfo.Id, Mapper.Map<NoticeInput>(newNotice));
+                var addresult = _classInfoService.AddClassNotice(GuserInfo.UserClass[0].Id, Mapper.Map<NoticeInput>(newNotice));
                 if (addresult.result)
                 {
                     reJson.Status = "OK";
-                    reJson.Data = Mapper.Map<List<NoticeViewModel>>(_classInfoService.GetAllNotices(GuserInfo.classInfo.Id));
+                    reJson.Data = Mapper.Map<List<NoticeViewModel>>(_classInfoService.GetAllNotices(GuserInfo.UserClass[0].Id));
                 }
                 else
                 {
@@ -134,6 +134,19 @@ namespace AlumniBook.Controllers
             return Json(reJson, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 获取当前班级相册列表
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetCurrentClassAlbums()
+        {
+            return Json(Mapper.Map<List<AlbumViewModel>>(GuserInfo.UserClass[0].ClassAlbum.ToList()), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult DeleteClassAlbums(int albumsId)
+        {
+            return Json(_classInfoService.DeleteClassAlbums(GuserInfo.UserClass[0].Id, albumsId), JsonRequestBehavior.AllowGet);
+        }
 
     }
 }

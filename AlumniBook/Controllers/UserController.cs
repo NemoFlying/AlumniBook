@@ -79,7 +79,7 @@ namespace AlumniBook.Controllers
         /// <returns></returns>
         public JsonResult GetAllClassUser()
         {
-            return Json(Mapper.Map<List<UserViewModel>>(_userService.GetAllClassUser(GuserInfo.classInfo.Id)), JsonRequestBehavior.AllowGet);
+            return Json(Mapper.Map<List<UserViewModel>>(_userService.GetAllClassUser(GuserInfo.UserClass[0].Id)), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace AlumniBook.Controllers
                 if (delResult.result)
                 {
                     reJson.Status = "OK";
-                    reJson.Data = Mapper.Map<List<UserViewModel>>(_userService.GetAllClassUser(GuserInfo.classInfo.Id));
+                    reJson.Data = Mapper.Map<List<UserViewModel>>(_userService.GetAllClassUser(GuserInfo.UserClass[0].Id));
                 }
                 else
                 {
