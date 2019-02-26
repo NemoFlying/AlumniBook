@@ -170,14 +170,15 @@ namespace AlumniBook.Controllers
         /// 上传图片
         /// </summary>
         /// <returns></returns>
-        public JsonResult AddClassAlbums()
+        [HttpPost]
+        public JsonResult AddClassAlbums(HttpPostedFileBase imgFile1)
         {
             var result = new ResultBaseOutput();
             try
             {
-                HttpPostedFileBase img = Request.Files["imgFile"];
-                string fileName = Guid.NewGuid().ToString().Replace("-", "") + "." + Path.GetExtension(img.FileName);
-                string filepath = "/Images/Album/" + GuserInfo.CurrentClass.ClassName + "/";
+                HttpPostedFileBase img = Request.Files["imgFile1"];
+                string fileName = Guid.NewGuid().ToString().Replace("-", "") + Path.GetExtension(img.FileName);
+                string filepath = "/assets/Images/Album/" + GuserInfo.CurrentClass.ClassName + "/";
                 if (Directory.Exists(Server.MapPath(filepath)) == false)
                 {
                     Directory.CreateDirectory(Server.MapPath(filepath));
@@ -185,6 +186,11 @@ namespace AlumniBook.Controllers
                 string virpath = filepath + fileName;
                 img.SaveAs(Server.MapPath(virpath));
                 result.Status = true;
+                result = _classInfoService.AddClassAlbums(GuserInfo.CurrentClass.Id, GuserInfo.UserName, virpath);
+                if(result.Status)
+                {
+                    result.Data = ".." + virpath;
+                }
             }
             catch(Exception ex)
             {

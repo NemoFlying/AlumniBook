@@ -32,7 +32,7 @@ window.onload = function () {
                             <img src="`+ this.PhotoUrl + `" alt="Alternate Text" />
                         </div>
                         <div class="imgMsg">
-                            <p>`+ (new Date(parseInt(this.CreateDate.replace(/\D/igm, "")))).toLocaleString() + `</p><span>` + this.CreateUser + `</span><span>上傳至</span><span>《相冊》</span>
+                            <p>`+ (new Date(parseInt(this.CreateDate.replace(/\D/igm, "")))).toLocaleString() + `</p><span>` + this.CreateUser + `</span><span>上傳</span>
                             <button type="button" class='delImgBtn'></button>
                         </div>
                     </li>
@@ -106,6 +106,18 @@ window.onload = function () {
     });
 
 }
+//照片上传
+$(function () {
+    $(".btnFileUpload").click(function () {
+        $("#photoUpload").ajaxSubmit({
+            url: '../ClassInfo/AddClassAlbums',
+            type: 'POST',
+            success: function (data) {
+                console.log(data);
+            }
+        })
+    })
+})
 
 //$(function () {
 //    var dt = '/Date(1436595149269)/';

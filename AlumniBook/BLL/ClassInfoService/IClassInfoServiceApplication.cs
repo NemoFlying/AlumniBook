@@ -52,5 +52,14 @@ namespace AlumniBook.BLL.ClassInfoService
         /// <param name="albumsId"></param>
         /// <returns></returns>
         ResultBaseOutput DeleteClassAlbums(int classId, int albumsId);
+
+        /// <summary>
+        /// 为班级添加照片
+        /// </summary>
+        /// <param name="classId"></param>
+        /// <param name="userId"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        ResultBaseOutput AddClassAlbums(int classId, string userName, string url);
     }
 }
