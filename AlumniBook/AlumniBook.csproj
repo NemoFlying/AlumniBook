@@ -221,6 +221,7 @@
     <Content Include="assets\img\MessageBoard.png" />
     <Content Include="assets\img\off.png" />
     <Content Include="assets\img\PhotoAlbum.png" />
+    <Content Include="assets\img\upImg.png" />
     <Content Include="assets\img\userBg.jpg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />

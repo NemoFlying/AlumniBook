@@ -153,7 +153,7 @@ namespace AlumniBook.Controllers
         {
             var result = new ResultBaseOutput();
             ///权限判断
-            if(GuserInfo.UserType != 1)
+            if(GuserInfo.UserType >= 2)
             {
                 //表示没有权限删除
                 result.Status = false;
