@@ -18,7 +18,7 @@ namespace AlumniBook.BLL.UserService
         /// <returns>
         /// 返回登录信息
         /// </returns>
-        LogonResultOutput LogonAuthen(string userName, string password);
+        ResultBaseOutput LogonAuthen(string userName, string password);
 
         /// <summary>
         /// 注册用户

@@ -44,25 +44,14 @@ namespace AlumniBook.BLL.UserService.Dto
         /// 新创建班级的名称
         /// </summary>
         public string ClassName { get; set; }
-
         /// <summary>
-        /// 问题
+        /// 班级问题答案设置
         /// </summary>
-        public List<string> Question
-        {
-            get;set;
-        }
-        /// <summary>
-        /// 答案
-        /// </summary>
-        public List<string> Anser
-        {
-            get; set;
-        }
-
+        public List<ClassQuestionInput> QuestionConfig { get; set; }
         /// <summary>
         /// 班级介绍
         /// </summary>
         public string Introduce { get; set; }
     }
+
 }

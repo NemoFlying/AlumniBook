@@ -25,7 +25,7 @@ namespace AlumniBook.Controllers
         }
 
         /// <summary>
-        /// 注册新用户接收方法
+        /// 【注册新用户接收方法】
         /// </summary>
         /// <returns></returns>
         public JsonResult Regist(RegistUserInput newUser)
@@ -35,7 +35,7 @@ namespace AlumniBook.Controllers
             return Json(_userService.RegistUser(newUser), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
-        /// 用户认证
+        /// 【用户认证】
         /// </summary>
         /// <param name="userName"></param>
         /// <param name="password"></param>
@@ -46,9 +46,9 @@ namespace AlumniBook.Controllers
             if(result.result)
             {
                 //表示认证通过
-                //Keeper Session
+                //Keep Session
                 HttpContext.Session["userinfo"] = result.Data;
-                result.Data = null;
+                result.Data = Mapper.Map<UserViewModel>(result.Data);
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -62,9 +62,9 @@ namespace AlumniBook.Controllers
             var indexView = new IndexViewModel()
             {
                 UserInfo = Mapper.Map<UserViewModel>( GuserInfo),
-                AlumCoverImgUrl = classInfo.ClassAlbum.Find(con => con.IsCover == "Y").PhotoUrl,
-                BannerImgUrl = classInfo.ClassAlbum.Find(con => con.IsCover == "Y").PhotoUrl,
-                Classmate = Mapper.Map<List<UserViewModel>>(classInfo.Users),
+                AlumCoverImgUrl = classInfo.ClassAlbum.ToList().Find(con => con.IsCover == "Y").PhotoUrl,
+                BannerImgUrl = classInfo.ClassAlbum.ToList().Find(con => con.IsCover == "Y").PhotoUrl,
+                Classmate = Mapper.Map<List<UserViewModel>>(classInfo.User),
                 Bbs = Mapper.Map<List<LeavingMessageViewModel>>(classInfo.ClassLeavingMessage),
                 Notices = Mapper.Map<List<NoticeViewModel>>(classInfo.ClassNotice),
                 ClassInfo = Mapper.Map<ClassInfoViewModel>(classInfo)

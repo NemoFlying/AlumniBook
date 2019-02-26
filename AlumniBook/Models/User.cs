@@ -92,6 +92,8 @@ namespace AlumniBook.Models
         /// <summary>
         /// 班级信息
         /// </summary>
-        public virtual List<ClassInfo> ClassInfo { get; set; }
+        public virtual ICollection<ClassInfo> UserClass { get; set; }
+
+        public virtual ICollection<ClassInfo> AdminClass { get; set; }
     }
 }

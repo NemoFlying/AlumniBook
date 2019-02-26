@@ -46,31 +46,31 @@ namespace AlumniBook.Models
         /// <summary>
         /// 管理员
         /// </summary>
-        public virtual List<User> adminUser { get; set; }
+        public virtual ICollection<User> adminUser { get; set; }
 
         /// <summary>
         /// 用户信息
         /// </summary>
-        public virtual List<User> Users { get; set; }
+        public virtual ICollection<User> User { get; set; }
 
         /// <summary>
         /// 班级相册列表
         /// </summary>
-        public virtual List<ClassAlbum> ClassAlbum { get; set; }
+        public virtual ICollection<ClassAlbum> ClassAlbum { get; set; }
 
         /// <summary>
         /// 班级留言信息
         /// </summary>
-        public virtual List<ClassLeavingMessage> ClassLeavingMessage { get; set; }
+        public virtual ICollection<ClassLeavingMessage> ClassLeavingMessage { get; set; }
 
         /// <summary>
         /// 班级公告
         /// </summary>
-        public virtual List<ClassNotice> ClassNotice { get; set; }
+        public virtual ICollection<ClassNotice> ClassNotice { get; set; }
 
         /// <summary>
         /// 申请班级Q&A
         /// </summary>
-        public virtual List<ClassQuestion> ClassQustion { get; set; }
+        public virtual ICollection<ClassQuestion> ClassQustion { get; set; }
     }
 }
