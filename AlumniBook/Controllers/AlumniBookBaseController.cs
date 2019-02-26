@@ -18,6 +18,6 @@ namespace AlumniBook.Controllers
         /// </summary>
         protected UserInfoOutput GuserInfo => (UserInfoOutput)HttpContext.Session["userinfo"];
 
-
+        
     }
 }

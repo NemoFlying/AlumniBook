@@ -43,7 +43,7 @@ namespace AlumniBook.Controllers
         public JsonResult LogonAuthen(string userName,string password)
         {
             var result = _userService.LogonAuthen(userName, password);
-            if(result.result)
+            if(result.Status)
             {
                 //表示认证通过
                 //Keep Session
@@ -79,7 +79,7 @@ namespace AlumniBook.Controllers
         /// <returns></returns>
         public JsonResult GetAllClassUser()
         {
-            return Json(Mapper.Map<List<UserViewModel>>(_userService.GetAllClassUser(GuserInfo.UserClass[0].Id)), JsonRequestBehavior.AllowGet);
+            return Json(Mapper.Map<List<UserViewModel>>(_userService.GetAllClassUser(GuserInfo.CurrentClass.Id)), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -98,10 +98,10 @@ namespace AlumniBook.Controllers
             }else
             {
                 var delResult = _userService.DeleteUserById(userId);
-                if (delResult.result)
+                if (delResult.Status)
                 {
                     reJson.Status = "OK";
-                    reJson.Data = Mapper.Map<List<UserViewModel>>(_userService.GetAllClassUser(GuserInfo.UserClass[0].Id));
+                    reJson.Data = Mapper.Map<List<UserViewModel>>(_userService.GetAllClassUser(GuserInfo.CurrentClass.Id));
                 }
                 else
                 {

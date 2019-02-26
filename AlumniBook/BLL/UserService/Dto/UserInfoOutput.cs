@@ -16,13 +16,6 @@ namespace AlumniBook.BLL.UserService.Dto
         public string UserName { get; set; }
 
         /// <summary>
-        /// 用户类型
-        /// 0:普通用户
-        /// 1.管理员
-        /// </summary>
-        public int UserType { get; set; }
-
-        /// <summary>
         /// 是否实名认证
         /// Y:表示已经认证
         /// N:表示未认证【默认值】
@@ -55,5 +48,31 @@ namespace AlumniBook.BLL.UserService.Dto
         public string Phone { get; set; }
 
         public List<ClassInfo> UserClass { get; set; }
+
+        /// <summary>
+        /// 当前用户查看班级
+        /// </summary>
+        public ClassInfo CurrentClass { get { return UserClass[0]; } }
+
+        /// <summary>
+        /// 0=>超级管理员
+        /// 1=>系统管理员
+        /// 2=>普通用户
+        /// </summary>
+        public int UserType
+        {
+            get
+            {
+                if (UserName == "admin")
+                    return 0;
+                else if (CurrentClass.adminUser.ToList().Find(con => con.Id == Id) != null)
+                    return 1;
+                else
+                    return 2;
+            }
+        }
+
+        
+
     }
 }

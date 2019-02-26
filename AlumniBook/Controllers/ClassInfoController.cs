@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AlumniBook.BLL;
 using AlumniBook.BLL.ClassInfoService;
 using AlumniBook.BLL.Dto;
 using AlumniBook.ViewModels;
@@ -63,7 +65,7 @@ namespace AlumniBook.Controllers
         {
             var reJson = new JsonReMsg() { Status = "OK" };
             reJson.Data = Mapper.Map<List<NoticeViewModel>>(_classInfoService.GetAllNotices(
-                GuserInfo.UserClass[0].Id
+                GuserInfo.CurrentClass.Id
                 ));
             return Json(reJson, JsonRequestBehavior.AllowGet);
         }
@@ -90,10 +92,10 @@ namespace AlumniBook.Controllers
             else
             {
                 var delResult = _classInfoService.DeleteNoticeId(noticeId);
-                if (delResult.result)
+                if (delResult.Status)
                 {
                     reJson.Status = "OK";
-                    reJson.Data = Mapper.Map<List<NoticeViewModel>>(_classInfoService.GetAllNotices(GuserInfo.UserClass[0].Id));
+                    reJson.Data = Mapper.Map<List<NoticeViewModel>>(_classInfoService.GetAllNotices(GuserInfo.CurrentClass.Id));
                 }
                 else
                 {
@@ -117,11 +119,11 @@ namespace AlumniBook.Controllers
             }
             else
             {
-                var addresult = _classInfoService.AddClassNotice(GuserInfo.UserClass[0].Id, Mapper.Map<NoticeInput>(newNotice));
-                if (addresult.result)
+                var addresult = _classInfoService.AddClassNotice(GuserInfo.CurrentClass.Id, Mapper.Map<NoticeInput>(newNotice));
+                if (addresult.Status)
                 {
                     reJson.Status = "OK";
-                    reJson.Data = Mapper.Map<List<NoticeViewModel>>(_classInfoService.GetAllNotices(GuserInfo.UserClass[0].Id));
+                    reJson.Data = Mapper.Map<List<NoticeViewModel>>(_classInfoService.GetAllNotices(GuserInfo.CurrentClass.Id));
                 }
                 else
                 {
@@ -140,13 +142,59 @@ namespace AlumniBook.Controllers
         /// <returns></returns>
         public JsonResult GetCurrentClassAlbums()
         {
-            return Json(Mapper.Map<List<AlbumViewModel>>(GuserInfo.UserClass[0].ClassAlbum.ToList()), JsonRequestBehavior.AllowGet);
+            return Json(Mapper.Map<List<AlbumViewModel>>(GuserInfo.CurrentClass.ClassAlbum.ToList()), JsonRequestBehavior.AllowGet);
         }
-
+        /// <summary>
+        /// 删除相册【当前班级管理员才能删除】
+        /// </summary>
+        /// <param name="albumsId"></param>
+        /// <returns></returns>
         public JsonResult DeleteClassAlbums(int albumsId)
         {
-            return Json(_classInfoService.DeleteClassAlbums(GuserInfo.UserClass[0].Id, albumsId), JsonRequestBehavior.AllowGet);
+            var result = new ResultBaseOutput();
+            ///权限判断
+            if(GuserInfo.UserType != 1)
+            {
+                //表示没有权限删除
+                result.Status = false;
+                result.Msg = "权限不足";
+            }
+            else
+            {
+                result = _classInfoService.DeleteClassAlbums(GuserInfo.CurrentClass.Id, albumsId);
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 上传图片
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult AddClassAlbums()
+        {
+            var result = new ResultBaseOutput();
+            try
+            {
+                HttpPostedFileBase img = Request.Files["imgFile"];
+                string fileName = Guid.NewGuid().ToString().Replace("-", "") + "." + Path.GetExtension(img.FileName);
+                string filepath = "/Images/Album/" + GuserInfo.CurrentClass.ClassName + "/";
+                if (Directory.Exists(Server.MapPath(filepath)) == false)
+                {
+                    Directory.CreateDirectory(Server.MapPath(filepath));
+                }
+                string virpath = filepath + fileName;
+                img.SaveAs(Server.MapPath(virpath));
+                result.Status = true;
+            }
+            catch(Exception ex)
+            {
+                result.Status = false;
+                result.Msg = "上传失败";
+                result.Data = ex;
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        
     }
 }
