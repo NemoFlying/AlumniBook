@@ -153,7 +153,7 @@ namespace AlumniBook.BLL.ClassInfoService
             classinfo.ClassAlbum.Add(album);
             try
             {
-                _noticeDAL.SaveChanges();
+                _classDAL.SaveChanges();
                 result.Status = true;
             }
             catch (Exception ex)
