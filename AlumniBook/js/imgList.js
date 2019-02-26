@@ -81,17 +81,24 @@ window.onload = function () {
             $(".imglist").empty();
             getImg(reData);
             $(".delImgBtn").click(function () {
-                var ImgId = $(this).parents("li").attr("title");
+                var ImgId = $(this).parents("li");
+                var Id = ImgId.attr("title");
                 $.ajax({
                     dataType: "json",
                     url: "../ClassInfo/DeleteClassAlbums",
                     data: {
-                        albumsId: ImgId
+                        albumsId: Id
                     },
                     success: function (reData) {
                         console.log(reData);
-                        //$(".imglist").empty();
-                        //getImg(reData);
+                        if (reData.Status == true) {
+                            ImgId.remove();
+                            alert("成功删除图片！");
+
+                        }else{
+                            alert("删除失败，请稍后再试！");
+                        }
+                        
                     }
                 });
             });

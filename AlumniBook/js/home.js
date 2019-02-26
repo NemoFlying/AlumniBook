@@ -25,13 +25,13 @@ window.onload = function () {
         window.location.href = "../home/imglist";
     });
     //PhotoAlbum
+    function getBbs(data) {
 
+    }
     $.ajax({
         dataType: "json",
         url: "../User/GetUserIndexInfo",
         data: {
-            //userName: $('#Username').val(),
-            //password: $('#Password').val(),
         },
         success: function (data) {
             console.log(data);
@@ -45,10 +45,20 @@ window.onload = function () {
             //$("#div1").text(formatTime1);
             //var formatTime2 = convertTime(dt, "yyyy年MM月dd日 hh时mm分ss秒");//2015年07月11日 14时12分29秒
             //$("#div2").text(formatTime2);
+            $(".rightBottomL img").attr("src", "" + data.AlumCoverImgUrl + "");
 
             $(data.Notices).each(function () {
+                console.log(this)
                 $(".leftBottomDiv").append(`
-                    <h3 title=`+ this.Id + `>` + this.Notice + `</h3>
+                    <h3 title=`+ this.Id + `>12313` + this.Notice + `</h3>
+                    <p>`+ (new Date(parseInt(this.CreateDate.replace(/\D/igm, "")))).toLocaleString() + `</p>
+                `);
+            });
+
+            $(data.Notices).each(function () {
+
+                $(".leftBottomDiv").append(`
+                    <h3 title=`+ this.Id + `>12313` + this.Notice + `</h3>
                     <p>`+ (new Date(parseInt(this.CreateDate.replace(/\D/igm, "")))).toLocaleString() + `</p>
                 `);
             });
@@ -66,30 +76,48 @@ window.onload = function () {
                 `);
             });
 
+
             $(data.Bbs).each(function () {
                 $(".MessageBoard ul").append(`
                     <li title='`+ this.Id + `'>
                         <p>
-                            <img class='MessageBoardImg' src="http://q1.qlogo.cn/g?b=qq&nk=`+ data.QqId + `&s=140" alt="Alternate Text" />
-                            <span>`+ this.FromUser + `</span>
-                            <span>`+ this.Notice + `</span>
-                        </p>
-                    </li>
-                    <li title='`+ this.Id + `'>
-                        <p>
-                            <img class='MessageBoardImg' src="http://q1.qlogo.cn/g?b=qq&nk=`+ data.QqId + `&s=140" alt="Alternate Text" />
-                            <span>`+ this.FromUser + `</span>
-                            <span>`+ this.Notice + `</span>
+                            <img class='MessageBoardImg' src="http://q1.qlogo.cn/g?b=qq&nk=`+ this.QqId + `&s=40" alt="Alternate Text" />
+                            <span>`+ this.createUserName + `</span>
+                            <p class='Msg'>`+ this.Msg + `</p>
+                            <span class='MsgTimes'>`+ (new Date(parseInt(this.CreateDate.replace(/\D/igm, "")))).toLocaleString() + `</span>
                         </p>
                     </li>
                 `);
             });
+
             $(".rightDiv").css({ "background": "url(" + data.BannerImgUrl +")"});
         }
         
     });
 }
-
+$(".addMessageBoardBtn").on("click", function () {
+    var texts = $(".upMessageBoardDiv input").val();
+    $.ajax({
+        dataType: "json",
+        url: "../Class/AddClassBbs",
+        data: {
+            Msg:texts
+        },
+        success: function (data) {
+            console.log(data);
+            $(".MessageBoard li:last").append(`
+                <li title = '`+ this.Id + `' >
+                    <p>
+                        <img class='MessageBoardImg' src="http://q1.qlogo.cn/g?b=qq&nk=`+ this.QqId + `&s=40" alt="Alternate Text" />
+                        <span>`+ this.createUserName + `</span>
+                        <p class='Msg'>`+ this.Msg + `</p>
+                        <span class='MsgTimes'>`+ (new Date(parseInt(this.CreateDate.replace(/\D/igm, "")))).toLocaleString() + `</span>
+                    </p>
+                </li >
+            `);
+        }
+    });
+});
 //$(function () {
 //    var dt = '/Date(1436595149269)/';
 //    var formatTime1 = convertTime(dt, "yyyy-MM-dd hh:mm:ss");//2015-07-11 14:12:29
