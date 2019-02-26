@@ -12,6 +12,17 @@ window.onload = function () {
 
         window.location.href = "../home/logon";
     });
+    $(".homeBtn").on("click", function () {
+
+        window.location.href = "../home/home";
+    });
+    $(".MessageBoardBtn").on("click", function () {
+
+        window.location.href = "../home/MessageBoard";
+    });
+    $(".PhotoAlbumBtn").on("click", function () {
+        window.location.href = "../home/imglist";
+    });
     $.ajax({
         dataType: "json",
         url: "../User/GetUserIndexInfo",
