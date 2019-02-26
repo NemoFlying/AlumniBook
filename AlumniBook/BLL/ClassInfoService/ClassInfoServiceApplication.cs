@@ -131,6 +131,37 @@ namespace AlumniBook.BLL.ClassInfoService
             return result;
         }
 
+        /// <summary>
+        /// 为班级添加照片
+        /// </summary>
+        /// <param name="classId"></param>
+        /// <param name="userId"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public ResultBaseOutput AddClassAlbums(int classId,string userName,string url)
+        {
+            var result = new ResultBaseOutput();
+            var classinfo = _classDAL.GetModels(con => con.Id == classId).FirstOrDefault();
+            var album = new ClassAlbum()
+            {
+                IsCover = "N",
+                CreateUser = userName,
+                PhotoUrl = ".." + url
+            };
+            classinfo.ClassAlbum.Add(album);
+            try
+            {
+                _noticeDAL.SaveChanges();
+                result.Status = true;
+            }
+            catch (Exception ex)
+            {
+                result.Status = false;
+                result.Msg = "删除失败";
+                result.Data = ex;
+            }
+            return result;
+        }
 
     }
 }
