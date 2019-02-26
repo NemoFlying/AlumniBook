@@ -68,11 +68,11 @@ namespace AlumniBook.BLL.ClassInfoService
             try
             {
                 _noticeDAL.SaveChanges();
-                result.result = true;
+                result.Status = true;
             }
             catch (Exception ex)
             {
-                result.result = false;
+                result.Status = false;
                 result.Msg = "删除失败";
                 result.Data = ex;
             }
@@ -94,11 +94,11 @@ namespace AlumniBook.BLL.ClassInfoService
             try
             {
                 _noticeDAL.SaveChanges();
-                result.result = true;
+                result.Status = true;
             }
             catch (Exception ex)
             {
-                result.result = false;
+                result.Status = false;
                 result.Msg = "添加失败";
                 result.Data = ex;
             }
@@ -120,11 +120,11 @@ namespace AlumniBook.BLL.ClassInfoService
             try
             {
                 _noticeDAL.SaveChanges();
-                result.result = true;
+                result.Status = true;
             }
             catch (Exception ex)
             {
-                result.result = false;
+                result.Status = false;
                 result.Msg = "删除失败";
                 result.Data = ex;
             }

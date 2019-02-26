@@ -7,7 +7,7 @@ namespace AlumniBook.BLL
 {
     public class ResultBaseOutput
     {
-        public bool result { get; set; }
+        public bool Status { get; set; }
 
         public string Msg { get; set; }
 

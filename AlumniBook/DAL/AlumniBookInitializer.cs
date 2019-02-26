@@ -30,8 +30,8 @@ namespace AlumniBook.DAL
             },
                 new User()
             {
-                UserName = "Jerry",
-                Password = "9FD966C8E14B44EEF8F685DCAB3395E7",
+                UserName = "Nemo",
+                Password = "9F2D0837D9DB1F09090C2D43CDA43E95",
                 Certification = "Y",
                 HeadPortrait = "/img/defaultHead",
                 QqId = "240269961",
@@ -40,7 +40,7 @@ namespace AlumniBook.DAL
             },
                 new User()
             {
-                UserName = "miao",
+                UserName = "Jerry",
                 Password = "9FD966C8E14B44EEF8F685DCAB3395E7",
                 Certification = "Y",
                 HeadPortrait = "/img/defaultHead",

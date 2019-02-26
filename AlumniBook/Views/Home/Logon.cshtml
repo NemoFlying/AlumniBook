@@ -89,15 +89,13 @@
             $.ajax({
                 url: "../User/LogonAuthen",
                 data: {
-                    //userName: $('#Username').val(),
-                    //password: $('#Password').val(),
-                    userName: "admin",
-                    password:"admin"
+                    userName: $('#Username').val(),
+                    password: $('#Password').val()
                 },
                 success: function (data) {
                     console.log(data);
 
-                    if (data.result == true) {
+                    if (data.Status == true) {
                         window.location.href = "../home/home"
                     } else {
                         $('#Button').removeAttr('disabled');

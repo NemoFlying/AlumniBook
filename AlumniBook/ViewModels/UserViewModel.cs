@@ -49,17 +49,18 @@ namespace AlumniBook.ViewModels
         /// QQ
         /// </summary>
         public string QqId { get; set; }
-        /// <summary>
-        /// 用户类型
-        /// 0:普通用户
-        /// 1.管理员
-        /// </summary>
-        public int UserType { get; set; }
 
         /// <summary>
         /// 班级名称
         /// 
         /// </summary>
         public string ClassName { get; set; }
+
+        /// <summary>
+        /// 0=>超级管理员
+        /// 1=>系统管理员
+        /// 2=>普通用户
+        /// </summary>
+        public string userType { get; set; }
     }
 }
