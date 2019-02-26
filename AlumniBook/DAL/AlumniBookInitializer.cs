@@ -14,7 +14,7 @@ namespace AlumniBook.DAL
 
             
 
-            //添加用户班级 1班
+            //添加用户班级
             var user = new List<User>()
             {
                 new User()
@@ -49,11 +49,6 @@ namespace AlumniBook.DAL
                 RealName = "Nemo"
             }
             };
-            //admin用户注册
-
-            user.ForEach(item => context.User.Add(item));
-            context.SaveChanges();
-
             //默认班级
             var classInfo = new ClassInfo()
             {
@@ -61,19 +56,19 @@ namespace AlumniBook.DAL
                 CreateUser = user[0],
                 Introduce = "48个快乐的孩子，怀着对梦的执着；对美好青春的渴望；对未来无限的憧憬；踏进了六年五班。这是一个团结上进的班集体；一个温馨和谐的大家庭，一个充满爱的乐园。一个团结的群体，一个充满活力的群体，一个不甘落后的群体，一个饱含热情的群体 ；它不会因为矛盾而分散，不会因为压力而沉寂，不会因为失败而丧气，不会因为竞争而冷漠。我们，是一个整体，我们，是不可分割的一织血脉。纵然有过羞涩，纵然有过隔阂，但一切的不愉快都随风飘逝，所有的不和都随波消散，友好，和睦，亲密无间，成为了永恒的旋律。心灵与心灵相交融，友爱和友爱相重叠，平平淡淡的生活中，所涂抹出来的，是一幅没有灰色，没有黑色，没有夜的暗，没有冬之寒的油画。这就是五班。",
                 adminUser = new List<User>() { user[0] },
-                Users= new List<User>() { user[0], user[1], user[2] },
+                User= user,
             };
-            var classInfo2 = new ClassInfo()
-            {
-                ClassName = "启航2",
-                CreateUser = user[1],
-                Introduce = "因为有梦，所以远方！",
-                adminUser = new List<User>() { user[1] },
-                Users = new List<User>() { user[0], user[1], user[2] },
+            //var classInfo2 = new ClassInfo()
+            //{
+            //    ClassName = "启航2",
+            //    CreateUser = user[1],
+            //    Introduce = "因为有梦，所以远方！",
+            //    adminUser = new List<User>() { user[1] },
+            //    User = ne,
 
-            };
+            //};
             context.ClassInfo.Add(classInfo);
-            context.ClassInfo.Add(classInfo2);
+            //context.ClassInfo.Add(classInfo2);
             context.SaveChanges();
 
 
@@ -187,25 +182,26 @@ namespace AlumniBook.DAL
                     ClassInfo = classInfo,
                     Question = "Q3",
                     Answer = "Q3"
-                },
-                new ClassQuestion()
-                {
-                    ClassInfo = classInfo2,
-                    Question = "Q4",
-                    Answer = "Q1"
-                },
-                new ClassQuestion()
-                {
-                    ClassInfo = classInfo2,
-                    Question = "Q5",
-                    Answer = "Q5"
-                },
-                new ClassQuestion()
-                {
-                    ClassInfo = classInfo2,
-                    Question = "Q6",
-                    Answer = "Q6"
-                },
+                }
+                //},
+                //new ClassQuestion()
+                //{
+                //    ClassInfo = classInfo2,
+                //    Question = "Q4",
+                //    Answer = "Q1"
+                //},
+                //new ClassQuestion()
+                //{
+                //    ClassInfo = classInfo2,
+                //    Question = "Q5",
+                //    Answer = "Q5"
+                //},
+                //new ClassQuestion()
+                //{
+                //    ClassInfo = classInfo2,
+                //    Question = "Q6",
+                //    Answer = "Q6"
+                //},
             };
 
             Q1.ForEach(item => context.ClassQuestion.Add(item));

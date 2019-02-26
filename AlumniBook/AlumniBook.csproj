@@ -166,7 +166,7 @@
     <Compile Include="BLL\ClassQustionService\ClassQustionServiceApplication.cs" />
     <Compile Include="BLL\ClassQustionService\IClassQustionServiceApplication.cs" />
     <Compile Include="BLL\ServiceBaseOutput.cs" />
-    <Compile Include="BLL\UserService\Dto\LogonResultOutput.cs" />
+    <Compile Include="BLL\UserService\Dto\ClassQuestionInput.cs" />
     <Compile Include="BLL\UserService\Dto\RegistUserInput.cs" />
     <Compile Include="BLL\UserService\Dto\UserInfoOutput.cs" />
     <Compile Include="BLL\UserService\IUserServiceApplication.cs" />

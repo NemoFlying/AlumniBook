@@ -29,6 +29,25 @@ namespace AlumniBook.DAL
         {
             //指定单数形式的表名
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            //modelBuilder.Entity<ClassInfo>().HasMany(t => t.adminUser).WithMany(t => t.ClassInfo).Map(m =>
+            //    {
+            //        m.ToTable("ClassAdminUser");
+            //        m.MapLeftKey("ClassId1");
+            //        m.MapRightKey("UserId1");
+            //    });
+            modelBuilder.Entity<ClassInfo>().HasMany(m => m.adminUser).WithMany(t => t.AdminClass)
+                .Map(m =>
+                {
+                    m.ToTable("ClassAdminUser");
+                    m.MapLeftKey("ClassId");
+                    m.MapRightKey("UserId");
+                });
+            modelBuilder.Entity<ClassInfo>().HasMany(t => t.User).WithMany(t => t.UserClass).Map(m =>
+            {
+                m.ToTable("ClassUser");
+                m.MapLeftKey("ClassId");
+                m.MapRightKey("UserId");
+            });
         }
 
     }

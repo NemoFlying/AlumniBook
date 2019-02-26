@@ -13,7 +13,7 @@ namespace AlumniBook.BLL.UserService
 {
     public class UserServiceApplication:IUserServiceApplication
     {
-
+        //https://stackoverflow.com/questions/33029127/go-to-definition-cannot-navigate-to-the-symbol-under-the-caret
         private readonly IUserDAL _userDAL;
         private readonly IClassInfoDAL _classInfoDAL;
 
@@ -28,21 +28,21 @@ namespace AlumniBook.BLL.UserService
         }
 
         /// <summary>
-        /// 登录认证
+        /// 【登录认证】
         /// </summary>
         /// <param name="userName">登录账号</param>
         /// <param name="password">密码</param>
         /// <returns>
         /// 返回登录信息
         /// </returns>
-        public LogonResultOutput LogonAuthen(string userName,string password)
+        public ResultBaseOutput LogonAuthen(string userName,string password)
         {
             var md5 = new MD5CryptoServiceProvider();
             var pwd = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(userName + password)));
             pwd = pwd.Replace("-", "");
             var user = _userDAL.GetModels(con => con.UserName == userName).FirstOrDefault();
 
-            var result = new LogonResultOutput();
+            var result = new ResultBaseOutput();
             result.result = false;
             if (user is null)
             {
@@ -61,8 +61,6 @@ namespace AlumniBook.BLL.UserService
                 result.Data = Mapper.Map<UserInfoOutput>(user);
             }
             return result;
-
-
         }
 
         /// <summary>
@@ -79,7 +77,7 @@ namespace AlumniBook.BLL.UserService
         }
 
         /// <summary>
-        /// 注册用户
+        /// 【注册用户】
         /// </summary>
         /// <param name="newUserInfo"></param>
         /// <returns></returns>
@@ -111,28 +109,18 @@ namespace AlumniBook.BLL.UserService
                 user = Mapper.Map<User>(newUserInfo);
                 user.Password = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(user.UserName + user.Password))).Replace("-", "");
                 //创建问题&答案
-                var qa = new List<ClassQuestion>() {
-                    new ClassQuestion(){
-                        Question = newUserInfo.Question[0],
-                        Answer = newUserInfo.Anser[0]
-                    },
-                    new ClassQuestion(){
-                        Question = newUserInfo.Question[1],
-                        Answer = newUserInfo.Anser[1]
-                    },
-                    new ClassQuestion(){
-                        Question = newUserInfo.Question[2],
-                        Answer = newUserInfo.Anser[2]
-                    },
-                };
+                var qa = new List<ClassQuestion>();
+                newUserInfo.QuestionConfig.ForEach(item =>
+                    qa.Add(new ClassQuestion() { Question = item.Question, Answer = item.Answer })
+                );
                 //创建班级
                 var newClassInfo = new ClassInfo()
                 {
                     ClassName = newUserInfo.ClassName,
                     CreateUser = user,
-                    Users = new List<User>() { user },
+                    User = new List<User>() { user },
                     Introduce = newUserInfo.Introduce,
-                    adminUser = new List<User>() { user },
+                    //adminUser = new List<User>() { user },
                     ClassQustion = qa
                 };
                 _classInfoDAL.Add(newClassInfo);
@@ -152,10 +140,11 @@ namespace AlumniBook.BLL.UserService
             {
                 //问题答案验证
                 var classInfo = _classInfoDAL.GetModels(con => con.Id == newUserInfo.ClassId).FirstOrDefault();
+
                 var anSwerResult = true;
-                classInfo.ClassQustion.ForEach(
+                classInfo.ClassQustion.ToList().ForEach(
                     item => {
-                        if (!newUserInfo.Anser.Contains(item.Answer))
+                        if (newUserInfo.QuestionConfig.Find(con => con.Question == item.Question).Answer != item.Answer)
                         {
                             anSwerResult = false;
                         }
@@ -171,7 +160,7 @@ namespace AlumniBook.BLL.UserService
                     user = Mapper.Map<User>(newUserInfo);
                     //密码加密
                     user.Password = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(user.UserName + user.Password))).Replace("-", "");
-                    user.ClassInfo = new List<ClassInfo>() { classInfo };
+                    user.UserClass = new List<ClassInfo>() { classInfo };
                     _userDAL.Add(user);
                     try
                     {
@@ -198,7 +187,7 @@ namespace AlumniBook.BLL.UserService
         /// <returns></returns>
         public ClassInfo GetClassInfoByUid(int userId)
         {
-            return _userDAL.GetModels(con => con.Id == userId).FirstOrDefault().ClassInfo.FirstOrDefault();
+            return _userDAL.GetModels(con => con.Id == userId).FirstOrDefault().UserClass.FirstOrDefault();
 
         }
         /// <summary>
@@ -223,7 +212,7 @@ namespace AlumniBook.BLL.UserService
         public List<UserInfoOutput> GetAllClassUser(int classId)
         {
             return Mapper.Map<List<UserInfoOutput>>(_classInfoDAL.GetModels(con => con.Id == classId)
-                .FirstOrDefault().Users.ToList());
+                .FirstOrDefault().User.ToList());
         }
 
         /// <summary>
