@@ -14,12 +14,13 @@ namespace AlumniBook.BLL.ClassInfoService
     {
         private IClassInfoDAL _classDAL { get; set; }
         private IClassNoticeDAL _noticeDAL { get; set; }
-        private IUserDAL _userDAL { get; set; }
+        //private IUserDAL _userDAL { get; set; }
+        //private ILeavingMessageDAL _bbs { get; set; }
         public ClassInfoServiceApplication()
         {
             _classDAL = new ClassInfoDAL();
             _noticeDAL = new ClassNoticeDAL();
-            _userDAL = new UserDAL();
+           // _bbs = new LeavingMessageDAL();
 
         }
 
@@ -179,12 +180,12 @@ namespace AlumniBook.BLL.ClassInfoService
             {
                 ClassInfo = classinfo,
                 Msg = msg,
-                User = _userDAL.GetModels(con=>con.Id==userId).FirstOrDefault()
+                User = classinfo.User.ToList().Find(con => con.Id == userId)
             };
             classinfo.ClassLeavingMessage.Add(bbs);
             try
             {
-                _classDAL.Update(classinfo);
+                //_bbs.Add(bbs);
                 _classDAL.SaveChanges();
                 result.Status = true;
                 result.Data = bbs;

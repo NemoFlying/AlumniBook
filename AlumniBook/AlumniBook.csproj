@@ -187,6 +187,8 @@
     <Compile Include="DAL\ClassQuestionDAL\ClassQuestionDAL.cs" />
     <Compile Include="DAL\ClassQuestionDAL\IClassQuestionDAL.cs" />
     <Compile Include="DAL\IBaseDAL.cs" />
+    <Compile Include="DAL\LeavingMessageDAL\ILeavingMessageDAL.cs" />
+    <Compile Include="DAL\LeavingMessageDAL\LeavingMessageDAL.cs" />
     <Compile Include="DAL\UserDAL\IUserDAL.cs" />
     <Compile Include="DAL\UserDAL\UserDAL.cs" />
     <Compile Include="Global.asax.cs">
