@@ -115,6 +115,17 @@ $(function () {
             success: function (data) {
                 console.log(111);
                 console.log(data);
+                $(".imglist li:last").append(`
+                                        <li title='`+ this.Id + `'>
+                        <div>
+                            <img src="`+ this.PhotoUrl + `" alt="Alternate Text" />
+                        </div>
+                        <div class="imgMsg">
+                            <p>`+ (new Date(parseInt(this.CreateDate.replace(/\D/igm, "")))).toLocaleString() + `</p><span>` + this.CreateUser + `</span><span>上傳</span>
+                            <button type="button" class='delImgBtn'></button>
+                        </div>
+                    </li>
+                `);
             }
         })
     })
