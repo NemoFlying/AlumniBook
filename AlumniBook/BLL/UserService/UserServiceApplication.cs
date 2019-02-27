@@ -69,10 +69,10 @@ namespace AlumniBook.BLL.UserService
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
-        public UserInfoOutput GetUserInfoByName(string userName)
+        public UserInfoOutput GetUserInfoById(int userId)
         {
             return Mapper.Map<UserInfoOutput>(
-                _userDAL.GetModels(con => con.UserName == userName)
+                _userDAL.GetModels(con => con.Id == userId)
                 .FirstOrDefault()
                 );
         }
@@ -274,8 +274,23 @@ namespace AlumniBook.BLL.UserService
         public ResultBaseOutput UpdateUser(UserInfoUpdateInput updUser)
         {
             var result = new ResultBaseOutput();
+
+            
             var user = _userDAL.GetModels(con => con.Id == updUser.Id).FirstOrDefault();
+            updUser.UserName = user.UserName;
+            if (string.IsNullOrEmpty(updUser.Password))
+            {
+                updUser.Password = user.Password;
+            }
+            else
+            {
+                var md5 = new MD5CryptoServiceProvider();
+                updUser.Password = BitConverter
+                    .ToString(md5.ComputeHash(Encoding.Default.GetBytes(updUser.UserName + updUser.Password)))
+                    .Replace("-", "");
+            }
             Mapper.Map(updUser, user);
+            
             try
             {
                 _userDAL.Update(user);

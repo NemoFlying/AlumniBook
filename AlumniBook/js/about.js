@@ -87,12 +87,16 @@ $(function () {
             $(".realName").val(data.UserInfo.RealName);
             $(".QQId").val(data.UserInfo.QqId);
             if (data.UserInfo.Sex !=null) {
-                $(".sexSelect").find("option[value=" + this.Sex + "]").attr("selected", selected);
+                $(".sexSelect").find("option[value=" + data.UserInfo.Sex + "]").attr("selected", true);
             }
             if (data.UserInfo.Phone !=null) {
                 $(".phone").val(data.UserInfo.Phone);
             }
-
+            if (data.UserInfo.Certification = "Y") {
+                //表示没有实名认证
+                $(".IdCard").removeAttr("lay-verify").parents(".layui-form-item").hide();
+                $(".realName").attr("disabled",true);
+            }
             $(".userBtn").on("click", function () {
                 var Id = $(".realName").attr("title");
                 var realName = $(".realName").val();

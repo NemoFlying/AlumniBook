@@ -125,8 +125,10 @@ namespace AlumniBook.Controllers
             result = _userService.UpdateUser(userInput);
             if(result.Status)
             {
+                HttpContext.Session["userinfo"] = Mapper.Map<UserInfoOutput>(result.Data);
                 result.Data = Mapper.Map<UserViewModel>(result.Data);
             }
+            
             return Json(result, JsonRequestBehavior.AllowGet);
 
         }
