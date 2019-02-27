@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using AlumniBook.BLL.Dto;
+using AlumniBook.BLL.ClassInfoService.Dto;
 using AlumniBook.BLL.UserService.Dto;
 using AlumniBook.Models;
 using AlumniBook.ViewModels;
@@ -40,6 +40,9 @@ namespace AlumniBook
                     config.CreateMap<NoticeViewModel, NoticeInput>();
                     config.CreateMap<NoticeInput, ClassNotice>();
                     config.CreateMap<ClassAlbum, AlbumViewModel>();
+
+                    config.CreateMap<ClassQuestionInput, ClassQuestion>();
+                    config.CreateMap<ClassInfo, ClassInfoViewModel>();
 
                     ////店铺转换
                     //config.CreateMap<Shop, ShopOutPutViewModel>()

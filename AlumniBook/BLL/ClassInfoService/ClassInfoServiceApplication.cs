@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using AlumniBook.BLL.Dto;
+using AlumniBook.BLL.ClassInfoService.Dto;
 using AlumniBook.DAL;
 using AlumniBook.Models;
 using AlumniBook.ViewModels;
@@ -14,41 +14,90 @@ namespace AlumniBook.BLL.ClassInfoService
     {
         private IClassInfoDAL _classDAL { get; set; }
         private IClassNoticeDAL _noticeDAL { get; set; }
-        //private IUserDAL _userDAL { get; set; }
-        //private ILeavingMessageDAL _bbs { get; set; }
         public ClassInfoServiceApplication()
         {
             _classDAL = new ClassInfoDAL();
             _noticeDAL = new ClassNoticeDAL();
-           // _bbs = new LeavingMessageDAL();
-
         }
 
         /// <summary>
-        /// 获取所有班级信息
+        /// 【获取所有班级信息】
         /// </summary>
         /// <returns></returns>
-        public List<ClassInfo> GetAllClassInfo()
+        public List<ClassInfo> GetAllActiveClassInfo()
         {
-            return _classDAL.GetModels(con => 1 == 1).ToList();
+            return _classDAL.GetModels(con => con.ClassQustion.Count() == 3).ToList();
         }
 
         /// <summary>
-        /// 根据班级ID获取班级问题答案
-        /// 若ClassId 为空返回所有班级Notice信息
+        /// 【根据班级ID获取班级信息】
         /// </summary>
         /// <returns></returns>
-        public ClassInfo GetClassInfoById(int? classId)
+        public ClassInfo GetClassInfoById(int classId)
         {
-            return _classDAL.GetModels(con => classId.HasValue ? con.Id == classId : 1 == 1).FirstOrDefault();
+            return _classDAL.GetModels(con => con.Id == classId).FirstOrDefault();
         }
+
+
+        /// <summary>
+        /// 跟新班级基本信息
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public ResultBaseOutput UpdateClassBaseInfo(int userId,ClassInfoBaseUpdateInput input)
+        {
+            var result = new ResultBaseOutput();
+            var classInfo = _classDAL.GetModels(con => con.Id == input.Id).FirstOrDefault();
+            if (classInfo is null)
+            {
+                result.Status = false;
+                result.Msg = "未找到班级信息！";
+            }
+            if(!string.IsNullOrEmpty(input.Introduce))
+            {
+                //修改描述
+                classInfo.Introduce = input.Introduce;
+            }
+            if(!string.IsNullOrEmpty(input.ClassNotice))
+            {
+                //添加公告
+                classInfo.ClassNotice.Add(new ClassNotice()
+                {
+                    CreateUser = classInfo.User.Where(con => con.Id == userId).FirstOrDefault(),
+                    Notice = input.ClassNotice
+                });
+            }
+            if(input.qa !=null&&input.qa.Count==3)
+            {
+                //问题&答案添加
+                input.qa.ForEach(item =>
+                classInfo.ClassQustion.Add(Mapper.Map<ClassQuestion>(item))
+                );
+            }
+            try
+            {
+                _classDAL.SaveChanges();
+                result.Status = true;
+                result.Data = classInfo;
+            }
+            catch (Exception ex)
+            {
+                result.Status = false;
+                result.Msg = "删除失败";
+                result.Data = ex;
+            }
+            return result;
+
+        }
+
 
         /// <summary>
         /// 获取班级所有公告信息
         /// </summary>
         /// <param name="classId"></param>
         /// <returns></returns>
-        public List<ClassNotice> GetAllNotices(int? classId)
+        public List<ClassNotice> GetAllNotices(int classId)
         {
             return _classDAL.GetModels(con => classId.HasValue ? con.Id == classId : 1 == 1).FirstOrDefault()
                 .ClassNotice.ToList();

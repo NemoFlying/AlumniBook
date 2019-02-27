@@ -40,6 +40,6 @@ namespace AlumniBook.ViewModels
         /// <summary>
         /// 班级信息
         /// </summary>
-        public ClassInfoViewModel ClassInfo { get; set; }
+        public ClassInfoBaseViewModel ClassInfo { get; set; }
     }
 }

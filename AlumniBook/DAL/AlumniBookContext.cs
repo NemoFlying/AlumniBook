@@ -48,6 +48,10 @@ namespace AlumniBook.DAL
                 m.MapLeftKey("ClassId");
                 m.MapRightKey("UserId");
             });
+
+            modelBuilder.Entity<User>().HasMany(t => t.CreateClass)
+                .WithRequired(p => p.CreateUser).WillCascadeOnDelete(false);
+
         }
 
     }

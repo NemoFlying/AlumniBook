@@ -96,6 +96,11 @@ namespace AlumniBook.Models
 
         public virtual ICollection<ClassInfo> AdminClass { get; set; }
 
+        /// <summary>
+        /// 创建班级信息【当前只能创建一个】
+        /// </summary>
+        public virtual ICollection<ClassInfo> CreateClass { get; set; }
+
         public virtual ICollection<ClassLeavingMessage> ClassLeavingMessage { get; set; }
     }
 }

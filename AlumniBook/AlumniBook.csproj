@@ -161,6 +161,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BLL\ClassInfoService\ClassInfoServiceApplication.cs" />
+    <Compile Include="BLL\ClassInfoService\Dto\ClassInfoBaseUpdateInput.cs" />
     <Compile Include="BLL\ClassInfoService\Dto\NoticeInput.cs" />
     <Compile Include="BLL\ClassInfoService\IClassInfoServiceApplication.cs" />
     <Compile Include="BLL\ClassQustionService\ClassQustionServiceApplication.cs" />
@@ -202,6 +203,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AlbumViewModel.cs" />
+    <Compile Include="ViewModels\ClassInfoBaseViewModel.cs" />
     <Compile Include="ViewModels\ClassInfoViewModel.cs" />
     <Compile Include="ViewModels\IndexViewModel.cs" />
     <Compile Include="ViewModels\JsonReMsg.cs" />
@@ -219,6 +221,7 @@
     <Content Include="assets\Images\Album\Class1\20190225220508.jpg" />
     <Content Include="assets\Images\Album\启航\5de7553b2ad44762becf63b0459dce78.jpg" />
     <Content Include="assets\Images\Album\启航\bedab17c4eed47ab82d4844bdadd946a.jpg" />
+    <Content Include="assets\Images\defaultPhoto.jpg" />
     <Content Include="assets\img\bg.jpg" />
     <Content Include="assets\img\del.png" />
     <Content Include="assets\img\home.png" />
@@ -288,6 +291,7 @@
     <Content Include="Views\Home\Reg.cshtml" />
     <Content Include="Views\Home\AdminUser.cshtml" />
     <Content Include="Views\Home\ImgList.cshtml" />
+    <Content Include="Views\Home\test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
