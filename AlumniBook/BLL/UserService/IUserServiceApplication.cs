@@ -47,5 +47,12 @@ namespace AlumniBook.BLL.UserService
         /// </summary>
         /// <param name="userId"></param>
         ResultBaseOutput DeleteUserById(int userId);
+
+        /// <summary>
+        /// 修改用户信息
+        /// </summary>
+        /// <param name="updUser"></param>
+        /// <returns></returns>
+        ResultBaseOutput UpdateUser(UserInfoUpdateInput updUser);
     }
 }

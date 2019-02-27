@@ -197,6 +197,7 @@ namespace AlumniBook.BLL.UserService
             return _userDAL.GetModels(con => con.Id == userId).FirstOrDefault().UserClass.FirstOrDefault();
 
         }
+        
         /// <summary>
         /// 获取所有用户
         /// </summary>
@@ -265,11 +266,31 @@ namespace AlumniBook.BLL.UserService
             return result;
         }
 
-
-        //public List<UserInfoOutput> GetAllUserInfo()
-        //{
-
-        //}
+        /// <summary>
+        /// 修改用户信息
+        /// </summary>
+        /// <param name="updUser"></param>
+        /// <returns></returns>
+        public ResultBaseOutput UpdateUser(UserInfoUpdateInput updUser)
+        {
+            var result = new ResultBaseOutput();
+            var user = _userDAL.GetModels(con => con.Id == updUser.Id).FirstOrDefault();
+            Mapper.Map(updUser, user);
+            try
+            {
+                _userDAL.Update(user);
+                _userDAL.SaveChanges();
+                result.Status = true;
+                result.Data = user;
+            }
+            catch(Exception ex)
+            {
+                result.Status = false;
+                result.Msg = "删除失败";
+                result.Data = ex;
+            }
+            return result;
+        }
 
     }
 }
