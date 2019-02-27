@@ -62,6 +62,14 @@
         //    console.log(reData);
         //});
 
-    
+        $.ajax({
+            url: 'https://aip.baidubce.com/rest/2.0/antispam/v2/spam?access_token=24.17d8e0adb8da25f661a066a2ce3a8b2e.2592000.1553860920.282335-15643694',
+            data: { content: "你大爷的" },
+            method: "post",
+            success: function (reData) {
+                console.log(reData);
+            }
+
+        })
     })
 </script>
