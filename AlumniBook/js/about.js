@@ -34,7 +34,7 @@ $(function () {
         data: {
         },
         success: function (data) {
-            //console.log(data);
+            console.log(data);
 
             $(".classHomeImg").append(`
                 <img style='' src="http://q1.qlogo.cn/g?b=qq&nk=`+ data.UserInfo.QqId + `&s=140" alt="Alternate Text" />
@@ -56,6 +56,7 @@ $(function () {
                     </li>
                 `);
             });
+            //同学信息
             $(data.Classmate).each(function () {
                 $(".StudentsInformation ul").append(`
                     <li>
@@ -69,7 +70,7 @@ $(function () {
                 `);
             });
 
-
+            //留言
             $(data.Bbs).each(function () {
                 $(".MessageBoard ul").append(`
                     <li title='`+ this.Id + `'>
@@ -82,8 +83,45 @@ $(function () {
                     </li>
                 `);
             });
+            $(".realName").attr("title", data.UserInfo.Id);
+            $(".realName").val(data.UserInfo.RealName);
+            $(".QQId").val(data.UserInfo.QqId);
+            if (data.UserInfo.Sex !=null) {
+                $(".sexSelect").find("option[value=" + this.Sex + "]").attr("selected", selected);
+            }
+            if (data.UserInfo.Phone !=null) {
+                $(".phone").val(data.UserInfo.Phone);
+            }
 
-
+            $(".userBtn").on("click", function () {
+                var Id = $(".realName").attr("title");
+                var realName = $(".realName").val();
+                var IdCard = $(".IdCard").val();
+                var QQId = $(".QQId").val();
+                var sex = $("#sex").find("option:selected").val();
+                var phone = $(".phone").val();
+                //console.log(Id);
+                //console.log(realName);
+                //console.log(IdCard);
+                //console.log(QQId);
+                //console.log(sex);
+                //console.log(phone);
+                //console.log(Id);
+                $.ajax({
+                    dataType: "json",
+                    url: "../User/UpdateUserInfo",
+                    data: {
+                        Id: Id,
+                        RealName: realName,
+                        Sex: sex,
+                        Phone: phone,
+                        QqId: QQId
+                    },
+                    success: function (data) {
+                        console.log(data);
+                    }
+                });
+            });
         }
 
     });
@@ -96,7 +134,7 @@ $(function () {
         success: function (reData) {
             //console.log(reData);
             $(reData).each(function () {
-                console.log(this);
+                //console.log(this);
                 $(".userBody tbody").append(`
                 <tr>
                     <td>`+ this.Id + `</td>

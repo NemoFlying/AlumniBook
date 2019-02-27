@@ -92,7 +92,7 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label">身份证号码</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="title" required lay-verify="required" placeholder="请输入身份证号码" autocomplete="off" class="layui-input IdCard">
+                                    <input type="text" name="title" required lay-verify="required" maxlength="18" placeholder="请输入身份证号码" autocomplete="off" class="layui-input IdCard">
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -110,8 +110,8 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label">性别</label>
                                 <div class="layui-input-block">
-                                    <select name="sex" lay-verify="required">
-                                        <option value=""></option>
+                                    <select class="sexSelect" name="sex" id="sex" lay-verify="required">
+                                        <option class="default" value=""></option>
                                         <option value="M">男</option>
                                         <option value="F">女</option>
                                     </select>
@@ -120,12 +120,12 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label">手机号码</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="title" required lay-verify="required" placeholder="请输入手机号码" autocomplete="off" class="layui-input phone">
+                                    <input type="text" name="title" required lay-verify="required" maxlength="11" placeholder="请输入手机号码" autocomplete="off" class="layui-input phone">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <div class="layui-input-block">
-                                    <button class="layui-btn userBtn" lay-submit lay-filter="formDemo">立即提交</button>
+                                    <button class="layui-btn userBtn" type="button" lay-submit lay-filter="formDemo">立即提交</button>
                                     @*<button type="reset" class="layui-btn layui-btn-primary">重置</button>*@
                                 </div>
                             </div>
