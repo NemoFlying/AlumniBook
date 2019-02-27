@@ -97,7 +97,7 @@ namespace AlumniBook.BLL.ClassInfoService
         /// </summary>
         /// <param name="classId"></param>
         /// <returns></returns>
-        public List<ClassNotice> GetAllNotices(int classId)
+        public List<ClassNotice> GetAllNotices(int? classId)
         {
             return _classDAL.GetModels(con => classId.HasValue ? con.Id == classId : 1 == 1).FirstOrDefault()
                 .ClassNotice.ToList();
