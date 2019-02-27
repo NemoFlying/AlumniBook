@@ -96,6 +96,7 @@ namespace AlumniBook.Controllers
         [HttpPost]
         public JsonResult ClassInfoBaseUpdate(ClassInfoBaseUpdateInput input)
         {
+            input.Id = GuserInfo.CurrentClass.Id;
             var result = _classInfoService.UpdateClassBaseInfo(GuserInfo.Id, input);
             result.Data = Mapper.Map<ClassInfoViewModel>(result.Data);
             return Json(result,JsonRequestBehavior.AllowGet);
