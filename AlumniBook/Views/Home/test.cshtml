@@ -1,0 +1,67 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>test</title>
+</head>
+<body>
+    <div>
+    </div>
+</body>
+</html>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $(function(){
+        var data = {};
+        data.UserName = "Wim";
+        data.Password = "123";
+        data.UserType = 2;
+        data.QqId = "895190626";
+        data.ClassId = 2;
+        data.QuestionConfig = [{ Question: "问题一", Answer: "1" }, { Question: "问题二", Answer: "2" }, { Question: "问题三", Answer: "3" }];
+
+        var adminData={ };
+
+        adminData.UserName = "Claire";
+        adminData.Password = "123";
+        adminData.UserType = 1;
+        adminData.QqId = "895190626";
+        adminData.ClassName = "系統開發課"
+        //註冊測試
+        //$.post("../User/Regist", data, function (reData) {
+        //    console.log(reData);
+
+        //})
+        //获取当前活跃班级信息
+        //$.post("../ClassInfo/GetAllActiveClassForSelect", {}, function (reData) {
+        //    console.log(reData);
+
+        //根据班级ID获取问题
+        //$.post("../ClassInfo/GetClassQuestionByClassId", { classId:1}, function (reData) {
+        //    console.log(reData);
+
+        //});
+
+        ////获取当前班级信息
+        //$.post("../ClassInfo/GetCurrentClassInfo", { classId: 1 }, function (reData) {
+        //    console.log(reData);
+
+        //});
+        data.Id = 2;
+        data.Introduce = "无需在意，天下之大。。。";
+        data.ClassNotice = "只要活着，就永远不要放弃！";
+        data.qa = [{ Question: "问题一", Answer: "1" }, { Question: "问题二", Answer: "2" }, { Question: "问题三", Answer: "3" }];
+        //修改班级基本信息
+        //$.post("../ClassInfo/ClassInfoBaseUpdate", data, function (reData) {
+        //    console.log(reData);
+        //});
+
+    
+    })
+</script>
