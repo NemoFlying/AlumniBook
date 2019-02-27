@@ -21,6 +21,8 @@
     <link href="~/css/app_1.min.css" rel="stylesheet" />
     <link href="~/css/app_2.min.css" rel="stylesheet" />
     <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/Scripts/layui/css/layui.css" rel="stylesheet" />
+
 </head>
 <body class="pace-top bgm-white">
     <div id="page-container" class="fade">
@@ -39,7 +41,7 @@
                     <small>在班级同学录注册一个账号，注册后您将会拥有自己的个人主页并且可以查看其他同学的资料。</small>
                 </h1>
                 <div class="register-content">
-                    <form id="Reg" class="margin-bottom-0">
+                    <form id="Reg" class="margin-bottom-0 layui-form">
                         <label class="control-label">登录用户名 <span class="text-danger">*</span></label>
                         <div class="row row-space-10">
                             <div class="col-md-12 m-b-15">
@@ -65,9 +67,7 @@
                                 <span class="classNum">选择班级</span>
                                 <span class="caret"></span>
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-
-                            </ul>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1"></ul>
                         </div>
 
                         <label class="control-label">问题1: <span id="Question1">2班班长是谁？</span><span class="text-danger">*</span></label>
@@ -87,6 +87,16 @@
                             <div class="col-md-12">
                                 <input type="text" class="form-control" placeholder="" value="13221" required id="answer3" />
                             </div>
+                        </div>
+                        <div class="dropup row m-b-15 regCategory">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <span class="classNum">注册类别</span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu " aria-labelledby="dropdownMenu1">
+                                <li class='classUser' id='user'><a href="#">普通用户</a></li>
+                                <li class='classAdmin' id='admin'><a href="#">管理员</a></li>
+                            </ul>
                         </div>
                         <div class="register-buttons">
                             <button type="submit" required="required" id="Button" class="btn btn-primary btn-block btn-lg">注册</button>
@@ -110,6 +120,8 @@
     <script src="~/Scripts/jquery.slimscroll.min.js"></script>
     <script src="~/Scripts/jquery.cookie.min.js"></script>
     <script src="~/Scripts/app.js"></script>
+    <script src="~/Scripts/layui/layui.js"></script>
+
     <script>
         $(document).ready(function () {
             App.init();
@@ -126,14 +138,16 @@
             return o;
         };
         window.onload = function () {
+
             $.ajax({
-                url: "../ClassInfo/GetAllClassForSelect",
+                url: "../ClassInfo/GetAllActiveClassForSelect",
                 data: {
                 },
                 success: function (data) {
+                    console.log("===================")
                     $(data).each(function () {
                         $(".dropdown-menu").append(
-                            `<li class='classNum' id='` + this.Key + `'><a href="#">` + this.Value+`</a></li>`
+                            `<li class='classNum' id='` + this.Key + `'><a href="#">` + this.Value + `</a></li>`
                         );
                     });
 
@@ -158,20 +172,20 @@
                         $('#Reg').submit(function () {
                             $('#Button').attr('disabled', 'disabled');
                             var aa = [{ "q": "q1", "a": "a1" }, { "q": "q2", "a": "a2" }];
-                            data= {
-                                    UserName: "dsadsada",
-                                    Password: "abc123456",
-                                    QqId: "240269961",
-                                    ClassId: classNum,
-                                    question: ["Q1", "Q2", "Q3"],
-                                    qaa: [{ "q": "q1", "a": "a1" }, { "q": "q2", "a": "a2" }]
-                                    //question:"Q1"
-                                    //UserName: $('#Username').val(),
-                                    //Password: $('#Password').val(),
-                                    //ClassPassword: $('#ClassPassword').val(),
-                                    //QqId: $('#QQ').val(),
-                                    //VCode: $('#VCode').val(),
-                                }
+                            data = {
+                                UserName: "dsadsada",
+                                Password: "abc123456",
+                                QqId: "240269961",
+                                ClassId: classNum,
+                                question: ["Q1", "Q2", "Q3"],
+                                qaa: [{ "q": "q1", "a": "a1" }, { "q": "q2", "a": "a2" }]
+                                //question:"Q1"
+                                //UserName: $('#Username').val(),
+                                //Password: $('#Password').val(),
+                                //ClassPassword: $('#ClassPassword').val(),
+                                //QqId: $('#QQ').val(),
+                                //VCode: $('#VCode').val(),
+                            }
                             $.ajax({
                                 url: "../User/Regist",
                                 data: {
@@ -215,6 +229,11 @@
                             });
                             return false;
                         });
+                    });
+
+                    $(".regCategory").change(function () {
+                        console.log("==========================")
+                        alert("1111111111111");
                     });
                 },
                 error: function () {
