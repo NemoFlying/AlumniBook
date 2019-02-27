@@ -92,7 +92,7 @@ $(function () {
             if (data.UserInfo.Phone !=null) {
                 $(".phone").val(data.UserInfo.Phone);
             }
-            if (data.UserInfo.Certification = "Y") {
+            if (data.UserInfo.Certification == "K") {
                 //表示没有实名认证
                 $(".IdCard").removeAttr("lay-verify").parents(".layui-form-item").hide();
                 $(".realName").attr("disabled",true);
