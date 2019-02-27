@@ -1,6 +1,10 @@
 ﻿*{
     box-sizing:content-box;
 }
+body {
+    width: 100%;
+    overflow: hidden;
+}
 h1 {
     margin: 0 !important;
     padding: 28px 3% !important;
@@ -29,4 +33,15 @@ h2 {
 }
 .layui-form{
     padding:10px 0;
+}
+.leftBottomDiv h3 {
+    font-size: 14px !important;
+    margin: 0 !important;
+    padding: 20px 0;
+}
+.leftBottomDiv ul li p {
+    margin: 0 0 10px;
+}
+.leftBottom::-webkit-scrollbar {
+    display: none;
 }

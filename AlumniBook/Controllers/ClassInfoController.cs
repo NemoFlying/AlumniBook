@@ -102,7 +102,7 @@ namespace AlumniBook.Controllers
         {
             var reJson = new JsonReMsg();
             //判断是否具有权限
-            if (GuserInfo.UserType != 1)
+            if (GuserInfo.UserType != 0)
             {
                 reJson.Status = "ERR";
                 reJson.Msg = "没有发布公告权限";
