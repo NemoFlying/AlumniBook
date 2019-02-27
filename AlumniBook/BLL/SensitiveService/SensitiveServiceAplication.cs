@@ -4,39 +4,55 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Web;
+using System.Web.Script.Serialization;
 using System.Xml;
+using Newtonsoft.Json;
+using RestSharp;
 
 namespace AlumniBook.BLL.SensitiveService
 {
     /// <summary>
     /// 敏感词检测
     /// </summary>
-    public class SensitiveServiceAplication
+    public class SensitiveServiceAplication: ISensitiveServiceAplication
     {
         
-        public void Check(string Msg)
+        public bool Check(string Msg)
         {
-            var kk = AccessToken.getAccessToken();
-            var url = "https://aip.baidubce.com/rest/2.0/antispam/v2/spam?access_token=24.17d8e0adb8da25f661a066a2ce3a8b2e.2592000.1553860920.282335-15643694" + "&content=" + Msg ;
-            HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
-            request.Method = "Post";
-            request.ContentType = "application/x-www-form-urlencoded";
-            byte[] data = Encoding.UTF8.GetBytes("content=" + Msg);
-            using (Stream stream = request.GetRequestStream())
-            {
-                stream.Write(data, 0, data.Length);
-            }
-            var response = request.GetResponse() as HttpWebResponse;
+            var TokenAll = AccessToken.getAccessToken();
+            JavaScriptSerializer jsonSerialize = new JavaScriptSerializer();
+            var acessToken = (jsonSerialize.Deserialize<TokenClass>(TokenAll)).access_token;
 
-            Stream sr = response.GetResponseStream();
 
-            XmlTextReader Reader = new XmlTextReader(sr);
-            Reader.MoveToContent();
-            string strValue = Reader.ReadInnerXml();
-            Reader.Close();
-            sr.Close();
+            var url = "https://aip.baidubce.com" ;
+            //HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+            //request.Method = "Post";
+            //request.ContentType = "application/x-www-form-urlencoded";
+            //byte[] data = Encoding.UTF8.GetBytes("content=" + Msg);
+            //using (Stream stream = request.GetRequestStream())
+            //{
+            //    stream.Write(data, 0, data.Length);
+            //}
+            //var response = request.GetResponse() as HttpWebResponse;
+
+            //Stream sr = response.GetResponseStream();
+
+            //XmlTextReader Reader = new XmlTextReader(sr);
+            //Reader.MoveToContent();
+            //string strValue = Reader.ReadInnerXml();
+            //Reader.Close();
+            //sr.Close();
+            var client = new RestClient(url);
+            var request = new RestRequest("/rest/2.0/antispam/v2/spam?access_token="+ acessToken + "&content=" + Msg, Method.POST);
+            request.AddParameter("content",Msg);
+            request.AddHeader("ContentType", "application/x-www-form-urlencoded");
+            IRestResponse response = client.Execute(request);
+            var content = response.Content;
+            var spam = (jsonSerialize.Deserialize<SensitiveResult>(content)).result.spam;
+            return spam == 0 ? true : false;
         }
     }
 

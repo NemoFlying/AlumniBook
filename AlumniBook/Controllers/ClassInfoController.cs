@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using AlumniBook.BLL;
 using AlumniBook.BLL.ClassInfoService;
 using AlumniBook.BLL.ClassInfoService.Dto;
+using AlumniBook.BLL.SensitiveService;
 using AlumniBook.Models;
 using AlumniBook.ViewModels;
 using AutoMapper;
@@ -17,6 +18,8 @@ namespace AlumniBook.Controllers
     {
         
         private IClassInfoServiceApplication _classInfoService { get; set; }
+
+        private ISensitiveServiceAplication _sensitive { get; set; }
         // GET: ClassInfo
         public ActionResult Index()
         {
@@ -26,6 +29,7 @@ namespace AlumniBook.Controllers
         public ClassInfoController()
         {
             _classInfoService = new ClassInfoServiceApplication();
+            _sensitive = new SensitiveServiceAplication();
         }
 
         /// <summary>
@@ -260,6 +264,12 @@ namespace AlumniBook.Controllers
                 //表示没有权限删除
                 result.Status = false;
                 result.Msg = "请先实名认证!";
+            }
+            else if(!_sensitive.Check(Msg))
+            {
+                //表示没有权限删除
+                result.Status = false;
+                result.Msg = "包含敏感信息!";
             }
             else
             {
