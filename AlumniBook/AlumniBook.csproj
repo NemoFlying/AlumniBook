@@ -171,6 +171,7 @@
     <Compile Include="BLL\UserService\Dto\ClassQuestionInput.cs" />
     <Compile Include="BLL\UserService\Dto\RegistUserInput.cs" />
     <Compile Include="BLL\UserService\Dto\UserInfoOutput.cs" />
+    <Compile Include="BLL\UserService\Dto\UserInfoUpdateInput.cs" />
     <Compile Include="BLL\UserService\IUserServiceApplication.cs" />
     <Compile Include="BLL\ResultBaseOutput.cs" />
     <Compile Include="BLL\UserService\UserServiceApplication.cs" />

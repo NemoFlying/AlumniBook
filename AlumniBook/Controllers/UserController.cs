@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AlumniBook.BLL;
 using AlumniBook.BLL.UserService;
 using AlumniBook.BLL.UserService.Dto;
 using AlumniBook.Models;
@@ -115,6 +116,19 @@ namespace AlumniBook.Controllers
         }
 
         //public JsonResult ModifyUserInfo(userinfo)
+        public JsonResult UpdateUserInfo(UserInfoUpdateInput userInput)
+        {
+            var result = new ResultBaseOutput();
+            //if() 实名认证部分
 
+            userInput.Certification = "Y";
+            result = _userService.UpdateUser(userInput);
+            if(result.Status)
+            {
+                result.Data = Mapper.Map<UserViewModel>(result.Data);
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+
+        }
     }
 }
