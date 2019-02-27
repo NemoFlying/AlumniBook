@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using AlumniBook.BLL;
 using AlumniBook.BLL.ClassInfoService;
 using AlumniBook.BLL.Dto;
+using AlumniBook.Models;
 using AlumniBook.ViewModels;
 using AutoMapper;
 
@@ -201,6 +202,28 @@ namespace AlumniBook.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 添加留言信息
+        /// </summary>
+        /// <param name="Msg"></param>
+        /// <returns></returns>
+        public JsonResult AddClassBbs(string Msg)
+        {
+            var result = new ResultBaseOutput();
+            ///权限判断
+            if (GuserInfo.Certification != "Y")
+            {
+                //表示没有权限删除
+                result.Status = false;
+                result.Msg = "请先实名认证!";
+            }
+            else
+            {
+                result = _classInfoService.AddClassBbs(GuserInfo.CurrentClass.Id, GuserInfo.Id, Msg);
+                result.Data = Mapper.Map<LeavingMessageViewModel>((ClassLeavingMessage)(result.Data));
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
         
     }
 }
