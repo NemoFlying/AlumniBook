@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace AlumniBook.BLL.Dto
+namespace AlumniBook.BLL.ClassInfoService.Dto
 {
     public class NoticeInput
     {

@@ -76,20 +76,20 @@ namespace AlumniBook.DAL
             var classLeavingMessage = new List<ClassLeavingMessage>() {
                  new ClassLeavingMessage(){
                       ClassInfo =classInfo,
-                       CreateUser = user[0],
+                       User = user[0],
                         CreateDate = DateTime.Now,
                          Msg = "Nemo留言，好好学习天天向上!"
 
                  },
                  new ClassLeavingMessage(){
                      ClassInfo =classInfo,
-                       CreateUser = user[1],
+                       User = user[1],
                         CreateDate = DateTime.Now,
                          Msg = "Jerry留言，好好学习天天向上!"
                  },
                  new ClassLeavingMessage(){
                      ClassInfo =classInfo,
-                       CreateUser = user[2],
+                       User = user[2],
                         CreateDate = DateTime.Now,
                          Msg = "miao留言，好好学习天天向上!"
                  },
@@ -136,9 +136,7 @@ namespace AlumniBook.DAL
                       PhotoUrl="../assets/Images/Album/Class1/20190225220359.png",
                       IsCover="Y",
                       CreateUser = user[0].UserName,
-                      CreateDate = DateTime.Now,
-                     UpdateUser = user[0].UserName,
-                     UpdateDate = DateTime.Now
+                      CreateDate = DateTime.Now
                 },
                 new ClassAlbum()
                 {
@@ -146,9 +144,7 @@ namespace AlumniBook.DAL
                     PhotoUrl="../assets/Images/Album/Class1/20190225220446.jpg",
                     IsCover="N",
                     CreateUser = user[0].UserName,
-                       CreateDate = DateTime.Now,
-                       UpdateUser = user[0].UserName,
-                     UpdateDate = DateTime.Now
+                       CreateDate = DateTime.Now
                 },
                 new ClassAlbum()
                 {
@@ -156,9 +152,7 @@ namespace AlumniBook.DAL
                     PhotoUrl="../assets/Images/Album/Class1/20190225220454.jpg",
                     IsCover="N",
                     CreateUser = user[0].UserName,
-                       CreateDate = DateTime.Now,
-                       UpdateUser = user[0].UserName,
-                     UpdateDate = DateTime.Now
+                       CreateDate = DateTime.Now
                 }
             };
             classAlbum.ForEach(item => context.ClassAlbum.Add(item));

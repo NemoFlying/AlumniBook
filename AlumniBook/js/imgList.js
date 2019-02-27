@@ -113,6 +113,7 @@ $(function () {
             url: '../ClassInfo/AddClassAlbums',
             type: 'POST',
             success: function (data) {
+                console.log(111);
                 console.log(data);
                 $(".imglist li:last").append(`
                                         <li title='`+ this.Id + `'>

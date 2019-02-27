@@ -6,7 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using AlumniBook.BLL;
 using AlumniBook.BLL.ClassInfoService;
-using AlumniBook.BLL.Dto;
+using AlumniBook.BLL.ClassInfoService.Dto;
+using AlumniBook.Models;
 using AlumniBook.ViewModels;
 using AutoMapper;
 
@@ -28,13 +29,13 @@ namespace AlumniBook.Controllers
         }
 
         /// <summary>
-        /// 获得所有班级列表
+        /// 【获得所有班级列表】
         /// </summary>
         /// <returns></returns>
-        public JsonResult GetAllClassForSelect()
+        public JsonResult GetAllActiveClassForSelect()
         {
             var options = new List<SelectViewModel>();
-            _classInfoService.GetAllClassInfo().ForEach(
+            _classInfoService.GetAllActiveClassInfo().ForEach(
                 item => options.Add(new SelectViewModel()
                 {
                     Key = item.Id.ToString(),
@@ -44,18 +45,93 @@ namespace AlumniBook.Controllers
             return Json(options, JsonRequestBehavior.AllowGet);
         }
 
+
         /// <summary>
-        /// 根据ClassId 获得问题描述
+        /// 根据班级管理员获得班级列表【扩展用】
+        /// </summary>
+        /// <returns></returns>
+        //public JsonResult GetClassInfoByAdminUser()
+        //{
+
+        //}
+
+        /// <summary>
+        /// 【根据ClassId 获得问题描述】
         /// </summary>
         /// <param name="classId"></param>
         /// <returns></returns>
+        [HttpPost]
         public JsonResult GetClassQuestionByClassId(int classId)
         {
-            return Json(Mapper.Map<List<QuestionViewModel>>(
-                _classInfoService.GetClassInfoById(classId).ClassQustion
-                ), JsonRequestBehavior.AllowGet);
+            var qa = Mapper.Map<List<QuestionViewModel>>(
+                _classInfoService.GetClassInfoById(classId).ClassQustion);
+            qa.ForEach(item => item.Answer = "");
+            return Json(qa, JsonRequestBehavior.AllowGet);
             
         }
+
+        //班级管理员管理部分
+        /// <summary>
+        /// 获取班级基本信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult GetCurrentClassInfo()
+        {
+            var result = new ResultBaseOutput();
+            result.Data = Mapper.Map<ClassInfoViewModel>(GuserInfo.CurrentClass);
+            result.Status = true;
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 修改班级基本信息
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult ClassInfoBaseUpdate(ClassInfoBaseUpdateInput input)
+        {
+            var result = _classInfoService.UpdateClassBaseInfo(GuserInfo.Id, input);
+            result.Data = Mapper.Map<ClassInfoViewModel>(result.Data);
+            return Json(result,JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult AddClassNotice(NoticeViewModel newNotice)
+        {
+            var reJson = new JsonReMsg();
+            //判断是否具有权限
+            if (GuserInfo.UserType != 0)
+            {
+                reJson.Status = "ERR";
+                reJson.Msg = "没有发布公告权限";
+            }
+            else
+            {
+                var addresult = _classInfoService.AddClassNotice(GuserInfo.CurrentClass.Id, Mapper.Map<NoticeInput>(newNotice));
+                if (addresult.Status)
+                {
+                    reJson.Status = "OK";
+                    reJson.Data = Mapper.Map<List<NoticeViewModel>>(_classInfoService.GetAllNotices(GuserInfo.CurrentClass.Id));
+                }
+                else
+                {
+                    //删除失败
+                    reJson.Status = "ERR";
+                    reJson.Msg = addresult.Msg;
+                    reJson.Data = addresult.Data;
+                }
+            }
+            return Json(reJson, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        //END 班级管理员部分
+
+
+
 
         /// <summary>
         /// 获取当前班级公告
@@ -66,15 +142,10 @@ namespace AlumniBook.Controllers
             var reJson = new JsonReMsg() { Status = "OK" };
             reJson.Data = Mapper.Map<List<NoticeViewModel>>(_classInfoService.GetAllNotices(
                 GuserInfo.CurrentClass.Id
-                ));
+                ).OrderBy(con=>con.CreateDate));
             return Json(reJson, JsonRequestBehavior.AllowGet);
         }
 
-        //public JsonResult GetAllClassNotice()
-        //{
-        //    var reJson = new JsonReMsg() { Status = "OK" };
-        //    if(GuserInfo.us)
-        //}
         /// <summary>
         /// 删除班级公告信息
         /// </summary>
@@ -108,33 +179,7 @@ namespace AlumniBook.Controllers
             return Json(reJson, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult AddClassNotice(NoticeViewModel newNotice)
-        {
-            var reJson = new JsonReMsg();
-            //判断是否具有权限
-            if (GuserInfo.UserType !=1 )
-            {
-                reJson.Status = "ERR";
-                reJson.Msg = "没有发布公告权限";
-            }
-            else
-            {
-                var addresult = _classInfoService.AddClassNotice(GuserInfo.CurrentClass.Id, Mapper.Map<NoticeInput>(newNotice));
-                if (addresult.Status)
-                {
-                    reJson.Status = "OK";
-                    reJson.Data = Mapper.Map<List<NoticeViewModel>>(_classInfoService.GetAllNotices(GuserInfo.CurrentClass.Id));
-                }
-                else
-                {
-                    //删除失败
-                    reJson.Status = "ERR";
-                    reJson.Msg = addresult.Msg;
-                    reJson.Data = addresult.Data;
-                }
-            }
-            return Json(reJson, JsonRequestBehavior.AllowGet);
-        }
+        
 
         /// <summary>
         /// 获取当前班级相册列表
@@ -201,6 +246,28 @@ namespace AlumniBook.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 添加留言信息
+        /// </summary>
+        /// <param name="Msg"></param>
+        /// <returns></returns>
+        public JsonResult AddClassBbs(string Msg)
+        {
+            var result = new ResultBaseOutput();
+            ///权限判断
+            if (GuserInfo.Certification != "Y")
+            {
+                //表示没有权限删除
+                result.Status = false;
+                result.Msg = "请先实名认证!";
+            }
+            else
+            {
+                result = _classInfoService.AddClassBbs(GuserInfo.CurrentClass.Id, GuserInfo.Id, Msg);
+                result.Data = Mapper.Map<LeavingMessageViewModel>((ClassLeavingMessage)(result.Data));
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
         
     }
 }

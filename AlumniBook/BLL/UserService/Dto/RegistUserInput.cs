@@ -25,8 +25,8 @@ namespace AlumniBook.BLL.UserService.Dto
 
         /// <summary>
         /// 注册类型
-        /// 0:普通用户
-        /// 1.管理员
+        /// 1:班级管理员
+        /// 2:普通用户
         /// </summary>
         public int UserType { get; set; }
 
@@ -48,10 +48,7 @@ namespace AlumniBook.BLL.UserService.Dto
         /// 班级问题答案设置
         /// </summary>
         public List<ClassQuestionInput> QuestionConfig { get; set; }
-        /// <summary>
-        /// 班级介绍
-        /// </summary>
-        public string Introduce { get; set; }
+
     }
 
 }
