@@ -153,10 +153,24 @@ $(function () {
 
         }
     });
-
+    $(".questionBtn").on("click", function () {
+        var q1 = $(".q1").val();
+        var q2 = $(".q2").val();
+        var q3 = $(".q3").val();
+        $.ajax({
+            dataType: "json",
+            type:"post",
+            url: "../ClassInfo/ClassInfoBaseUpdate",
+            data: {
+                qa: [{ Question: "问题一", Answer: q1 }, { Question: "问题二", Answer: q2 }, { Question: "问题三", Answer: q3 }]
+            },
+            success: function (data) {
+                console.log(data);
+            }
+        });
+    });
     $(".noticeBtn").on("click", function () {
         var AddNoticeText = $(".AddNoticeText").val();
-        console.log(AddNoticeText)
         $.ajax({
             url: "../ClassInfo/AddClassNotice",
             data: {
@@ -182,6 +196,7 @@ $(function () {
             }
         });
     });
+
 });
 //Demo
 
