@@ -120,7 +120,7 @@ namespace AlumniBook.Controllers
         {
             var result = new ResultBaseOutput();
             //if() 实名认证部分
-
+            //若实名认证过就不需认证
             userInput.Certification = "Y";
             result = _userService.UpdateUser(userInput);
             if(result.Status)

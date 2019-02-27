@@ -73,7 +73,7 @@ namespace AlumniBook.Models
         public string RealName { get; set; }
 
         /// <summary>
-        /// 性别
+        /// M/F
         /// </summary>
         [MaxLength(1)]
         public string Sex { get; set; }

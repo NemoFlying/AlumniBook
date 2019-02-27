@@ -55,6 +55,9 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -166,7 +169,10 @@
     <Compile Include="BLL\ClassInfoService\IClassInfoServiceApplication.cs" />
     <Compile Include="BLL\ClassQustionService\ClassQustionServiceApplication.cs" />
     <Compile Include="BLL\ClassQustionService\IClassQustionServiceApplication.cs" />
+    <Compile Include="BLL\SensitiveService\ISensitiveServiceAplication.cs" />
+    <Compile Include="BLL\SensitiveService\SensitiveResult.cs" />
     <Compile Include="BLL\SensitiveService\SensitiveServiceAplication.cs" />
+    <Compile Include="BLL\SensitiveService\TokenClass.cs" />
     <Compile Include="BLL\ServiceBaseOutput.cs" />
     <Compile Include="BLL\UserService\Dto\ClassQuestionInput.cs" />
     <Compile Include="BLL\UserService\Dto\RegistUserInput.cs" />
@@ -250,8 +256,10 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="js\AdminUser.js" />
+    <Content Include="js\font-awesome.min.css" />
     <Content Include="js\home.js" />
     <Content Include="js\imgList.js" />
+    <Content Include="js\Player.js" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap-growl.min.js" />
     <Content Include="Scripts\bootstrap.js" />
