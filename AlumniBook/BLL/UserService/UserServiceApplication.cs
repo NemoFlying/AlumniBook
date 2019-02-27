@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -13,8 +14,9 @@ namespace AlumniBook.BLL.UserService
 {
     public class UserServiceApplication:IUserServiceApplication
     {
-
+        //https://stackoverflow.com/questions/33029127/go-to-definition-cannot-navigate-to-the-symbol-under-the-caret
         private readonly IUserDAL _userDAL;
+        private readonly IClassInfoDAL _classInfoDAL;
 
         /// <summary>
         /// 构造函数
@@ -23,28 +25,26 @@ namespace AlumniBook.BLL.UserService
         public UserServiceApplication()
         {
             _userDAL = new UserDAL();
+            _classInfoDAL = new ClassInfoDAL();
         }
 
         /// <summary>
-        /// 登录认证
+        /// 【登录认证】
         /// </summary>
         /// <param name="userName">登录账号</param>
         /// <param name="password">密码</param>
         /// <returns>
         /// 返回登录信息
-        /// 1.0  => 登录成功
-        /// 2.1     => 账号不存在
-        /// 3.2     => 账号密码不符
         /// </returns>
-        public LogonResultOutput LogonAuthen(string userName,string password)
+        public ResultBaseOutput LogonAuthen(string userName,string password)
         {
             var md5 = new MD5CryptoServiceProvider();
             var pwd = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(userName + password)));
             pwd = pwd.Replace("-", "");
-            var user = _userDAL.GetModels(con => con.UserName == userName).FirstOrDefault();
+            var user = _userDAL.GetModels(con => con.UserName == userName).Include("UserClass").FirstOrDefault();
 
-            var result = new LogonResultOutput();
-            result.result = false;
+            var result = new ResultBaseOutput();
+            result.Status = false;
             if (user is null)
             {
                 //表示没有注册
@@ -58,12 +58,10 @@ namespace AlumniBook.BLL.UserService
             else
             {
                 //认证通过
-                result.result = true;
+                result.Status = true;
                 result.Data = Mapper.Map<UserInfoOutput>(user);
             }
             return result;
-
-
         }
 
         /// <summary>
@@ -80,40 +78,187 @@ namespace AlumniBook.BLL.UserService
         }
 
         /// <summary>
-        /// 注册用户
+        /// 【注册用户】
         /// </summary>
         /// <param name="newUserInfo"></param>
         /// <returns></returns>
-        public RegistResultOutput RegistUser(RegistUserInput newUserInfo)
+        public ServiceBaseOutput RegistUser(RegistUserInput newUserInfo)
         {
-            var result = new RegistResultOutput();
+            var result = new ServiceBaseOutput();
             //基本输入信息验证判断
             //判断用户是否存在
             var user = _userDAL.GetModels(con=>con.UserName==newUserInfo.UserName)
                 .FirstOrDefault();
-            if(user != null)
-            {
-                result.result = false;
-                result.Msg = "用户名已经存在";
-            }
-            
-            user = Mapper.Map<User>(newUserInfo);
-            //密码加密
             var md5 = new MD5CryptoServiceProvider();
-            user.Password = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(user.UserName + user.Password))).Replace("-", "");
-            _userDAL.Add(user);
-            try
+            if (user != null)
             {
-                _userDAL.SaveChanges();
-                result.result = true;
+                result.Status = false;
+                result.Msg = "用户名已经存在！";
+                return result;
             }
-            catch(Exception ex)
+            if(newUserInfo.UserType==1) //管理员用户
             {
-                result.result = false;
-                result.Data = ex;
+                //检查创建班级名称是否存在
+                var classInfo = _classInfoDAL.GetModels(con => con.ClassName == newUserInfo.ClassName).FirstOrDefault();
+                if(classInfo != null)
+                {
+                    result.Status = false;
+                    result.Msg = "班级名称已经存在！";
+                    return result;
+                }
+                //创建用户
+                user = Mapper.Map<User>(newUserInfo);
+                user.Password = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(user.UserName + user.Password))).Replace("-", "");
+                //创建问题&答案
+                var qa = new List<ClassQuestion>();
+                newUserInfo.QuestionConfig.ForEach(item =>
+                    qa.Add(new ClassQuestion() { Question = item.Question, Answer = item.Answer })
+                );
+                //创建班级
+                var newClassInfo = new ClassInfo()
+                {
+                    ClassName = newUserInfo.ClassName,
+                    CreateUser = user,
+                    User = new List<User>() { user },
+                    Introduce = newUserInfo.Introduce,
+                    //adminUser = new List<User>() { user },
+                    ClassQustion = qa
+                };
+                _classInfoDAL.Add(newClassInfo);
+                try
+                {
+                    _classInfoDAL.SaveChanges();
+                    result.Status = true;
+                }
+                catch (Exception ex)
+                {
+                    result.Status = false;
+                    result.Msg = ex.ToString();
+                    result.Data = ex;
+                }
+            }
+            else //普通用户
+            {
+                //问题答案验证
+                var classInfo = _classInfoDAL.GetModels(con => con.Id == newUserInfo.ClassId).FirstOrDefault();
+
+                var anSwerResult = true;
+                classInfo.ClassQustion.ToList().ForEach(
+                    item => {
+                        if (newUserInfo.QuestionConfig.Find(con => con.Question == item.Question).Answer != item.Answer)
+                        {
+                            anSwerResult = false;
+                        }
+                    }
+                    );
+                if(!anSwerResult)
+                {
+                    result.Status = false;
+                    result.Msg = "班级问题验证失败！";
+                }
+                else
+                {
+                    user = Mapper.Map<User>(newUserInfo);
+                    //密码加密
+                    user.Password = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(user.UserName + user.Password))).Replace("-", "");
+                    user.UserClass = new List<ClassInfo>() { classInfo };
+                    _userDAL.Add(user);
+                    try
+                    {
+                        _userDAL.SaveChanges();
+                        result.Status = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        result.Status = false;
+                        result.Msg = ex.ToString();
+                        result.Data = ex;
+                    }
+                }
+                
             }
             return result;
         }
+
+        
+        /// <summary>
+        /// 根据用户获得班级信息
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public ClassInfo GetClassInfoByUid(int userId)
+        {
+            return _userDAL.GetModels(con => con.Id == userId).FirstOrDefault().UserClass.FirstOrDefault();
+
+        }
+        /// <summary>
+        /// 获取所有用户
+        /// </summary>
+        /// <returns></returns>
+        public List<UserInfoOutput> GetAllUser()
+        {
+            return Mapper.Map<List<UserInfoOutput>>(
+                _userDAL.GetModels(con => 1==1)
+                .FirstOrDefault()
+                );
+
+        }
+
+
+        /// <summary>
+        /// 根据班级获取班级所有学生
+        /// </summary>
+        /// <param name="classId"></param>
+        /// <returns></returns>
+        public List<UserInfoOutput> GetAllClassUser(int classId)
+        {
+            return Mapper.Map<List<UserInfoOutput>>(_classInfoDAL.GetModels(con => con.Id == classId)
+                .FirstOrDefault().User.ToList());
+        }
+
+        /// <summary>
+        /// 根据用户ID删除用户
+        /// </summary>
+        /// <param name="userId"></param>
+        public ResultBaseOutput DeleteUserById(int userId)
+        {
+            var result = new ResultBaseOutput();
+            var user = _userDAL.GetModels(con => con.Id == userId).FirstOrDefault();
+            _userDAL.Delete(user);
+            try
+            {
+                _userDAL.SaveChanges();
+                result.Status = true;
+            }
+            catch(Exception ex)
+            {
+                result.Status = false;
+                result.Msg = "删除失败";
+                result.Data = ex;
+            }
+            return result;
+
+        }
+
+        public ResultBaseOutput SetUserAdmin(int userId)
+        {
+            var result = new ResultBaseOutput();
+            ////var user = _userDAL.GetModels(con => con.Id == userId).FirstOrDefault();
+            ////user.UserType = 1;
+            ////_userDAL.Update(user);
+            ////try
+            ////{
+            ////    _userDAL.SaveChanges();
+            ////    Status.Status = true;
+            ////}
+            ////catch
+            ////{
+            ////    Status.Status = false;
+            ////    Status.Msg = "数据库执行失败";
+            ////}
+            return result;
+        }
+
 
         //public List<UserInfoOutput> GetAllUserInfo()
         //{

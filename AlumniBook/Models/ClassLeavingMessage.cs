@@ -16,6 +16,10 @@ namespace AlumniBook.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] //设置自动增长
         public int Id { get; set; }
 
+        public ClassLeavingMessage()
+        {
+            this.CreateDate = DateTime.Now;
+        }
         /// <summary>
         /// 创建时间
         /// </summary>
@@ -34,6 +38,8 @@ namespace AlumniBook.Models
         /// <summary>
         /// 创建人信息
         /// </summary>
-        public virtual User CreateUser { get; set; }
+        public virtual User User { get; set; }
+
+        
     }
 }

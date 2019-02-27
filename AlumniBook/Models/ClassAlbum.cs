@@ -15,6 +15,7 @@ namespace AlumniBook.Models
         public ClassAlbum()
         {
             this.IsCover = "N";
+            this.CreateDate = DateTime.Now;
         }
 
         [Key]
@@ -24,7 +25,6 @@ namespace AlumniBook.Models
         /// <summary>
         /// 照片路径
         /// </summary>
-        [MaxLength(50)]
         [Required]
         public string PhotoUrl { get; set; }
 
@@ -44,16 +44,6 @@ namespace AlumniBook.Models
         /// 创建时间
         /// </summary>
         public DateTime CreateDate { get; set; }
-
-        /// <summary>
-        /// 修改人信息
-        /// </summary>
-        public string UpdateUser { get; set; }
-
-        /// <summary>
-        /// 修改时间
-        /// </summary>
-        public DateTime UpdateDate { get; set; }
 
         /// <summary>
         /// 班级信息

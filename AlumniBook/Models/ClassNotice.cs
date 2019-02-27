@@ -9,6 +9,11 @@ namespace AlumniBook.Models
 {
     public class ClassNotice
     {
+        public ClassNotice()
+        {
+            CreateDate = DateTime.Now;
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] //设置自动增长
         public int Id { get; set; }
@@ -16,6 +21,7 @@ namespace AlumniBook.Models
         /// <summary>
         /// 创建时间
         /// </summary>
+        [Required]
         public DateTime CreateDate { get; set; }
 
         /// <summary>

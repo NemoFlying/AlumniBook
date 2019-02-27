@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using AlumniBook.Models;
 
 namespace AlumniBook.BLL.UserService.Dto
 {
@@ -13,13 +14,6 @@ namespace AlumniBook.BLL.UserService.Dto
         /// 不能重复
         /// </summary>
         public string UserName { get; set; }
-
-        /// <summary>
-        /// 用户类型
-        /// 0:普通用户
-        /// 1.管理员
-        /// </summary>
-        public int UserType { get; set; }
 
         /// <summary>
         /// 是否实名认证
@@ -52,5 +46,33 @@ namespace AlumniBook.BLL.UserService.Dto
         /// 手机号码
         /// </summary>
         public string Phone { get; set; }
+
+        public List<ClassInfo> UserClass { get; set; }
+
+        /// <summary>
+        /// 当前用户查看班级
+        /// </summary>
+        public ClassInfo CurrentClass { get { return UserClass[0]; } }
+
+        /// <summary>
+        /// 0=>超级管理员
+        /// 1=>系统管理员
+        /// 2=>普通用户
+        /// </summary>
+        public int UserType
+        {
+            get
+            {
+                if (UserName == "admin")
+                    return 0;
+                else if (CurrentClass.adminUser.ToList().Find(con => con.Id == Id) != null)
+                    return 1;
+                else
+                    return 2;
+            }
+        }
+
+        
+
     }
 }

@@ -5,6 +5,11 @@ using System.Web;
 
 namespace AlumniBook.BLL.UserService.Dto
 {
+    /// <summary>
+    /// 注册可注册两种类型
+    /// 普通用户【需要提交申请加入班级的问题答案】
+    /// 管理员【注册成功后需要添加班级信息&问题及答案】
+    /// </summary>
     public class RegistUserInput
     {
         /// <summary>
@@ -14,42 +19,39 @@ namespace AlumniBook.BLL.UserService.Dto
         public string UserName { get; set; }
 
         /// <summary>
-        /// 用户类型
+        /// 登陆密码
+        /// </summary>
+        public string Password { get; set; }
+
+        /// <summary>
+        /// 注册类型
         /// 0:普通用户
         /// 1.管理员
         /// </summary>
         public int UserType { get; set; }
 
         /// <summary>
-        /// 是否实名认证
-        /// Y:表示已经认证
-        /// N:表示未认证【默认值】
-        /// </summary>
-        public string Certification { get; set; }
-
-        /// <summary>
-        /// 昵称
-        /// </summary>
-        public string NikeName { get; set; }
-
-        /// <summary>
-        /// 头像地址
+        /// QQ
         /// </summary>
         public string QqId { get; set; }
 
         /// <summary>
-        /// 真实姓名
+        /// 普通用户申请班级ID
         /// </summary>
-        public string RealName { get; set; }
+        public int ClassId { get; set; }
 
         /// <summary>
-        /// 性别
+        /// 新创建班级的名称
         /// </summary>
-        public string Sex { get; set; }
-
+        public string ClassName { get; set; }
         /// <summary>
-        /// 手机号码
+        /// 班级问题答案设置
         /// </summary>
-        public string Phone { get; set; }
+        public List<ClassQuestionInput> QuestionConfig { get; set; }
+        /// <summary>
+        /// 班级介绍
+        /// </summary>
+        public string Introduce { get; set; }
     }
+
 }

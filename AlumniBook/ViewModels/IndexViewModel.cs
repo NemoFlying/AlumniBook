@@ -11,12 +11,12 @@ namespace AlumniBook.ViewModels
         /// <summary>
         /// 用户基本信息
         /// </summary>
-        public UserInfo UserInfo { get; set; }
+        public UserViewModel UserInfo { get; set; }
 
         /// <summary>
         /// Banner IMG Url
         /// </summary>
-        public List<string> BannerImgUrl { get; set; }
+        public string BannerImgUrl { get; set; }
 
         /// <summary>
         /// 班级相册封面地址
@@ -26,17 +26,20 @@ namespace AlumniBook.ViewModels
         /// <summary>
         /// 同学列表
         /// </summary>
-        public List<UserInfo> Classmate { get; set; }
+        public List<UserViewModel> Classmate { get; set; }
 
         /// <summary>
         /// 公告列表
         /// </summary>
-        public List<NoticeInfo> Notices { get; set; }
+        public List<NoticeViewModel> Notices { get; set; }
 
         /// <summary>
         /// 留言信息列表
         /// </summary>
-        public List<LeavingMsgInfo> Bbs { get; set; }
-
+        public List<LeavingMessageViewModel> Bbs { get; set; }
+        /// <summary>
+        /// 班级信息
+        /// </summary>
+        public ClassInfoViewModel ClassInfo { get; set; }
     }
 }

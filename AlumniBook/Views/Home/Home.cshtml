@@ -12,41 +12,43 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>主页</title>
     <link rel="stylesheet" href="~/css/home.css">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <script src="~/js/home.js"></script>
 </head>
 
 <body>
     <div>
         <div class="header">
             <h1>在线同学录</h1>
+            <button title="主页" type="button" class="homeBtn"></button>
+            <button title="留言" type="button" class="MessageBoardBtn"></button>
+            <button title="相册" type="button" class="PhotoAlbumBtn"></button>
+            <button title="退出登录" type="button" class="offBtn"></button>
         </div>
         <div class="body">
             <div class="leftDiv">
                 <div class="leftTop">
                     <ul>
-                        <li><img src="#" alt="Alternate Text" /></li>
-                        <li>
-                            <span>用户名：</span>
-                            <p>张三</p>
+                        <li class="classHomeImg">
+                            @*<img src="#" alt="Alternate Text" />*@
                         </li>
-                        <li>
-                            <span>班级：</span>
-                            <span>三年级2班</span>
+                        <li class="userNameLi">
+                            <span>用户名：</span>
+                            <span class="userNames"></span>
                         </li>
                         @*<li>
-                            <p><span>类型:</span><span>普通</span><span>/</span><span>管理</span></p>
-                        </li>*@
-                        <li>
-                            <button type="submit">管理员设置</button>
+                                <p><span>类型:</span><span>普通</span><span>/</span><span>管理</span></p>
+                            </li>*@
+                        <li class="UserBtn">
+                            <button type="button" class="btn btn-warning">管理员设置</button>
                         </li>
-                        <li><button>修改个人资料</button></li>
+                        <li class="UserBtn"><button class="btn btn-primary">修改个人资料</button></li>
                     </ul>
 
                 </div>
                 <div class="leftBottom">
-                    <h3>公告</h3>
-                    <p>测试公告</p>
+                    <h2>公告</h2>
+                    <div class="leftBottomDiv"></div>
                 </div>
             </div>
             <div class="rightDiv">
@@ -64,39 +66,41 @@
                         <h3 class="titleName"><span>同学信息</span><span>more</span></h3>
                         <div class="StudentsInformation">
                             <ul>
-                                <li>
+                                @*<li>
                                     <p>
                                         <img src="" alt="">
                                         <span>某某人</span>
                                     </p>
-                                </li>
+                                </li>*@
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="rightBottom">
                     <div class="rightBottomL">
-                        <h3 class="titleName"><span>相册</span><span>more</span></h3>
+                        <h3 class="titleName"><span>相册</span><a href="../home/ImgList">more</a></h3>
+                        <div>
+                            <img style="width:300px; margin:0 10px;" src="#" alt="Alternate Text" />
+                            <img style="width:300px;margin:0 10px;" src="#" alt="Alternate Text" />
+                        </div>
                     </div>
                     <div class="rightBottomR">
                         <h3 class="titleName"><span>留言板</span><span>more</span></h3>
                         <div class="MessageBoard">
                             <ul>
-                                <li>
-                                    <p>
-                                        <img src="" alt="">
-                                        <span>某某人</span>
-                                        <span>hello world！</span>
-                                        <span>2019-02-18</span>
-                                    </p>
-                                </li>
+
                             </ul>
+                            <div class="upMessageBoardDiv">
+                                <input style="    width: 85%;" type="text" name="name" value="" />
+                                <button class="addMessageBoardBtn" type="button">提交</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="~/js/home.js"></script>
 </body>
 
 </html>

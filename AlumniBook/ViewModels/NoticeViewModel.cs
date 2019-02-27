@@ -5,18 +5,9 @@ using System.Web;
 
 namespace AlumniBook.ViewModels
 {
-    public class LeavingMsgInfo
+    public class NoticeViewModel
     {
         public int Id { get; set; }
-        /// <summary>
-        /// 留言用户名
-        /// </summary>
-        public string FromUser { get; set; }
-
-        /// <summary>
-        /// 头像地址
-        /// </summary>
-        public string HeadPortrait { get; set; }
 
         /// <summary>
         /// 班级名称
@@ -27,5 +18,10 @@ namespace AlumniBook.ViewModels
         /// 信息
         /// </summary>
         public string Notice { get; set; }
+
+        /// <summary>
+        /// 发布公告时间
+        /// </summary>
+        public DateTime CreateDate { get; set; }
     }
 }

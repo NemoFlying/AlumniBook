@@ -12,71 +12,90 @@ namespace AlumniBook.DAL
         protected override void Seed(AlumniBookContext context)
         {
 
-            //默认班级
-            var classInfo = new ClassInfo()
-            {
-                ClassName = "启航",
-                CreateUser = "admin",
-                Introduce = "因为有梦，所以远方！"
+            
 
-            };
-            context.ClassInfo.Add(classInfo);
-            //admin用户注册
-            var adminUser = new User()
+            //添加用户班级
+            var user = new List<User>()
+            {
+                new User()
             {
                 UserName = "admin",
-                Password = "9FD966C8E14B44EEF8F685DCAB3395E7",
-                UserType = 1,
+                Password = "F6FDFFE48C908DEB0F4C3BD36C032E72",
                 Certification = "Y",
                 HeadPortrait = "/img/defaultHead",
                 NikeName = "admin",
                 RealName = "admin",
-                QqId = "895190626",
-                ClassInfo = classInfo
+                QqId = "895190626"
 
-            };
-            var NemoUser = new User()
+            },
+                new User()
             {
                 UserName = "Nemo",
-                Password = "9FD966C8E14B44EEF8F685DCAB3395E7",
-                UserType = 0,
+                Password = "9F2D0837D9DB1F09090C2D43CDA43E95",
                 Certification = "Y",
                 HeadPortrait = "/img/defaultHead",
-                QqId = "895190626",
+                QqId = "240269961",
                 NikeName = "Nemo",
-                RealName = "Nemo",
-                ClassInfo = classInfo
+                RealName = "Nemo"
+            },
+                new User()
+            {
+                UserName = "Jerry",
+                Password = "9FD966C8E14B44EEF8F685DCAB3395E7",
+                Certification = "Y",
+                HeadPortrait = "/img/defaultHead",
+                QqId = "544088599",
+                NikeName = "Nemo",
+                RealName = "Nemo"
+            }
             };
-            context.User.Add(adminUser);
-            context.User.Add(NemoUser);
-            //context.SaveChanges();
-            
+            //默认班级
+            var classInfo = new ClassInfo()
+            {
+                ClassName = "启航",
+                CreateUser = user[0],
+                Introduce = "48个快乐的孩子，怀着对梦的执着；对美好青春的渴望；对未来无限的憧憬；踏进了六年五班。这是一个团结上进的班集体；一个温馨和谐的大家庭，一个充满爱的乐园。一个团结的群体，一个充满活力的群体，一个不甘落后的群体，一个饱含热情的群体 ；它不会因为矛盾而分散，不会因为压力而沉寂，不会因为失败而丧气，不会因为竞争而冷漠。我们，是一个整体，我们，是不可分割的一织血脉。纵然有过羞涩，纵然有过隔阂，但一切的不愉快都随风飘逝，所有的不和都随波消散，友好，和睦，亲密无间，成为了永恒的旋律。心灵与心灵相交融，友爱和友爱相重叠，平平淡淡的生活中，所涂抹出来的，是一幅没有灰色，没有黑色，没有夜的暗，没有冬之寒的油画。这就是五班。",
+                adminUser = new List<User>() { user[0] },
+                User= user,
+            };
+            //var classInfo2 = new ClassInfo()
+            //{
+            //    ClassName = "启航2",
+            //    CreateUser = user[1],
+            //    Introduce = "因为有梦，所以远方！",
+            //    adminUser = new List<User>() { user[1] },
+            //    User = ne,
+
+            //};
+            context.ClassInfo.Add(classInfo);
+            //context.ClassInfo.Add(classInfo2);
+            context.SaveChanges();
+
+
             //留言信息
             var classLeavingMessage = new List<ClassLeavingMessage>() {
                  new ClassLeavingMessage(){
                       ClassInfo =classInfo,
-                       CreateUser = adminUser,
+                       User = user[0],
                         CreateDate = DateTime.Now,
-                         Msg = "admin 留言"
+                         Msg = "Nemo留言，好好学习天天向上!"
 
                  },
                  new ClassLeavingMessage(){
                      ClassInfo =classInfo,
-                       CreateUser = adminUser,
+                       User = user[1],
                         CreateDate = DateTime.Now,
-                         Msg = "admin 留言2"
+                         Msg = "Jerry留言，好好学习天天向上!"
                  },
                  new ClassLeavingMessage(){
                      ClassInfo =classInfo,
-                       CreateUser = NemoUser,
+                       User = user[2],
                         CreateDate = DateTime.Now,
-                         Msg = "Nemo 留言2"
+                         Msg = "miao留言，好好学习天天向上!"
                  },
 
             };
             classLeavingMessage.ForEach(item => context.ClassLeavingMessage.Add(item));
-
-            //context.SaveChanges();
 
             //班级公告
 
@@ -85,28 +104,28 @@ namespace AlumniBook.DAL
                 {
                     ClassInfo = classInfo,
                     CreateDate = DateTime.Now,
-                    CreateUser = adminUser,
-                    Notice = "公告1"
+                    CreateUser = user[0],
+                    Notice = "无论你今天要面对什么，既然走到了这一步，就坚持下去，给自己一些肯定，你比自己想象中要坚强。你再优秀也会有人对你不屑一顾，你再不堪也会有人把你视若生命"
                 },
                 new ClassNotice()
                 {
                     ClassInfo = classInfo,
                     CreateDate = DateTime.Now,
-                    CreateUser = adminUser,
-                    Notice = "公告2"
+                    CreateUser = user[0],
+                    Notice = "活得糊涂的，容易幸福；活得清醒的，容易烦恼。这是因为，清醒的人看得太真切，一较真，生活中便烦恼遍地；而糊涂的人，计较得少，虽然活得简单粗糙，却因此觅得了人生的大滋味。"
                 },
                 new ClassNotice()
                 {
                     ClassInfo = classInfo,
                     CreateDate = DateTime.Now,
-                    CreateUser = adminUser,
-                    Notice = "公告3"
+                    CreateUser = user[0],
+                    Notice = "当人生遇到坎坷，历经磨难时，我们应该不断为自己鼓掌，鼓劲、鼓励。不为困苦所屈服，不为艰险而低头，不为磨难所吓倒。生活的理想是为了理想的生活，只有为自己鼓掌，人生之路会越走越宽广，人生之路会越走越坦荡。"
                 }
             };
 
             classNotice.ForEach(item => context.ClassNotice.Add(item));
 
-            //context.SaveChanges();
+            context.SaveChanges();
 
             //班级相册
             var classAlbum = new List<ClassAlbum>()
@@ -114,36 +133,72 @@ namespace AlumniBook.DAL
                 new ClassAlbum()
                 {
                      ClassInfo = classInfo,
-                      PhotoUrl="/img/Album/启航/photo1",
-                     IsCover="Y",
-                      CreateUser = adminUser.UserName,
-                       CreateDate = DateTime.Now,
-                     UpdateUser = adminUser.UserName,
-                     UpdateDate = DateTime.Now
+                      PhotoUrl="../assets/Images/Album/Class1/20190225220359.png",
+                      IsCover="Y",
+                      CreateUser = user[0].UserName,
+                      CreateDate = DateTime.Now
                 },
                 new ClassAlbum()
                 {
                     ClassInfo = classInfo,
-                    PhotoUrl="/img/Album/启航/photo2",
+                    PhotoUrl="../assets/Images/Album/Class1/20190225220446.jpg",
                     IsCover="N",
-                    CreateUser = adminUser.UserName,
-                       CreateDate = DateTime.Now,
-                       UpdateUser = adminUser.UserName,
-                     UpdateDate = DateTime.Now
+                    CreateUser = user[0].UserName,
+                       CreateDate = DateTime.Now
                 },
                 new ClassAlbum()
                 {
                     ClassInfo = classInfo,
-                    PhotoUrl="/img/Album/启航/photo3",
+                    PhotoUrl="../assets/Images/Album/Class1/20190225220454.jpg",
                     IsCover="N",
-                    CreateUser = adminUser.UserName,
-                       CreateDate = DateTime.Now,
-                       UpdateUser = adminUser.UserName,
-                     UpdateDate = DateTime.Now
+                    CreateUser = user[0].UserName,
+                       CreateDate = DateTime.Now
                 }
             };
             classAlbum.ForEach(item => context.ClassAlbum.Add(item));
-            
+            context.SaveChanges();
+            //班级问题
+            var Q1 = new List<ClassQuestion>(){
+                new ClassQuestion()
+                {
+                    ClassInfo = classInfo,
+                    Question = "Q1",
+                    Answer = "Q1"
+                },
+                new ClassQuestion()
+                {
+                    ClassInfo = classInfo,
+                    Question = "Q2",
+                    Answer = "Q2"
+                },
+                new ClassQuestion()
+                {
+                    ClassInfo = classInfo,
+                    Question = "Q3",
+                    Answer = "Q3"
+                }
+                //},
+                //new ClassQuestion()
+                //{
+                //    ClassInfo = classInfo2,
+                //    Question = "Q4",
+                //    Answer = "Q1"
+                //},
+                //new ClassQuestion()
+                //{
+                //    ClassInfo = classInfo2,
+                //    Question = "Q5",
+                //    Answer = "Q5"
+                //},
+                //new ClassQuestion()
+                //{
+                //    ClassInfo = classInfo2,
+                //    Question = "Q6",
+                //    Answer = "Q6"
+                //},
+            };
+
+            Q1.ForEach(item => context.ClassQuestion.Add(item));
             context.SaveChanges();
         }
     }

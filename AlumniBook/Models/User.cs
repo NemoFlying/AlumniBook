@@ -11,7 +11,6 @@ namespace AlumniBook.Models
     {
         public User()
         {
-            UserType = 0;
             Certification = "N";
             RegistDate = DateTime.Now;
         }
@@ -33,13 +32,13 @@ namespace AlumniBook.Models
         [Required]
         public string Password { get; set; }
 
-        /// <summary>
-        /// 用户类型
-        /// 0:普通用户
-        /// 1.管理员
-        /// </summary>
-        [Required]
-        public int UserType { get; set; }
+        ///// <summary>
+        ///// 用户类型
+        ///// 0:普通用户
+        ///// 1.管理员
+        ///// </summary>
+        //[Required]
+        //public int UserType { get; set; }
 
         /// <summary>
         /// 是否实名认证
@@ -65,7 +64,6 @@ namespace AlumniBook.Models
         /// 头像地址
         /// </summary>
         [MaxLength(150)]
-        [Required]
         public string HeadPortrait { get; set; }
 
         /// <summary>
@@ -92,8 +90,12 @@ namespace AlumniBook.Models
         public DateTime RegistDate { get; set; }
 
         /// <summary>
-        /// 班级信息【一个学生只能有一个班级】
+        /// 班级信息
         /// </summary>
-        public virtual ClassInfo ClassInfo { get; set; }
+        public virtual ICollection<ClassInfo> UserClass { get; set; }
+
+        public virtual ICollection<ClassInfo> AdminClass { get; set; }
+
+        public virtual ICollection<ClassLeavingMessage> ClassLeavingMessage { get; set; }
     }
 }

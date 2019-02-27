@@ -5,26 +5,29 @@ using System.Web;
 
 namespace AlumniBook.ViewModels
 {
-    /// <summary>
-    /// 公告信息
-    /// </summary>
-    public class NoticeInfo
+    public class ClassInfoViewModel
     {
         public int Id { get; set; }
+
         /// <summary>
         /// 班级名称
+        /// 不能重复
         /// </summary>
         public string ClassName { get; set; }
 
         /// <summary>
-        /// 信息
+        /// 创建人员信息
         /// </summary>
-        public string Notice { get; set; }
+        public string CreateUser { get; set; }
 
         /// <summary>
-        /// 发布公告时间
+        /// 创建时间
         /// </summary>
-        public DateTime NoticDate { get; set; }
+        public DateTime CreateDate { get; set; }
 
+        /// <summary>
+        /// 班级描述
+        /// </summary>
+        public string Introduce { get; set; }
     }
 }
