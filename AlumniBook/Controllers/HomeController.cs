@@ -36,6 +36,14 @@ namespace AlumniBook.Controllers
             return View();
         }
 
+        public ActionResult AdminUser()
+        {
+            return View();
+        }
+        public ActionResult ImgList()
+        {
+            return View();
+        }
         [HttpPost]
         public JsonResult GetIndexModel()
         {

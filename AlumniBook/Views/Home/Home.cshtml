@@ -20,9 +20,10 @@
     <div>
         <div class="header">
             <h1>在线同学录</h1>
-            <button type="button" class="offBtn">
-
-            </button>
+            <button title="主页" type="button" class="homeBtn"></button>
+            <button title="留言" type="button" class="MessageBoardBtn"></button>
+            <button title="相册" type="button" class="PhotoAlbumBtn"></button>
+            <button title="退出登录" type="button" class="offBtn"></button>
         </div>
         <div class="body">
             <div class="leftDiv">
@@ -46,6 +47,7 @@
 
                 </div>
                 <div class="leftBottom">
+                    <h2>公告</h2>
                     <div class="leftBottomDiv"></div>
                 </div>
             </div>
@@ -76,7 +78,11 @@
                 </div>
                 <div class="rightBottom">
                     <div class="rightBottomL">
-                        <h3 class="titleName"><span>相册</span><span>more</span></h3>
+                        <h3 class="titleName"><span>相册</span><a href="../home/ImgList">more</a></h3>
+                        <div>
+                            <img style="width:300px; margin:0 10px;" src="#" alt="Alternate Text" />
+                            <img style="width:300px;margin:0 10px;" src="#" alt="Alternate Text" />
+                        </div>
                     </div>
                     <div class="rightBottomR">
                         <h3 class="titleName"><span>留言板</span><span>more</span></h3>
@@ -84,6 +90,10 @@
                             <ul>
 
                             </ul>
+                            <div class="upMessageBoardDiv">
+                                <input style="    width: 85%;" type="text" name="name" value="" />
+                                <button class="addMessageBoardBtn" type="button">提交</button>
+                            </div>
                         </div>
                     </div>
                 </div>

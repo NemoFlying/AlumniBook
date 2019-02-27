@@ -31,14 +31,15 @@ namespace AlumniBook
 
                     //留言信息
                     config.CreateMap<ClassLeavingMessage, LeavingMessageViewModel>()
-                    .ForMember(dest => dest.createUserName, opt => opt.MapFrom(src => src.CreateUser.UserName))
-                    .ForMember(dest => dest.QqId, opt => opt.MapFrom(src => src.CreateUser.QqId))
-                    .ForMember(dest => dest.HeadPortrait, opt => opt.MapFrom(src => src.CreateUser.HeadPortrait));
+                    .ForMember(dest => dest.createUserName, opt => opt.MapFrom(src => src.User.UserName))
+                    .ForMember(dest => dest.QqId, opt => opt.MapFrom(src => src.User.QqId))
+                    .ForMember(dest => dest.HeadPortrait, opt => opt.MapFrom(src => src.User.HeadPortrait));
                     
                     config.CreateMap<ClassNotice, NoticeViewModel>()
                     .ForMember(dest => dest.ClassName, opt => opt.MapFrom(src => src.ClassInfo.ClassName));
                     config.CreateMap<NoticeViewModel, NoticeInput>();
                     config.CreateMap<NoticeInput, ClassNotice>();
+                    config.CreateMap<ClassAlbum, AlbumViewModel>();
 
                     ////店铺转换
                     //config.CreateMap<Shop, ShopOutPutViewModel>()

@@ -5,6 +5,7 @@ using System.Web;
 using AlumniBook.BLL.Dto;
 using AlumniBook.DAL;
 using AlumniBook.Models;
+using AlumniBook.ViewModels;
 using AutoMapper;
 
 namespace AlumniBook.BLL.ClassInfoService
@@ -13,11 +14,13 @@ namespace AlumniBook.BLL.ClassInfoService
     {
         private IClassInfoDAL _classDAL { get; set; }
         private IClassNoticeDAL _noticeDAL { get; set; }
-        //private IClass _classDAL { get; set; }
+        //private IUserDAL _userDAL { get; set; }
+        //private ILeavingMessageDAL _bbs { get; set; }
         public ClassInfoServiceApplication()
         {
             _classDAL = new ClassInfoDAL();
             _noticeDAL = new ClassNoticeDAL();
+           // _bbs = new LeavingMessageDAL();
 
         }
 
@@ -67,11 +70,11 @@ namespace AlumniBook.BLL.ClassInfoService
             try
             {
                 _noticeDAL.SaveChanges();
-                result.result = true;
+                result.Status = true;
             }
             catch (Exception ex)
             {
-                result.result = false;
+                result.Status = false;
                 result.Msg = "删除失败";
                 result.Data = ex;
             }
@@ -93,19 +96,109 @@ namespace AlumniBook.BLL.ClassInfoService
             try
             {
                 _noticeDAL.SaveChanges();
-                result.result = true;
+                result.Status = true;
             }
             catch (Exception ex)
             {
-                result.result = false;
+                result.Status = false;
                 result.Msg = "添加失败";
                 result.Data = ex;
             }
             return result;
         }
 
+        /// <summary>
+        /// 删除班级相册
+        /// </summary>
+        /// <param name="albumsId"></param>
+        /// <returns></returns>
+        public ResultBaseOutput DeleteClassAlbums(int classId,int albumsId)
+        {
+            var result = new ResultBaseOutput();
+            var classInfo = _classDAL.GetModels(con => con.Id == classId)
+                .FirstOrDefault();
+            classInfo.ClassAlbum.Remove(classInfo.ClassAlbum.FirstOrDefault(con => con.Id == albumsId));
+            _classDAL.Update(classInfo);
+            try
+            {
+                _noticeDAL.SaveChanges();
+                result.Status = true;
+            }
+            catch (Exception ex)
+            {
+                result.Status = false;
+                result.Msg = "删除失败";
+                result.Data = ex;
+            }
+            return result;
+        }
 
+        /// <summary>
+        /// 为班级添加照片
+        /// </summary>
+        /// <param name="classId"></param>
+        /// <param name="userId"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public ResultBaseOutput AddClassAlbums(int classId,string userName,string url)
+        {
+            var result = new ResultBaseOutput();
+            var classinfo = _classDAL.GetModels(con => con.Id == classId).FirstOrDefault();
+            var album = new ClassAlbum()
+            {
+                IsCover = "N",
+                CreateUser = userName,
+                PhotoUrl = ".." + url
+            };
+            classinfo.ClassAlbum.Add(album);
+            try
+            {
+                _classDAL.SaveChanges();
+                result.Status = true;
+            }
+            catch (Exception ex)
+            {
+                result.Status = false;
+                result.Msg = "删除失败";
+                result.Data = ex;
+            }
+            return result;
+        }
 
+        /// <summary>
+        /// 添加BBS留言
+        /// </summary>
+        /// <param name="classId"></param>
+        /// <param name="userId"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public ResultBaseOutput AddClassBbs(int classId, int userId,string msg)
+        {
+            var result = new ResultBaseOutput();
+            var classinfo = _classDAL.GetModels(con => con.Id == classId).FirstOrDefault();
+            var bbs = new ClassLeavingMessage()
+            {
+                ClassInfo = classinfo,
+                Msg = msg,
+                User = classinfo.User.ToList().Find(con => con.Id == userId)
+            };
+            classinfo.ClassLeavingMessage.Add(bbs);
+            try
+            {
+                //_bbs.Add(bbs);
+                _classDAL.SaveChanges();
+                result.Status = true;
+                result.Data = bbs;
+            }
+            catch (Exception ex)
+            {
+                result.Status = false;
+                result.Msg = "删除失败";
+                result.Data = ex;
+            }
+            return result;
+
+        }
 
     }
 }

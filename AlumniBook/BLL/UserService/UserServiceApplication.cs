@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -40,10 +41,10 @@ namespace AlumniBook.BLL.UserService
             var md5 = new MD5CryptoServiceProvider();
             var pwd = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(userName + password)));
             pwd = pwd.Replace("-", "");
-            var user = _userDAL.GetModels(con => con.UserName == userName).FirstOrDefault();
+            var user = _userDAL.GetModels(con => con.UserName == userName).Include("UserClass").FirstOrDefault();
 
             var result = new ResultBaseOutput();
-            result.result = false;
+            result.Status = false;
             if (user is null)
             {
                 //表示没有注册
@@ -57,7 +58,7 @@ namespace AlumniBook.BLL.UserService
             else
             {
                 //认证通过
-                result.result = true;
+                result.Status = true;
                 result.Data = Mapper.Map<UserInfoOutput>(user);
             }
             return result;
@@ -227,11 +228,11 @@ namespace AlumniBook.BLL.UserService
             try
             {
                 _userDAL.SaveChanges();
-                result.result = true;
+                result.Status = true;
             }
             catch(Exception ex)
             {
-                result.result = false;
+                result.Status = false;
                 result.Msg = "删除失败";
                 result.Data = ex;
             }
@@ -248,12 +249,12 @@ namespace AlumniBook.BLL.UserService
             ////try
             ////{
             ////    _userDAL.SaveChanges();
-            ////    result.result = true;
+            ////    Status.Status = true;
             ////}
             ////catch
             ////{
-            ////    result.result = false;
-            ////    result.Msg = "数据库执行失败";
+            ////    Status.Status = false;
+            ////    Status.Msg = "数据库执行失败";
             ////}
             return result;
         }
