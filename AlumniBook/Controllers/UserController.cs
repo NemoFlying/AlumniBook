@@ -62,7 +62,7 @@ namespace AlumniBook.Controllers
             var classInfo = _userService.GetClassInfoByUid(GuserInfo.Id);
 
             var indexView = new IndexViewModel();
-            var alum = classInfo.ClassAlbum.ToList().Find(con => con.IsCover == "Y");
+            var alum = classInfo.ClassAlbum==null?null: classInfo.ClassAlbum.ToList().Find(con => con.IsCover == "Y");
             indexView.AlumCoverImgUrl = alum == null ? "../assets/Images/defaultPhoto.jpg" : alum.PhotoUrl;
             indexView.BannerImgUrl = alum == null ? "../assets/Images/defaultPhoto.jpg" : alum.PhotoUrl;
             indexView.Classmate = Mapper.Map<List<UserViewModel>>(classInfo.User);

@@ -101,13 +101,18 @@ namespace AlumniBook.Controllers
             result.Data = Mapper.Map<ClassInfoViewModel>(result.Data);
             return Json(result,JsonRequestBehavior.AllowGet);
         }
-
+        /// <summary>
+        /// 
+        /// 添加公告
+        /// </summary>
+        /// <param name="newNotice"></param>
+        /// <returns></returns>
         [HttpPost]
         public JsonResult AddClassNotice(NoticeViewModel newNotice)
         {
             var reJson = new JsonReMsg();
             //判断是否具有权限
-            if (GuserInfo.UserType != 0)
+            if (GuserInfo.UserType != 1)
             {
                 reJson.Status = "ERR";
                 reJson.Msg = "没有发布公告权限";
