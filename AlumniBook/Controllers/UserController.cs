@@ -59,16 +59,16 @@ namespace AlumniBook.Controllers
         public JsonResult GetUserIndexInfo()
         {
             var classInfo = _userService.GetClassInfoByUid(GuserInfo.Id);
-            var indexView = new IndexViewModel()
-            {
-                UserInfo = Mapper.Map<UserViewModel>( GuserInfo),
-                AlumCoverImgUrl = classInfo.ClassAlbum.ToList().Find(con => con.IsCover == "Y").PhotoUrl,
-                BannerImgUrl = classInfo.ClassAlbum.ToList().Find(con => con.IsCover == "Y").PhotoUrl,
-                Classmate = Mapper.Map<List<UserViewModel>>(classInfo.User),
-                Bbs = Mapper.Map<List<LeavingMessageViewModel>>(classInfo.ClassLeavingMessage),
-                Notices = Mapper.Map<List<NoticeViewModel>>(classInfo.ClassNotice),
-                ClassInfo = Mapper.Map<ClassInfoViewModel>(classInfo)
-            };
+
+            var indexView = new IndexViewModel();
+            var alum = classInfo.ClassAlbum.ToList().Find(con => con.IsCover == "Y");
+            indexView.AlumCoverImgUrl = alum == null ? "../assets/Images/defaultPhoto.jpg" : alum.PhotoUrl;
+            indexView.BannerImgUrl = alum == null ? "../assets/Images/defaultPhoto.jpg" : alum.PhotoUrl;
+            indexView.Classmate = Mapper.Map<List<UserViewModel>>(classInfo.User);
+            indexView.Bbs = Mapper.Map<List<LeavingMessageViewModel>>(classInfo.ClassLeavingMessage);
+            indexView.Notices = Mapper.Map<List<NoticeViewModel>>(classInfo.ClassNotice);
+            indexView.UserInfo = Mapper.Map<UserViewModel>(GuserInfo);
+            indexView.ClassInfo = Mapper.Map<ClassInfoBaseViewModel>(classInfo);
             return Json(indexView, JsonRequestBehavior.AllowGet);
 
         }

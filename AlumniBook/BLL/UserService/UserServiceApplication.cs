@@ -110,19 +110,20 @@ namespace AlumniBook.BLL.UserService
                 user = Mapper.Map<User>(newUserInfo);
                 user.Password = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(user.UserName + user.Password))).Replace("-", "");
                 //创建问题&答案
-                var qa = new List<ClassQuestion>();
-                newUserInfo.QuestionConfig.ForEach(item =>
-                    qa.Add(new ClassQuestion() { Question = item.Question, Answer = item.Answer })
-                );
+                //var qa = new List<ClassQuestion>();
+                //newUserInfo.QuestionConfig.ForEach(item =>
+                //    qa.Add(new ClassQuestion() { Question = item.Question, Answer = item.Answer })
+                //);
                 //创建班级
                 var newClassInfo = new ClassInfo()
                 {
                     ClassName = newUserInfo.ClassName,
                     CreateUser = user,
                     User = new List<User>() { user },
-                    Introduce = newUserInfo.Introduce,
+                    adminUser = new List<User>() { user }
+                    //Introduce = newUserInfo.Introduce,
                     //adminUser = new List<User>() { user },
-                    ClassQustion = qa
+                    //ClassQustion = qa
                 };
                 _classInfoDAL.Add(newClassInfo);
                 try
@@ -137,7 +138,7 @@ namespace AlumniBook.BLL.UserService
                     result.Data = ex;
                 }
             }
-            else //普通用户
+            else if(newUserInfo.UserType == 2) //普通用户
             {
                 //问题答案验证
                 var classInfo = _classInfoDAL.GetModels(con => con.Id == newUserInfo.ClassId).FirstOrDefault();
@@ -145,7 +146,7 @@ namespace AlumniBook.BLL.UserService
                 var anSwerResult = true;
                 classInfo.ClassQustion.ToList().ForEach(
                     item => {
-                        if (newUserInfo.QuestionConfig.Find(con => con.Question == item.Question).Answer != item.Answer)
+                        if (newUserInfo.QuestionConfig.Find(con => con.Question == item.Question && con.Answer==item.Answer) is null)
                         {
                             anSwerResult = false;
                         }
@@ -161,11 +162,11 @@ namespace AlumniBook.BLL.UserService
                     user = Mapper.Map<User>(newUserInfo);
                     //密码加密
                     user.Password = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(user.UserName + user.Password))).Replace("-", "");
-                    user.UserClass = new List<ClassInfo>() { classInfo };
-                    _userDAL.Add(user);
+                    classInfo.User.Add(user);
+                    _classInfoDAL.Update(classInfo);
                     try
                     {
-                        _userDAL.SaveChanges();
+                        _classInfoDAL.SaveChanges();
                         result.Status = true;
                     }
                     catch (Exception ex)
@@ -176,6 +177,11 @@ namespace AlumniBook.BLL.UserService
                     }
                 }
                 
+            }
+            else
+            {
+                result.Status = false;
+                result.Msg = "用户类型不确定";
             }
             return result;
         }

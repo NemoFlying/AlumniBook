@@ -35,14 +35,11 @@ namespace AlumniBook.Models
         /// <summary>
         /// 班级描述
         /// </summary>
-        [Required]
         public string Introduce { get; set; }
-
         /// <summary>
         /// 创建人员信息
         /// </summary>
-        public User CreateUser { get; set; }
-
+        public virtual User CreateUser { get; set; }
         /// <summary>
         /// 管理员
         /// </summary>
