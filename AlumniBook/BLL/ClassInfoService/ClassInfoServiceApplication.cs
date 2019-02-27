@@ -53,6 +53,7 @@ namespace AlumniBook.BLL.ClassInfoService
             {
                 result.Status = false;
                 result.Msg = "未找到班级信息！";
+                return result;
             }
             if(!string.IsNullOrEmpty(input.Introduce))
             {
@@ -70,6 +71,7 @@ namespace AlumniBook.BLL.ClassInfoService
             }
             if(input.qa !=null&&input.qa.Count==3)
             {
+                classInfo.ClassQustion = new List<ClassQuestion>();
                 //问题&答案添加
                 input.qa.ForEach(item =>
                 classInfo.ClassQustion.Add(Mapper.Map<ClassQuestion>(item))

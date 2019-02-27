@@ -153,16 +153,25 @@ $(function () {
 
         }
     });
+
+    $.post("../ClassInfo/GetCurrentClassInfo", {}, function (reData) {
+        //绑定现有的问题&答案
+        $(".q1").val(reData.Data.ClassQustion[0].Question);
+        $(".a1").val(reData.Data.ClassQustion[0].Answer);
+        $(".q2").val(reData.Data.ClassQustion[0].Question);
+        $(".a2").val(reData.Data.ClassQustion[0].Answer);
+        $(".q3").val(reData.Data.ClassQustion[0].Question);
+        $(".a3").val(reData.Data.ClassQustion[0].Answer);
+    })
     $(".questionBtn").on("click", function () {
-        var q1 = $(".q1").val();
-        var q2 = $(".q2").val();
-        var q3 = $(".q3").val();
         $.ajax({
             dataType: "json",
             type:"post",
             url: "../ClassInfo/ClassInfoBaseUpdate",
             data: {
-                qa: [{ Question: "问题一", Answer: q1 }, { Question: "问题二", Answer: q2 }, { Question: "问题三", Answer: q3 }]
+                qa: [{ Question: $(".q1").val(), Answer: $(".a1").val() },
+                    { Question: $(".q2").val(), Answer: $(".a2").val() },
+                    { Question: $(".q3").val(), Answer: $(".a3").val() }]
             },
             success: function (data) {
                 console.log(data);
