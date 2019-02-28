@@ -258,6 +258,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="js\about.js" />
     <Content Include="js\AdminUser.js" />
+    <Content Include="js\Classmate.js" />
     <Content Include="js\font-awesome.min.css" />
     <Content Include="js\home.js" />
     <Content Include="js\imgList.js" />
@@ -413,6 +414,7 @@
     <Content Include="Scripts\layui\font\iconfont.svg" />
     <Content Include="Scripts\layui\font\iconfont.ttf" />
     <Content Include="Scripts\layui\font\iconfont.woff" />
+    <Content Include="Views\Home\Classmate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

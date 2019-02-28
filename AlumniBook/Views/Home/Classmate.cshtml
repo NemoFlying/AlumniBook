@@ -1,0 +1,114 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>主页</title>
+    <link rel="stylesheet" href="~/css/home.css">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    @*<link href="~/css/imgList.css" rel="stylesheet" />*@
+    <link href="~/css/AdminUser.css" rel="stylesheet" />
+    <link href="~/Scripts/layui/css/layui.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/MyAjaxForm.js" type="text/javascript"></script>
+</head>
+<body>
+    <div>
+        <div class="header">
+            <h1>在线同学录</h1>
+            <button title="主页" type="button" class="homeBtn"></button>
+            @*<button title="留言" type="button" class="MessageBoardBtn"></button>*@
+            <button title="相册" type="button" class="PhotoAlbumBtn"></button>
+            <button title="退出登录" type="button" class="offBtn"></button>
+        </div>
+        <div class="body">
+            <div class="leftDiv">
+                <div class="leftTop">
+                    <ul>
+                        <li class="classHomeImg">
+                            @*<img src="#" alt="Alternate Text" />*@
+                        </li>
+                        <li class="userNameLi">
+                            <span>用户名：</span>
+                            <span class="userNames"></span>
+                        </li>
+                        @*<li>
+                                <p><span>类型:</span><span>普通</span><span>/</span><span>管理</span></p>
+                            </li>*@
+                        <li class="UserBtn"><button class="btn btn-primary">修改个人资料</button></li>
+                    </ul>
+                </div>
+                <div class="leftBottom">
+                    <h2>公告</h2>
+                    <div class="leftBottomDiv"><ul></ul></div>
+                </div>
+            </div>
+            <div class="rightDiv" style="overflow-y: scroll;">
+                <div>
+                    <div class="imgDivL">
+                        <h2>用户列表</h2>
+                        <p class="ImgIntro">您可以查询用戶信息！</p>
+                    </div>
+                    <div class="imgDivR">
+
+
+                    </div>
+                </div>
+                <ul class="imglist">
+                    <li>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">搜索信息：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" required lay-verify="required" placeholder="请输入搜索关键信息！" autocomplete="off" class="layui-input searchInput">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn searchBtn" lay-submit lay-filter="formDemo">立即提交</button>
+                                @*<button type="reset" class="layui-btn layui-btn-primary">重置</button>*@
+                            </div>
+                        </div>
+
+                    </li>
+                    <li>
+                        <table class="layui-table userBody">
+                            <colgroup>
+                                <col width="150">
+                                <col width="200">
+                                <col>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>qq</th>
+                                    <th>真实姓名</th>
+                                    <th>用户名</th>
+                                    <th>创建时间</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @*<tr>
+                                        <td>贤心</td>
+                                        <td>2016-11-29</td>
+                                        <td>人生就像是一场修行</td>
+                                        <td><button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger">删除</button></td>
+                                    </tr>*@
+                            </tbody>
+                        </table>
+                        <div id="test1"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    @*<script src="~/js/imgList.js"></script>*@
+    <script src="~/Scripts/layui/layui.js"></script>
+    <script src="~/js/Classmate.js"></script>
+
+</body>
+</html>

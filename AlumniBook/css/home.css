@@ -219,3 +219,7 @@ li {
     width: 37.8%;
     right: 9px;
 }
+.ClassmateUserName, .ClassmateQQnum {
+    display: inline-block;
+    margin: 0 10px;
+}

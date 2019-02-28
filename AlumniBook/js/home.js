@@ -37,7 +37,7 @@ window.onload = function () {
         data: {
         },
         success: function (data) {
-            //console.log(data);
+            console.log(data);
 
             $(".classHomeImg").append(`
                 <img src="http://q1.qlogo.cn/g?b=qq&nk=`+ data.UserInfo.QqId + `&s=140" alt="Alternate Text" />
@@ -51,7 +51,7 @@ window.onload = function () {
             $(".rightBottomL img").attr("src", "" + data.AlumCoverImgUrl + "");
 
             $(data.Notices).each(function () {
-                console.log(this)
+                //console.log(this)
                 $(".leftBottomDiv ul").append(`
                     <li>
                     <h3 title=`+ this.Id + `>` + this.Notice + `</h3>
@@ -75,8 +75,10 @@ window.onload = function () {
                     <li>
                         <p>
                             <img class='ClassmateImg' src="http://q1.qlogo.cn/g?b=qq&nk=`+ this.QqId + `&s=40" alt="">
-                            <span>`+ this.UserName + `</span>
-                            <span>`+ this.QqId + `</span>
+                            <span>用户名：</span>
+                            <span class='ClassmateUserName'>`+ this.UserName + `</span>
+                            <span>QQ号：</span>
+                            <span class='ClassmateQQnum'>`+ this.QqId + `</span>
                         </p>
                     </li>
 
