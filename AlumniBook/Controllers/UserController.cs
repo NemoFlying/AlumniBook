@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AlumniBook.BLL;
 using AlumniBook.BLL.UserService;
 using AlumniBook.BLL.UserService.Dto;
 using AlumniBook.Models;
@@ -61,7 +62,7 @@ namespace AlumniBook.Controllers
             var classInfo = _userService.GetClassInfoByUid(GuserInfo.Id);
 
             var indexView = new IndexViewModel();
-            var alum = classInfo.ClassAlbum.ToList().Find(con => con.IsCover == "Y");
+            var alum = classInfo.ClassAlbum==null?null: classInfo.ClassAlbum.ToList().Find(con => con.IsCover == "Y");
             indexView.AlumCoverImgUrl = alum == null ? "../assets/Images/defaultPhoto.jpg" : alum.PhotoUrl;
             indexView.BannerImgUrl = alum == null ? "../assets/Images/defaultPhoto.jpg" : alum.PhotoUrl;
             indexView.Classmate = Mapper.Map<List<UserViewModel>>(classInfo.User);
@@ -115,6 +116,21 @@ namespace AlumniBook.Controllers
         }
 
         //public JsonResult ModifyUserInfo(userinfo)
+        public JsonResult UpdateUserInfo(UserInfoUpdateInput userInput)
+        {
+            var result = new ResultBaseOutput();
+            //if() 实名认证部分
+            //若实名认证过就不需认证
+            userInput.Certification = "Y";
+            result = _userService.UpdateUser(userInput);
+            if(result.Status)
+            {
+                HttpContext.Session["userinfo"] = Mapper.Map<UserInfoOutput>(result.Data);
+                result.Data = Mapper.Map<UserViewModel>(result.Data);
+            }
+            
+            return Json(result, JsonRequestBehavior.AllowGet);
 
+        }
     }
 }

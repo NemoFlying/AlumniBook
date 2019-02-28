@@ -13,7 +13,9 @@
     <title>主页</title>
     <link rel="stylesheet" href="~/css/home.css">
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/js/font-awesome.min.css" />
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
 </head>
 
 <body>
@@ -42,16 +44,14 @@
                         <li class="UserBtn">
                             <button type="button" class="btn btn-warning adminUser">管理员设置</button>
                         </li>
-                        <li class="UserBtn"><button class="btn btn-primary">修改个人资料</button></li>
+                        <li class="UserBtn"><button class="btn btn-primary about">修改个人资料</button></li>
                     </ul>
 
                 </div>
                 <div class="leftBottom">
                     <h2>公告</h2>
                     <div class="leftBottomDiv">
-                        <ul>
-                            
-                        </ul>
+                        <ul></ul>
                     </div>
                 </div>
             </div>
@@ -71,11 +71,11 @@
                         <div class="StudentsInformation">
                             <ul>
                                 @*<li>
-                                    <p>
-                                        <img src="" alt="">
-                                        <span>某某人</span>
-                                    </p>
-                                </li>*@
+                                        <p>
+                                            <img src="" alt="">
+                                            <span>某某人</span>
+                                        </p>
+                                    </li>*@
                             </ul>
                         </div>
                     </div>
@@ -91,9 +91,7 @@
                     <div class="rightBottomR">
                         <h3 class="titleName"><span>留言板</span><span>more</span></h3>
                         <div class="MessageBoard">
-                            <ul>
-
-                            </ul>
+                            <ul></ul>
                             <div class="upMessageBoardDiv">
                                 <input style="    width: 85%;" type="text" name="name" value="" />
                                 <button class="addMessageBoardBtn" type="button">提交</button>
@@ -109,3 +107,7 @@
 
 </html>
 
+<!--Plus-->
+<!--音乐播放-->
+<script>XlchKey = "gcbs";</script>
+<script src="~/js/Player.js"></script>

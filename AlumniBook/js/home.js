@@ -24,6 +24,9 @@ window.onload = function () {
     $(".adminUser").on("click", function () {
         window.location.href = "../home/AdminUser";
     });
+    $(".about").on("click", function () {
+        window.location.href = "../home/about";
+    });
     //PhotoAlbum
     function getBbs(data) {
 

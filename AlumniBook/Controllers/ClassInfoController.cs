@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using AlumniBook.BLL;
 using AlumniBook.BLL.ClassInfoService;
 using AlumniBook.BLL.ClassInfoService.Dto;
+using AlumniBook.BLL.SensitiveService;
 using AlumniBook.Models;
 using AlumniBook.ViewModels;
 using AutoMapper;
@@ -17,6 +18,8 @@ namespace AlumniBook.Controllers
     {
         
         private IClassInfoServiceApplication _classInfoService { get; set; }
+
+        private ISensitiveServiceAplication _sensitive { get; set; }
         // GET: ClassInfo
         public ActionResult Index()
         {
@@ -26,6 +29,7 @@ namespace AlumniBook.Controllers
         public ClassInfoController()
         {
             _classInfoService = new ClassInfoServiceApplication();
+            _sensitive = new SensitiveServiceAplication();
         }
 
         /// <summary>
@@ -92,17 +96,23 @@ namespace AlumniBook.Controllers
         [HttpPost]
         public JsonResult ClassInfoBaseUpdate(ClassInfoBaseUpdateInput input)
         {
+            input.Id = GuserInfo.CurrentClass.Id;
             var result = _classInfoService.UpdateClassBaseInfo(GuserInfo.Id, input);
             result.Data = Mapper.Map<ClassInfoViewModel>(result.Data);
             return Json(result,JsonRequestBehavior.AllowGet);
         }
-
+        /// <summary>
+        /// 
+        /// 添加公告
+        /// </summary>
+        /// <param name="newNotice"></param>
+        /// <returns></returns>
         [HttpPost]
         public JsonResult AddClassNotice(NoticeViewModel newNotice)
         {
             var reJson = new JsonReMsg();
             //判断是否具有权限
-            if (GuserInfo.UserType != 0)
+            if (GuserInfo.UserType != 1)
             {
                 reJson.Status = "ERR";
                 reJson.Msg = "没有发布公告权限";
@@ -260,6 +270,12 @@ namespace AlumniBook.Controllers
                 //表示没有权限删除
                 result.Status = false;
                 result.Msg = "请先实名认证!";
+            }
+            else if(!_sensitive.Check(Msg))
+            {
+                //表示没有权限删除
+                result.Status = false;
+                result.Msg = "包含敏感信息!";
             }
             else
             {

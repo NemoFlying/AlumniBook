@@ -22,7 +22,7 @@ namespace AlumniBook.Controllers
 
         public ActionResult test()
         {
-            new SensitiveServiceAplication().Check("你他妈的");
+            //new SensitiveServiceAplication().Check("你好");
             return View();
         }
         public ActionResult Home()

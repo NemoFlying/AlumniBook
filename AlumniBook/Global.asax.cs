@@ -25,7 +25,8 @@ namespace AlumniBook
                     config.CreateMap<User, UserInfoOutput>();
                     config.CreateMap<User, UserViewModel>();
                     config.CreateMap<UserInfoOutput, UserViewModel>();
-                    
+                    config.CreateMap<UserInfoUpdateInput, User>();
+
                     config.CreateMap<RegistUserInput, User>();
                     config.CreateMap<ClassQuestion, QuestionViewModel>();
 
@@ -40,7 +41,7 @@ namespace AlumniBook
                     config.CreateMap<NoticeViewModel, NoticeInput>();
                     config.CreateMap<NoticeInput, ClassNotice>();
                     config.CreateMap<ClassAlbum, AlbumViewModel>();
-
+                    
                     config.CreateMap<ClassQuestionInput, ClassQuestion>();
                     config.CreateMap<ClassInfo, ClassInfoViewModel>();
 

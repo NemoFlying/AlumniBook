@@ -69,10 +69,10 @@ namespace AlumniBook.BLL.UserService
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
-        public UserInfoOutput GetUserInfoByName(string userName)
+        public UserInfoOutput GetUserInfoById(int userId)
         {
             return Mapper.Map<UserInfoOutput>(
-                _userDAL.GetModels(con => con.UserName == userName)
+                _userDAL.GetModels(con => con.Id == userId)
                 .FirstOrDefault()
                 );
         }
@@ -197,6 +197,7 @@ namespace AlumniBook.BLL.UserService
             return _userDAL.GetModels(con => con.Id == userId).FirstOrDefault().UserClass.FirstOrDefault();
 
         }
+        
         /// <summary>
         /// 获取所有用户
         /// </summary>
@@ -265,11 +266,46 @@ namespace AlumniBook.BLL.UserService
             return result;
         }
 
+        /// <summary>
+        /// 修改用户信息
+        /// </summary>
+        /// <param name="updUser"></param>
+        /// <returns></returns>
+        public ResultBaseOutput UpdateUser(UserInfoUpdateInput updUser)
+        {
+            var result = new ResultBaseOutput();
 
-        //public List<UserInfoOutput> GetAllUserInfo()
-        //{
-
-        //}
+            
+            var user = _userDAL.GetModels(con => con.Id == updUser.Id).FirstOrDefault();
+            updUser.UserName = user.UserName;
+            if (string.IsNullOrEmpty(updUser.Password))
+            {
+                updUser.Password = user.Password;
+            }
+            else
+            {
+                var md5 = new MD5CryptoServiceProvider();
+                updUser.Password = BitConverter
+                    .ToString(md5.ComputeHash(Encoding.Default.GetBytes(updUser.UserName + updUser.Password)))
+                    .Replace("-", "");
+            }
+            Mapper.Map(updUser, user);
+            
+            try
+            {
+                _userDAL.Update(user);
+                _userDAL.SaveChanges();
+                result.Status = true;
+                result.Data = user;
+            }
+            catch(Exception ex)
+            {
+                result.Status = false;
+                result.Msg = "删除失败";
+                result.Data = ex;
+            }
+            return result;
+        }
 
     }
 }

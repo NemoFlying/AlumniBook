@@ -23,6 +23,9 @@ $(function () {
     $(".PhotoAlbumBtn").on("click", function () {
         window.location.href = "../home/imglist";
     });
+    $(".adminUser").on("click", function () {
+        window.location.href = "../home/AdminUser";
+    });
 
     //初始化用戶數據
     $.ajax({
@@ -31,13 +34,13 @@ $(function () {
         data: {
         },
         success: function (data) {
-            //console.log(data);
+            console.log(data);
 
             $(".classHomeImg").append(`
                 <img style='' src="http://q1.qlogo.cn/g?b=qq&nk=`+ data.UserInfo.QqId + `&s=140" alt="Alternate Text" />
             `);
             $(".userNames").text("" + data.UserInfo.UserName + "");
-
+            $(".logonNames").text("" + data.UserInfo.UserName + "");
             //var formatTime1 = convertTime(this.Notice, "yyyy-MM-dd hh:mm:ss");//2015-07-11 14:12:29
             //$("#div1").text(formatTime1);
             //var formatTime2 = convertTime(dt, "yyyy年MM月dd日 hh时mm分ss秒");//2015年07月11日 14时12分29秒
@@ -53,6 +56,7 @@ $(function () {
                     </li>
                 `);
             });
+            //同学信息
             $(data.Classmate).each(function () {
                 $(".StudentsInformation ul").append(`
                     <li>
@@ -66,7 +70,7 @@ $(function () {
                 `);
             });
 
-
+            //留言
             $(data.Bbs).each(function () {
                 $(".MessageBoard ul").append(`
                     <li title='`+ this.Id + `'>
@@ -79,8 +83,49 @@ $(function () {
                     </li>
                 `);
             });
-
-
+            $(".realName").attr("title", data.UserInfo.Id);
+            $(".realName").val(data.UserInfo.RealName);
+            $(".QQId").val(data.UserInfo.QqId);
+            if (data.UserInfo.Sex !=null) {
+                $(".sexSelect").find("option[value=" + data.UserInfo.Sex + "]").attr("selected", true);
+            }
+            if (data.UserInfo.Phone !=null) {
+                $(".phone").val(data.UserInfo.Phone);
+            }
+            if (data.UserInfo.Certification == "K") {
+                //表示没有实名认证
+                $(".IdCard").removeAttr("lay-verify").parents(".layui-form-item").hide();
+                $(".realName").attr("disabled",true);
+            }
+            $(".userBtn").on("click", function () {
+                var Id = $(".realName").attr("title");
+                var realName = $(".realName").val();
+                var IdCard = $(".IdCard").val();
+                var QQId = $(".QQId").val();
+                var sex = $("#sex").find("option:selected").val();
+                var phone = $(".phone").val();
+                //console.log(Id);
+                //console.log(realName);
+                //console.log(IdCard);
+                //console.log(QQId);
+                //console.log(sex);
+                //console.log(phone);
+                //console.log(Id);
+                $.ajax({
+                    dataType: "json",
+                    url: "../User/UpdateUserInfo",
+                    data: {
+                        Id: Id,
+                        RealName: realName,
+                        Sex: sex,
+                        Phone: phone,
+                        QqId: QQId
+                    },
+                    success: function (data) {
+                        console.log(data);
+                    }
+                });
+            });
         }
 
     });
@@ -93,14 +138,14 @@ $(function () {
         success: function (reData) {
             //console.log(reData);
             $(reData).each(function () {
-                console.log(this);
+                //console.log(this);
                 $(".userBody tbody").append(`
                 <tr>
-                    <td>`+this.Id+`</td>
-                    <td>`+this.QqId+`</td>
-                    <td>`+ this.RealName +`</td>
-                    <td>`+ this.UserName +`</td>
-                    <td>`+ (new Date(parseInt(this.RegistDate.replace(/\D/igm, "")))).toLocaleString()+`</td>
+                    <td>`+ this.Id + `</td>
+                    <td>`+ this.QqId + `</td>
+                    <td>`+ this.RealName + `</td>
+                    <td>`+ this.UserName + `</td>
+                    <td>`+ (new Date(parseInt(this.RegistDate.replace(/\D/igm, "")))).toLocaleString() + `</td>
                     <td><button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger delUser">删除</button></td>
                 </tr>
             `);
@@ -109,7 +154,7 @@ $(function () {
 
             //删除
             $(".delUser").on("click", function () {
-                var DelId= $(this).parents("tr").find("td:first").text();
+                var DelId = $(this).parents("tr").find("td:first").text();
                 console.log(DelId);
                 $.ajax({
                     dataType: "json",
@@ -131,7 +176,7 @@ $(function () {
                                     //console.log(reData);
                                     $(".userBody tbody").empty();
                                     $(reData).each(function () {
-                                        
+
                                         $(".userBody tbody").append(`
                                             <tr>
                                                 <td>`+ this.Id + `</td>
@@ -146,7 +191,7 @@ $(function () {
                                 },
                             });
                         }
-                        
+
                     }
                 });
             });
@@ -154,38 +199,15 @@ $(function () {
         }
     });
 
-    $.post("../ClassInfo/GetCurrentClassInfo", {}, function (reData) {
-        //绑定现有的问题&答案
-        $(".q1").val(reData.Data.ClassQustion[0].Question);
-        $(".a1").val(reData.Data.ClassQustion[0].Answer);
-        $(".q2").val(reData.Data.ClassQustion[0].Question);
-        $(".a2").val(reData.Data.ClassQustion[0].Answer);
-        $(".q3").val(reData.Data.ClassQustion[0].Question);
-        $(".a3").val(reData.Data.ClassQustion[0].Answer);
-    })
-    $(".questionBtn").on("click", function () {
-        $.ajax({
-            dataType: "json",
-            type:"post",
-            url: "../ClassInfo/ClassInfoBaseUpdate",
-            data: {
-                qa: [{ Question: $(".q1").val(), Answer: $(".a1").val() },
-                    { Question: $(".q2").val(), Answer: $(".a2").val() },
-                    { Question: $(".q3").val(), Answer: $(".a3").val() }]
-            },
-            success: function (data) {
-                console.log(data);
-            }
-        });
-    });
     $(".noticeBtn").on("click", function () {
         var AddNoticeText = $(".AddNoticeText").val();
+        console.log(AddNoticeText)
         $.ajax({
             url: "../ClassInfo/AddClassNotice",
             data: {
                 Notice: AddNoticeText
             },
-            type:"post",
+            type: "post",
             success: function (reData) {
                 console.log(reData);
                 if (reData.Status = "ok") {
@@ -200,12 +222,11 @@ $(function () {
                     });
 
                 } else {
-                    alert(data.Msg+",添加上失敗！");
+                    alert(data.Msg + ",添加上失敗！");
                 }
             }
         });
     });
-
 });
 //Demo
 

@@ -21,6 +21,23 @@
     <link href="~/css/app_1.min.css" rel="stylesheet" />
     <link href="~/css/app_2.min.css" rel="stylesheet" />
     <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/Scripts/layui/css/layui.css" rel="stylesheet" />
+    <style>
+        .userTypeSelect, .choiceClassSelect {
+            width: 100%;
+        }
+        .layui-form-label{
+            float:none;
+            width:100%;
+            text-align:start;
+        }
+        .layui-input-block{
+            margin-left:0;
+        }
+        .layui-form-label{
+            padding-left:0;
+        }
+    </style>
 </head>
 <body class="pace-top bgm-white">
     <div id="page-container" class="fade">
@@ -39,57 +56,91 @@
                     <small>在班级同学录注册一个账号，注册后您将会拥有自己的个人主页并且可以查看其他同学的资料。</small>
                 </h1>
                 <div class="register-content">
-                    <form id="Reg" class="margin-bottom-0">
+                    <form class="margin-bottom-0">
                         <label class="control-label">登录用户名 <span class="text-danger">*</span></label>
                         <div class="row row-space-10">
                             <div class="col-md-12 m-b-15">
-                                <input type="text" class="form-control" placeholder="请输入用户名" value="13221" required id="Username" />
+                                <input type="text" class="form-control" placeholder="请输入用户名" value="" required id="Username" />
                             </div>
                         </div>
                         <label class="control-label">账号密码 <span class="text-danger">*</span></label>
                         <div class="row m-b-15">
                             <div class="col-md-12">
-                                <input type="password" class="form-control" placeholder="登录密码" value="13221" required id="Password" />
+                                <input type="password" class="form-control" placeholder="登录密码" value="" required id="Password" />
                             </div>
                         </div>
                         <label class="control-label">QQ号码 <span class="text-danger">*</span></label>
                         <div class="row m-b-15">
                             <div class="col-md-12">
-                                <input type="number" class="form-control" placeholder="用于获取头像" value="13221" required id="QQ" />
+                                <input type="number" class="form-control" placeholder="用于获取头像" value="" required id="QQ" />
                             </div>
                         </div>
-                        <label class="control-label">选择班级：并回到对应问题<span class="text-danger">*</span></label>
-
-                        <div class="dropup row m-b-15">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                <span class="classNum">选择班级</span>
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-
-                            </ul>
+                        <div class="layui-form-item ">
+                            <label class="layui-form-label">注册类别</label>
+                            <div class="layui-input-block">
+                                <select name="city" lay-verify="required" class="userTypeSelect">
+                                    <option value="2">普通用户</option>
+                                    <option value="1">管理员</option>
+                                </select>
+                            </div>
                         </div>
-
-                        <label class="control-label">问题1: <span id="Question1">2班班长是谁？</span><span class="text-danger">*</span></label>
-                        <div class="row m-b-15">
+                        @*<div class="dropup row m-b-15 regCategory">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <span class="">注册类别</span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu " aria-labelledby="dropdownMenu1">
+                <li class='classUser' id='user'><a href="javascript:void(0);" onclick="userTypeClick(this)">普通用户</a></li>
+                <li class='classAdmin' id='admin'><a href="javascript:void(0);" onclick="userTypeClick(this)">管理员</a></li>
+            </ul>
+        </div>*@
+                        <label class="control-label createClass">创建班级名称 <span class="text-danger">*</span></label>
+                        <div class="row m-b-15 createClass">
                             <div class="col-md-12">
-                                <input type="text" class="form-control" placeholder="" value="13221" required id="answer1" />
+                                <input type="text" class="form-control" placeholder="新班级名称" value="" required id="ClassName" />
                             </div>
                         </div>
-                        <label class="control-label">问题2:<span id="Question2">2班班长是谁？</span><span class="text-danger">*</span></label>
-                        <div class="row m-b-15">
+                        <div class="layui-form-item  choiceClass">
+                            <label class="layui-form-label">选择班级：并回到对应问题</label>
+                            <div class="layui-input-block">
+                                <select name="city" lay-verify="required" class="choiceClassSelect" >
+                                    <option value=""></option>
+                                    <option value="0">北京</option>
+                                    <option value="1">上海</option>
+                                </select>
+                            </div>
+                        </div>
+                        @*<label class="control-label choiceClass">选择班级：并回到对应问题<span class="text-danger">*</span></label>
+
+        <div class="dropup row m-b-15 choiceClass">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <span class="classNum">选择班级</span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1"></ul>
+        </div>*@
+
+                        <label class="control-label choiceClass">问题1: <span id="Question1">2班班长是谁？</span><span class="text-danger">*</span></label>
+                        <div class="row m-b-15 choiceClass">
                             <div class="col-md-12">
-                                <input type="text" class="form-control" placeholder="" value="13221" required id="answer2" />
+                                <input type="text" class="form-control" placeholder="" value="" required id="answer1" />
                             </div>
                         </div>
-                        <label class="control-label">问题3:<span id="Question3">2班班长是谁？</span><span class="text-danger">*</span></label>
-                        <div class="row m-b-15">
+                        <label class="control-label choiceClass">问题2:<span id="Question2">2班班长是谁？</span><span class="text-danger">*</span></label>
+                        <div class="row m-b-15 choiceClass">
                             <div class="col-md-12">
-                                <input type="text" class="form-control" placeholder="" value="13221" required id="answer3" />
+                                <input type="text" class="form-control" placeholder="" value="" required id="answer2" />
                             </div>
                         </div>
+                        <label class="control-label choiceClass">问题3:<span id="Question3">2班班长是谁？</span><span class="text-danger">*</span></label>
+                        <div class="row m-b-15 choiceClass">
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" placeholder="" value="" required id="answer3" />
+                            </div>
+                        </div>
+
                         <div class="register-buttons">
-                            <button type="submit" required="required" id="Button" class="btn btn-primary btn-block btn-lg">注册</button>
+                            <button type="button"  required="required" id="Reg" class="btn btn-primary btn-block btn-lg">注册</button>
                         </div>
                         <div class="m-t-20 m-b-40 p-b-40 text-inverse">
                             已经有账号了？ 点击 <a href="logon">这里</a> 登录。
@@ -110,6 +161,8 @@
     <script src="~/Scripts/jquery.slimscroll.min.js"></script>
     <script src="~/Scripts/jquery.cookie.min.js"></script>
     <script src="~/Scripts/app.js"></script>
+    <script src="~/Scripts/layui/layui.js"></script>
+
     <script>
         $(document).ready(function () {
             App.init();
@@ -126,108 +179,103 @@
             return o;
         };
         window.onload = function () {
+
+            //注册类型选择
+            $(".userTypeSelect").change(function () {
+                var $this = $(this);
+                if ($this.val() == 1) {
+                    $(".createClass").show();
+                    $(".choiceClass").hide();
+                } else {
+                    $(".createClass").hide();
+                    $(".choiceClass").show();
+                }
+            })
+            $(".userTypeSelect").change();
+            //班级选择
+            $(".choiceClassSelect").change(function () {
+                $.post("../ClassInfo/GetClassQuestionByClassId", { classId: $(this).val() }, function (data) {
+                    console.log(data);
+                    $("#Question1").text(data[0].Question);
+                    $("#Question2").text(data[1].Question);
+                    $("#Question3").text(data[2].Question);
+                })
+            });
             $.ajax({
-                url: "../ClassInfo/GetAllClassForSelect",
+                url: "../ClassInfo/GetAllActiveClassForSelect",
                 data: {
                 },
                 success: function (data) {
+                    console.log("===================")
+                    $(".choiceClassSelect").empty()
                     $(data).each(function () {
-                        $(".dropdown-menu").append(
-                            `<li class='classNum' id='` + this.Key + `'><a href="#">` + this.Value+`</a></li>`
+                        
+                        $(".choiceClassSelect").append(
+                            `<option  value='` + this.Key + `'>` + this.Value + `</option>`
                         );
                     });
-
+                    $(".choiceClassSelect").change();
                     $(".classNum").on("click", function () {
                         var classNum = $(this).attr("id");
-
-                        $.ajax({
-                            url: "../ClassInfo/GetClassQuestionByClassId",
-                            data: {
-                                classId: classNum
-                            },
-                            success: function (data) {
-                                console.log(data);
-                                $("#Question1").text(data[0].Question);
-                                $("#Question2").text(data[1].Question);
-                                $("#Question3").text(data[2].Question);
-                            },
-                            error: function () {
-
-                            }
-                        });
-                        $('#Reg').submit(function () {
-                            $('#Button').attr('disabled', 'disabled');
-                            var aa = [{ "q": "q1", "a": "a1" }, { "q": "q2", "a": "a2" }];
-                            data= {
-                                    UserName: "dsadsada",
-                                    Password: "abc123456",
-                                    QqId: "240269961",
-                                    ClassId: classNum,
-                                    question: ["Q1", "Q2", "Q3"],
-                                    qaa: [{ "q": "q1", "a": "a1" }, { "q": "q2", "a": "a2" }]
-                                    //question:"Q1"
-                                    //UserName: $('#Username').val(),
-                                    //Password: $('#Password').val(),
-                                    //ClassPassword: $('#ClassPassword').val(),
-                                    //QqId: $('#QQ').val(),
-                                    //VCode: $('#VCode').val(),
-                                }
-                            $.ajax({
-                                url: "../User/Regist",
-                                data: {
-                                    UserName: "dsadsada",
-                                    Password: "abc123456",
-                                    QqId: "240269961",
-                                    ClassId: classNum,
-                                    question: ["Q1", "Q2", "Q3"]
-                                    //question:"Q1"
-                                    //UserName: $('#Username').val(),
-                                    //Password: $('#Password').val(),
-                                    //ClassPassword: $('#ClassPassword').val(),
-                                    //QqId: $('#QQ').val(),
-                                    //VCode: $('#VCode').val(),
-                                },
-                                //data: $.param(data.serializeObject("list1")),
-                                traditional: true,
-                                //data: { list1:aa},
-                                success: function (data) {
-                                    console.log(data);
-                                    //if (data.result == true) {
-                                    //    window.location.herf = "home/login"
-                                    //} else {
-                                    //    $('#Button').removeAttr('disabled');
-                                    //    alert("注册失败:" + data.Msg + "，请重新注册！");
-                                    //}
-                                    //if (data.Code == 1) {
-                                    //    notify(data.Message, 'success');
-                                    //    setTimeout(function () {
-                                    //        window.location.href = "/index.php?s=Index.html";
-                                    //    }, 1000);
-                                    //} else {
-                                    //    $('#Button').removeAttr('disabled');
-                                    //    notify(data.Message, 'danger');
-                                    //    $('#VCodeShow').click();
-                                    //}
-                                },
-                                error: function () {
-
-                                }
-                            });
-                            return false;
-                        });
                     });
                 },
                 error: function () {
 
                 }
             });
+
+            $('#Reg').click(function () {
+                $('#Reg1').attr('disabled', 'disabled');
+                var data = {};
+                data.UserName = $("#Username").val();
+                data.Password = $("#Password").val();
+                data.QqId = $("#QQ").val();
+                data.UserType = $(".userTypeSelect").val();
+                if ($(".userTypeSelect").val() == "2") {
+                    data.ClassId = $(".choiceClassSelect").val();
+                    var QuestionConfig = [
+                        { Question: $("#Question1").text(), Answer: $("#answer1").val() },
+                        { Question: $("#Question2").text(), Answer: $("#answer2").val() },
+                        { Question: $("#Question3").text(), Answer: $("#answer3").val() }];
+
+                    data.QuestionConfig = QuestionConfig;
+
+                } else {
+                    data.ClassName = $("#ClassName").val();
+                }
+                $.post("../User/Regist", data, function (reData) {
+                    console.log(reData);
+                })
+                //$.ajax({
+                //    url: "../User/Regist",
+                //    data: data,
+                //    //data: $.param(data.serializeObject("list1")),
+                //    traditional: true,
+                //    //data: { list1:aa},
+                //    success: function (data) {
+                //        console.log(data);
+                //    },
+                //    error: function () {
+
+                //    }
+                //});
+                //return false;
+            });
         };
+        $(".regCategory").change(function () {
+            console.log("==========================")
+            alert("1111111111111");
+        });
+        
 
         $('#VCodeShow').click(function () {
             //$(this).attr('src', '/index.php?s=func/VCode.html');
             $('#VCode').val('');
         });
-
+        function userTypeClick(option) {
+            alert($(this).val());
+            alert($(this).text());
+        }
     </script>
 </body>
 </html>
