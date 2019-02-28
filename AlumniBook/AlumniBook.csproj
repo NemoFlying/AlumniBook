@@ -232,6 +232,7 @@
     <Content Include="assets\Images\defaultPhoto.jpg" />
     <Content Include="assets\img\bg.jpg" />
     <Content Include="assets\img\del.png" />
+    <Content Include="assets\img\Gw.jpeg" />
     <Content Include="assets\img\home.png" />
     <Content Include="assets\img\MessageBoard.png" />
     <Content Include="assets\img\off.png" />
