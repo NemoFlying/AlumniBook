@@ -23,7 +23,9 @@ $(function () {
     $(".PhotoAlbumBtn").on("click", function () {
         window.location.href = "../home/imglist";
     });
-
+    $(".about").on("click", function () {
+        window.location.href = "../home/about";
+    });
     //初始化用戶數據
     $.ajax({
         dataType: "json",
