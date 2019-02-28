@@ -165,7 +165,6 @@ $(function () {
             alert("请输入关键字!");
             return false;
         }
-        alert(key);
         $.ajax({
             url: "../User/GetUserByKeyOrder?key="+key,
             success: function (reData) {
