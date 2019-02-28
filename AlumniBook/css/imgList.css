@@ -76,5 +76,5 @@ h2 {
 .fileinput-button input {
     position: absolute;
     right: 0px;
-    top: 0px;
+    top: -15px;
 }
