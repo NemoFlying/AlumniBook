@@ -307,5 +307,28 @@ namespace AlumniBook.BLL.UserService
             return result;
         }
 
+        /// <summary>
+        /// 根据关键字获取班级所有学生
+        /// </summary>
+        /// <param name="keyWords"></param>
+        /// <returns></returns>
+        public List<UserInfoOutput> GetAllClassUserByKeyWord(string keyWords)
+        {
+            var users = new List<UserInfoOutput>();
+            users.AddRange(Mapper.Map<List<UserInfoOutput>>(
+                _userDAL.GetModels(con => con.UserName.Contains(keyWords)
+                || con.Addr.Contains(keyWords)
+                || con.RealName.Contains(keyWords)
+                || con.QqId.Contains(keyWords)
+                ).ToList()));
+            //users.AddRange(Mapper.Map<List<UserInfoOutput>>(
+            //    _userDAL.GetModels(con => con.Addr.Contains(keyWords)).ToList()));
+            //users.AddRange(Mapper.Map<List<UserInfoOutput>>(
+            //    _userDAL.GetModels(con => con.RealName.Contains(keyWords)).ToList()));
+            //users.AddRange(Mapper.Map<List<UserInfoOutput>>(
+            //    _userDAL.GetModels(con => con.QqId.Contains(keyWords)).ToList()));
+
+            return users;
+        }
     }
 }

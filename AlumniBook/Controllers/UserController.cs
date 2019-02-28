@@ -132,5 +132,16 @@ namespace AlumniBook.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
 
         }
+
+        /// <summary>
+        /// 根据关键字获取用户信息
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public JsonResult GetUserByKeyOrder(string key)
+        {
+            return Json(Mapper.Map<List<UserViewModel>>(_userService.GetAllClassUserByKeyWord(key)), JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

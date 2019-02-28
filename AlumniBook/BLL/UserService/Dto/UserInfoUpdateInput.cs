@@ -68,5 +68,14 @@ namespace AlumniBook.BLL.UserService.Dto
         /// 手机号码
         /// </summary>
         public string Phone { get; set; }
+
+        /// <summary>
+        /// 住址
+        /// </summary>
+        public string Addr { get; set; }
+        /// <summary>
+        /// 生日
+        /// </summary>
+        public string BirthDay { get; set; }
     }
 }

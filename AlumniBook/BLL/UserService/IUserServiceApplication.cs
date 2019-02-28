@@ -54,5 +54,13 @@ namespace AlumniBook.BLL.UserService
         /// <param name="updUser"></param>
         /// <returns></returns>
         ResultBaseOutput UpdateUser(UserInfoUpdateInput updUser);
+
+
+        /// <summary>
+        /// 根据关键字获取班级所有学生
+        /// </summary>
+        /// <param name="keyWords"></param>
+        /// <returns></returns>
+        List<UserInfoOutput> GetAllClassUserByKeyWord(string keyWords);
     }
 }

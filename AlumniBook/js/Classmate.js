@@ -159,7 +159,48 @@ $(function () {
             }
         });
     });
+    $(".searchBtn").on("click", function () {
+        key = $("#keyWords").val();
+        if (key == "") {
+            alert("请输入关键字!");
+            return false;
+        }
+        alert(key);
+        $.ajax({
+            url: "../User/GetUserByKeyOrder?key="+key,
+            success: function (reData) {
+                console.log(reData);
+                $(".userBody tbody").empty();
+                $(reData).each(function () {
+                    console.log(this);
+                    $(".userBody tbody").append(`
+                <tr>
+                    <td>`+ this.Id + `</td>
+                    <td>`+ this.QqId + `</td>
+                    <td>`+ this.RealName + `</td>
+                    <td>`+ this.UserName + `</td>
+                    <td>`+ (new Date(parseInt(this.RegistDate.replace(/\D/igm, "")))).toLocaleString() + `</td>
+                </tr>
+            `);
+                });
+                //if (reData.Status = "ok") {
+                //    $(".leftBottomDiv ul").empty();
+                //    $(reData.Data).each(function () {
+                //        $(".leftBottomDiv ul").append(`
+                //    <li>
+                //    <h3 title=`+ this.Id + `>` + this.Notice + `</h3>
+                //    <p>`+ (new Date(parseInt(this.CreateDate.replace(/\D/igm, "")))).toLocaleString() + `</p>
+                //    </li>
+                //`);
+                //    });
 
+                //} else {
+                //    alert(data.Msg + ",添加上失敗！");
+                //}
+            }
+        });
+            
+    })
 });
 //Demo
 
