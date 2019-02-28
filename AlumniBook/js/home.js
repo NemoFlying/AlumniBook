@@ -43,7 +43,7 @@ window.onload = function () {
                 <img src="http://q1.qlogo.cn/g?b=qq&nk=`+ data.UserInfo.QqId + `&s=140" alt="Alternate Text" />
             `);
             $(".userNames").text("" + data.UserInfo.UserName + "");
-
+            $(".Introduce").text(data.ClassInfo.Introduce);
             //var formatTime1 = convertTime(this.Notice, "yyyy-MM-dd hh:mm:ss");//2015-07-11 14:12:29
             //$("#div1").text(formatTime1);
             //var formatTime2 = convertTime(dt, "yyyy年MM月dd日 hh时mm分ss秒");//2015年07月11日 14时12分29秒

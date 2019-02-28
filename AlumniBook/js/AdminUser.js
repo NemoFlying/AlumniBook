@@ -216,7 +216,7 @@ $(function () {
             type: "post",
             url: "../ClassInfo/ClassInfoBaseUpdate",
             data: {
-                ClassInfoBaseUpdate: classDescriptionBtn
+                Introduce : classDescriptionBtn
             },
             success: function (reData) {
                 alert("修改成功！");
