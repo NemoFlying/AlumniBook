@@ -95,7 +95,7 @@ $(function () {
         success: function (reData) {
             //console.log(reData);
             $(reData).each(function () {
-                console.log(this);
+                //console.log(this);
                 $(".userBody tbody").append(`
                 <tr>
                     <td>`+this.Id+`</td>
@@ -165,6 +165,7 @@ $(function () {
         $(".q3").val(reData.Data.ClassQustion[0].Question);
         $(".a3").val(reData.Data.ClassQustion[0].Answer);
     })
+    //问题
     $(".questionBtn").on("click", function () {
         $.ajax({
             dataType: "json",
@@ -180,6 +181,7 @@ $(function () {
             }
         });
     });
+    //公告
     $(".noticeBtn").on("click", function () {
         var AddNoticeText = $(".AddNoticeText").val();
         $.ajax({
@@ -207,7 +209,25 @@ $(function () {
             }
         });
     });
+    $(".classDescriptionBtn").on("click", function () {
+        var classDescriptionBtn = $(".classDescription").val();
+        $.ajax({
+            dataType: "json",
+            type: "post",
+            url: "../ClassInfo/ClassInfoBaseUpdate",
+            data: {
+                ClassInfoBaseUpdate: classDescriptionBtn
+            },
+            success: function (reData) {
+                alert("修改成功！");
+                console.log(reData);
 
+            }, error: function () {
+                alert("修改失败！");
+            }
+        
+        });
+    });
 });
 //Demo
 
