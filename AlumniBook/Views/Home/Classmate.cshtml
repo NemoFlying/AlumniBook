@@ -40,9 +40,6 @@
                         @*<li>
                                 <p><span>类型:</span><span>普通</span><span>/</span><span>管理</span></p>
                             </li>*@
-                        <li class="UserBtn">
-                            <button type="button" class="btn btn-warning adminUser">管理员设置</button>
-                        </li>
                         <li class="UserBtn"><button class="btn btn-primary">修改个人资料</button></li>
                     </ul>
                 </div>
@@ -54,8 +51,8 @@
             <div class="rightDiv" style="overflow-y: scroll;">
                 <div>
                     <div class="imgDivL">
-                        <h2>管理用户信息</h2>
-                        <p class="ImgIntro">您可以管理用戶信息及发布公告！</p>
+                        <h2>用户列表</h2>
+                        <p class="ImgIntro">您可以查询用戶信息！</p>
                     </div>
                     <div class="imgDivR">
 
@@ -65,50 +62,17 @@
                 <ul class="imglist">
                     <li>
                         <div class="layui-form-item">
-                            <label class="layui-form-label">问题一</label>
-                            <div class="layui-input-inline">
-                                <textarea name="desc" placeholder="请输入问描述" class="layui-textarea noticeText q1"></textarea>
-                            </div>
-                            <div class="layui-input-inline">
-                                <textarea name="desc" placeholder="请输入问答案" class="layui-textarea noticeText a1"></textarea>
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">问题二</label>
-                            <div class="layui-input-inline">
-                                <textarea name="desc" placeholder="请输入问描述" class="layui-textarea noticeText q2"></textarea>
-                            </div>
-                            <div class="layui-input-inline">
-                                <textarea name="desc" placeholder="请输入问答案" class="layui-textarea noticeText a2"></textarea>
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">问题三</label>
-                            <div class="layui-input-inline">
-                                <textarea name="desc" placeholder="请输入问描述" class="layui-textarea noticeText q3"></textarea>
-                            </div>                            <div class="layui-input-inline">
-                                <textarea name="desc" placeholder="请输入问答案" class="layui-textarea noticeText a3"></textarea>
+                            <label class="layui-form-label">搜索信息：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" required lay-verify="required" placeholder="请输入搜索关键信息！" autocomplete="off" class="layui-input searchInput">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-input-block">
-                                <button class="layui-btn questionBtn" lay-submit lay-filter="formDemo">立即提交</button>
+                                <button class="layui-btn searchBtn" lay-submit lay-filter="formDemo">立即提交</button>
+                                @*<button type="reset" class="layui-btn layui-btn-primary">重置</button>*@
                             </div>
                         </div>
-                    </li>
-                    <li>
-                            <div class="layui-form-item layui-form-text">
-                                <label class="layui-form-label">公告</label>
-                                <div class="layui-input-block">
-                                    <textarea name="desc" placeholder="请输入添加公告内容" class="layui-textarea noticeText AddNoticeText"></textarea>
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <div class="layui-input-block">
-                                    <button class="layui-btn noticeBtn" lay-submit lay-filter="formDemo">立即提交</button>
-                                    @*<button type="reset" class="layui-btn layui-btn-primary">重置</button>*@
-                                </div>
-                            </div>
 
                     </li>
                     <li>
@@ -125,16 +89,15 @@
                                     <th>真实姓名</th>
                                     <th>用户名</th>
                                     <th>创建时间</th>
-                                    <th width="8%">功能</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @*<tr>
-                                    <td>贤心</td>
-                                    <td>2016-11-29</td>
-                                    <td>人生就像是一场修行</td>
-                                    <td><button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger">删除</button></td>
-                                </tr>*@
+                                        <td>贤心</td>
+                                        <td>2016-11-29</td>
+                                        <td>人生就像是一场修行</td>
+                                        <td><button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger">删除</button></td>
+                                    </tr>*@
                             </tbody>
                         </table>
                         <div id="test1"></div>
@@ -145,7 +108,7 @@
     </div>
     @*<script src="~/js/imgList.js"></script>*@
     <script src="~/Scripts/layui/layui.js"></script>
-    <script src="~/js/AdminUser.js"></script>
+    <script src="~/js/Classmate.js"></script>
 
 </body>
 </html>

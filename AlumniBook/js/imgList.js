@@ -113,8 +113,8 @@ $(function () {
             url: '../ClassInfo/AddClassAlbums',
             type: 'POST',
             success: function (data) {
-                console.log(111);
                 console.log(data);
+                alert("上传成功！");
                 $(".imglist li:last").append(`
                                         <li title='`+ this.Id + `'>
                         <div>

@@ -50,6 +50,10 @@ namespace AlumniBook.Controllers
         {
             return View();
         }
+        public ActionResult Classmate()
+        {
+            return View();
+        }
         [HttpPost]
         public JsonResult GetIndexModel()
         {

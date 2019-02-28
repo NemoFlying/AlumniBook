@@ -44,7 +44,7 @@
         <div class="register register-with-news-feed">
             <div class="news-feed">
                 <div class="news-image">
-                    <img src="~/assets/img/bg.jpg" alt="" />
+                    <img src="~/assets/img/Gw.jpeg" alt="" />
                 </div>
                 <div class="news-caption">
                     <h4 class="caption-title"><i class="fa fa-edit text-success"></i> 欢迎使用 班级同学录~</h4>
@@ -245,6 +245,7 @@
                 }
                 $.post("../User/Regist", data, function (reData) {
                     console.log(reData);
+                    window.location.href = "../home/logon";
                 })
                 //$.ajax({
                 //    url: "../User/Regist",
