@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Mvc;
+using AlumniBook.BLL.SensitiveService;
 using AlumniBook.DAL;
 using AlumniBook.Models;
 using AlumniBook.ViewModels;
@@ -18,7 +20,11 @@ namespace AlumniBook.Controllers
             return View();
         }
 
-
+        public ActionResult test()
+        {
+            //new SensitiveServiceAplication().Check("你好");
+            return View();
+        }
         public ActionResult Home()
         {
             return View();
@@ -41,6 +47,10 @@ namespace AlumniBook.Controllers
             return View();
         }
         public ActionResult ImgList()
+        {
+            return View();
+        }
+        public ActionResult Classmate()
         {
             return View();
         }

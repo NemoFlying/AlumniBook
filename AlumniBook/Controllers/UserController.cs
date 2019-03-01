@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AlumniBook.BLL;
 using AlumniBook.BLL.UserService;
 using AlumniBook.BLL.UserService.Dto;
 using AlumniBook.Models;
@@ -59,16 +60,16 @@ namespace AlumniBook.Controllers
         public JsonResult GetUserIndexInfo()
         {
             var classInfo = _userService.GetClassInfoByUid(GuserInfo.Id);
-            var indexView = new IndexViewModel()
-            {
-                UserInfo = Mapper.Map<UserViewModel>( GuserInfo),
-                AlumCoverImgUrl = classInfo.ClassAlbum.ToList().Find(con => con.IsCover == "Y").PhotoUrl,
-                BannerImgUrl = classInfo.ClassAlbum.ToList().Find(con => con.IsCover == "Y").PhotoUrl,
-                Classmate = Mapper.Map<List<UserViewModel>>(classInfo.User),
-                Bbs = Mapper.Map<List<LeavingMessageViewModel>>(classInfo.ClassLeavingMessage),
-                Notices = Mapper.Map<List<NoticeViewModel>>(classInfo.ClassNotice),
-                ClassInfo = Mapper.Map<ClassInfoViewModel>(classInfo)
-            };
+
+            var indexView = new IndexViewModel();
+            var alum = classInfo.ClassAlbum==null?null: classInfo.ClassAlbum.ToList().Find(con => con.IsCover == "Y");
+            indexView.AlumCoverImgUrl = alum == null ? "../assets/Images/defaultPhoto.jpg" : alum.PhotoUrl;
+            indexView.BannerImgUrl = alum == null ? "../assets/Images/defaultPhoto.jpg" : alum.PhotoUrl;
+            indexView.Classmate = Mapper.Map<List<UserViewModel>>(classInfo.User);
+            indexView.Bbs = Mapper.Map<List<LeavingMessageViewModel>>(classInfo.ClassLeavingMessage);
+            indexView.Notices = Mapper.Map<List<NoticeViewModel>>(classInfo.ClassNotice);
+            indexView.UserInfo = Mapper.Map<UserViewModel>(GuserInfo);
+            indexView.ClassInfo = Mapper.Map<ClassInfoBaseViewModel>(classInfo);
             return Json(indexView, JsonRequestBehavior.AllowGet);
 
         }
@@ -115,6 +116,32 @@ namespace AlumniBook.Controllers
         }
 
         //public JsonResult ModifyUserInfo(userinfo)
+        public JsonResult UpdateUserInfo(UserInfoUpdateInput userInput)
+        {
+            var result = new ResultBaseOutput();
+            //if() 实名认证部分
+            //若实名认证过就不需认证
+            userInput.Certification = "Y";
+            result = _userService.UpdateUser(userInput);
+            if(result.Status)
+            {
+                HttpContext.Session["userinfo"] = Mapper.Map<UserInfoOutput>(result.Data);
+                result.Data = Mapper.Map<UserViewModel>(result.Data);
+            }
+            
+            return Json(result, JsonRequestBehavior.AllowGet);
+
+        }
+
+        /// <summary>
+        /// 根据关键字获取用户信息
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public JsonResult GetUserByKeyOrder(string key)
+        {
+            return Json(Mapper.Map<List<UserViewModel>>(_userService.GetAllClassUserByKeyWord(key)), JsonRequestBehavior.AllowGet);
+        }
 
     }
 }

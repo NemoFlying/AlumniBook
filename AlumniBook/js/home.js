@@ -10,19 +10,22 @@ window.onload = function () {
     });
 
     $(".offBtn").on("click", function () {
-        
         window.location.href = "../home/logon";
     });
     $(".homeBtn").on("click", function () {
-
         window.location.href = "../home/home";
     });
     $(".MessageBoardBtn").on("click", function () {
-
         window.location.href = "../home/MessageBoard";
     });
     $(".PhotoAlbumBtn").on("click", function () {
         window.location.href = "../home/imglist";
+    });
+    $(".adminUser").on("click", function () {
+        window.location.href = "../home/AdminUser";
+    });
+    $(".about").on("click", function () {
+        window.location.href = "../home/about";
     });
     //PhotoAlbum
     function getBbs(data) {
@@ -40,7 +43,7 @@ window.onload = function () {
                 <img src="http://q1.qlogo.cn/g?b=qq&nk=`+ data.UserInfo.QqId + `&s=140" alt="Alternate Text" />
             `);
             $(".userNames").text("" + data.UserInfo.UserName + "");
-
+            $(".Introduce").text(data.ClassInfo.Introduce);
             //var formatTime1 = convertTime(this.Notice, "yyyy-MM-dd hh:mm:ss");//2015-07-11 14:12:29
             //$("#div1").text(formatTime1);
             //var formatTime2 = convertTime(dt, "yyyy年MM月dd日 hh时mm分ss秒");//2015年07月11日 14时12分29秒
@@ -48,18 +51,22 @@ window.onload = function () {
             $(".rightBottomL img").attr("src", "" + data.AlumCoverImgUrl + "");
 
             $(data.Notices).each(function () {
-                console.log(this)
-                $(".leftBottomDiv").append(`
-                    <h3 title=`+ this.Id + `>12313` + this.Notice + `</h3>
+                //console.log(this)
+                $(".leftBottomDiv ul").append(`
+                    <li>
+                    <h3 title=`+ this.Id + `>` + this.Notice + `</h3>
                     <p>`+ (new Date(parseInt(this.CreateDate.replace(/\D/igm, "")))).toLocaleString() + `</p>
+                    </li>
                 `);
             });
 
             $(data.Notices).each(function () {
 
-                $(".leftBottomDiv").append(`
-                    <h3 title=`+ this.Id + `>12313` + this.Notice + `</h3>
+                $(".leftBottomDiv ul").append(`
+                    <li>
+                    <h3 title=`+ this.Id + `>` + this.Notice + `</h3>
                     <p>`+ (new Date(parseInt(this.CreateDate.replace(/\D/igm, "")))).toLocaleString() + `</p>
+                    </li>
                 `);
             });
 
@@ -68,8 +75,10 @@ window.onload = function () {
                     <li>
                         <p>
                             <img class='ClassmateImg' src="http://q1.qlogo.cn/g?b=qq&nk=`+ this.QqId + `&s=40" alt="">
-                            <span>`+ this.UserName + `</span>
-                            <span>`+ this.QqId + `</span>
+                            <span>用户名：</span>
+                            <span class='ClassmateUserName'>`+ this.UserName + `</span>
+                            <span>QQ号：</span>
+                            <span class='ClassmateQQnum'>`+ this.QqId + `</span>
                         </p>
                     </li>
 
@@ -97,24 +106,32 @@ window.onload = function () {
 }
 $(".addMessageBoardBtn").on("click", function () {
     var texts = $(".upMessageBoardDiv input").val();
+    console.log(texts);
     $.ajax({
         dataType: "json",
-        url: "../Class/AddClassBbs",
+        url: "../ClassInfo/AddClassBbs",
         data: {
             Msg:texts
         },
-        success: function (data) {
-            console.log(data);
-            $(".MessageBoard li:last").append(`
+        success: function (reData) {       
+            //console.log(this);
+            if (reData.Status == true) {
+                $(".upMessageBoardDiv input").val("");
+                $(".MessageBoard li:last").append(`
                 <li title = '`+ this.Id + `' >
                     <p>
-                        <img class='MessageBoardImg' src="http://q1.qlogo.cn/g?b=qq&nk=`+ this.QqId + `&s=40" alt="Alternate Text" />
-                        <span>`+ this.createUserName + `</span>
-                        <p class='Msg'>`+ this.Msg + `</p>
-                        <span class='MsgTimes'>`+ (new Date(parseInt(this.CreateDate.replace(/\D/igm, "")))).toLocaleString() + `</span>
+                        <img class='MessageBoardImg' src="http://q1.qlogo.cn/g?b=qq&nk=`+ reData.Data.QqId + `&s=40" alt="Alternate Text" />
+                        <span>`+ reData.Data.createUserName + `</span>
+                        <p class='Msg'>`+ reData.Data.Msg + `</p>
+                        <span class='MsgTimes'>`+ (new Date(parseInt(reData.Data.CreateDate.replace(/\D/igm, "")))).toLocaleString() + `</span>
                     </p>
-                </li >
+                </li>
             `);
+            } else {
+                alert(reData.Msg + "添加失敗！");
+            }
+
+
         }
     });
 });

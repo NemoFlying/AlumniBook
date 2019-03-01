@@ -68,3 +68,13 @@ h2 {
     border:none;
     float:right;
 }
+.fileinput-button {
+    position: relative;
+    display: inline-block;
+}
+
+.fileinput-button input {
+    position: absolute;
+    right: 0px;
+    top: -15px;
+}

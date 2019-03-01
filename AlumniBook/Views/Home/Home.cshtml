@@ -13,7 +13,9 @@
     <title>主页</title>
     <link rel="stylesheet" href="~/css/home.css">
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/js/font-awesome.min.css" />
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
 </head>
 
 <body>
@@ -21,7 +23,7 @@
         <div class="header">
             <h1>在线同学录</h1>
             <button title="主页" type="button" class="homeBtn"></button>
-            <button title="留言" type="button" class="MessageBoardBtn"></button>
+            @*<button title="留言" type="button" class="MessageBoardBtn"></button>*@
             <button title="相册" type="button" class="PhotoAlbumBtn"></button>
             <button title="退出登录" type="button" class="offBtn"></button>
         </div>
@@ -40,15 +42,17 @@
                                 <p><span>类型:</span><span>普通</span><span>/</span><span>管理</span></p>
                             </li>*@
                         <li class="UserBtn">
-                            <button type="button" class="btn btn-warning">管理员设置</button>
+                            <button type="button" class="btn btn-warning adminUser">管理员设置</button>
                         </li>
-                        <li class="UserBtn"><button class="btn btn-primary">修改个人资料</button></li>
+                        <li class="UserBtn"><button class="btn btn-primary about">修改个人资料</button></li>
                     </ul>
 
                 </div>
                 <div class="leftBottom">
                     <h2>公告</h2>
-                    <div class="leftBottomDiv"></div>
+                    <div class="leftBottomDiv">
+                        <ul></ul>
+                    </div>
                 </div>
             </div>
             <div class="rightDiv">
@@ -58,20 +62,18 @@
                 <div class="rightCenter">
                     <div class="rightCenterL">
                         <h3 class="titleName"><span>班级介绍</span><span>more</span></h3>
-                        <p>
-                            48个快乐的孩子，怀着对梦的执着；对美好青春的渴望；对未来无限的憧憬；踏进了六年五班。这是一个团结上进的班集体；一个温馨和谐的大家庭，一个充满爱的乐园。一个团结的群体，一个充满活力的群体，一个不甘落后的群体，一个饱含热情的群体 ；它不会因为矛盾而分散，不会因为压力而沉寂，不会因为失败而丧气，不会因为竞争而冷漠。我们，是一个整体，我们，是不可分割的一织血脉。纵然有过羞涩，纵然有过隔阂，但一切的不愉快都随风飘逝，所有的不和都随波消散，友好，和睦，亲密无间，成为了永恒的旋律。心灵与心灵相交融，友爱和友爱相重叠，平平淡淡的生活中，所涂抹出来的，是一幅没有灰色，没有黑色，没有夜的暗，没有冬之寒的油画。这就是五班。
-                        </p>
+                        <p class="Introduce"></p>
                     </div>
                     <div class="rightCenterR">
-                        <h3 class="titleName"><span>同学信息</span><span>more</span></h3>
+                        <h3 class="titleName"><span>同学信息</span><a href="../home/Classmate">more</a></h3>
                         <div class="StudentsInformation">
                             <ul>
                                 @*<li>
-                                    <p>
-                                        <img src="" alt="">
-                                        <span>某某人</span>
-                                    </p>
-                                </li>*@
+                                        <p>
+                                            <img src="" alt="">
+                                            <span>某某人</span>
+                                        </p>
+                                    </li>*@
                             </ul>
                         </div>
                     </div>
@@ -87,9 +89,7 @@
                     <div class="rightBottomR">
                         <h3 class="titleName"><span>留言板</span><span>more</span></h3>
                         <div class="MessageBoard">
-                            <ul>
-
-                            </ul>
+                            <ul></ul>
                             <div class="upMessageBoardDiv">
                                 <input style="    width: 85%;" type="text" name="name" value="" />
                                 <button class="addMessageBoardBtn" type="button">提交</button>
@@ -105,3 +105,7 @@
 
 </html>
 
+<!--Plus-->
+<!--音乐播放-->
+@*<script>XlchKey = "gcbs";</script>*@
+@*<script src="~/js/Player.js"></script>*@

@@ -41,6 +41,16 @@ namespace AlumniBook.ViewModels
         public string Phone { get; set; }
 
         /// <summary>
+        /// 住址
+        /// </summary>
+        public string Addr { get; set; }
+
+        /// <summary>
+        /// 生日
+        /// </summary>
+        public string BirthDay { get; set; }
+
+        /// <summary>
         /// 注册时间
         /// </summary>
         public DateTime RegistDate { get; set; }

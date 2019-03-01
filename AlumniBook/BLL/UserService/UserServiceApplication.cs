@@ -69,10 +69,10 @@ namespace AlumniBook.BLL.UserService
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
-        public UserInfoOutput GetUserInfoByName(string userName)
+        public UserInfoOutput GetUserInfoById(int userId)
         {
             return Mapper.Map<UserInfoOutput>(
-                _userDAL.GetModels(con => con.UserName == userName)
+                _userDAL.GetModels(con => con.Id == userId)
                 .FirstOrDefault()
                 );
         }
@@ -110,19 +110,20 @@ namespace AlumniBook.BLL.UserService
                 user = Mapper.Map<User>(newUserInfo);
                 user.Password = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(user.UserName + user.Password))).Replace("-", "");
                 //创建问题&答案
-                var qa = new List<ClassQuestion>();
-                newUserInfo.QuestionConfig.ForEach(item =>
-                    qa.Add(new ClassQuestion() { Question = item.Question, Answer = item.Answer })
-                );
+                //var qa = new List<ClassQuestion>();
+                //newUserInfo.QuestionConfig.ForEach(item =>
+                //    qa.Add(new ClassQuestion() { Question = item.Question, Answer = item.Answer })
+                //);
                 //创建班级
                 var newClassInfo = new ClassInfo()
                 {
                     ClassName = newUserInfo.ClassName,
                     CreateUser = user,
                     User = new List<User>() { user },
-                    Introduce = newUserInfo.Introduce,
+                    adminUser = new List<User>() { user }
+                    //Introduce = newUserInfo.Introduce,
                     //adminUser = new List<User>() { user },
-                    ClassQustion = qa
+                    //ClassQustion = qa
                 };
                 _classInfoDAL.Add(newClassInfo);
                 try
@@ -137,7 +138,7 @@ namespace AlumniBook.BLL.UserService
                     result.Data = ex;
                 }
             }
-            else //普通用户
+            else if(newUserInfo.UserType == 2) //普通用户
             {
                 //问题答案验证
                 var classInfo = _classInfoDAL.GetModels(con => con.Id == newUserInfo.ClassId).FirstOrDefault();
@@ -145,7 +146,7 @@ namespace AlumniBook.BLL.UserService
                 var anSwerResult = true;
                 classInfo.ClassQustion.ToList().ForEach(
                     item => {
-                        if (newUserInfo.QuestionConfig.Find(con => con.Question == item.Question).Answer != item.Answer)
+                        if (newUserInfo.QuestionConfig.Find(con => con.Question == item.Question && con.Answer==item.Answer) is null)
                         {
                             anSwerResult = false;
                         }
@@ -161,11 +162,11 @@ namespace AlumniBook.BLL.UserService
                     user = Mapper.Map<User>(newUserInfo);
                     //密码加密
                     user.Password = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(user.UserName + user.Password))).Replace("-", "");
-                    user.UserClass = new List<ClassInfo>() { classInfo };
-                    _userDAL.Add(user);
+                    classInfo.User.Add(user);
+                    _classInfoDAL.Update(classInfo);
                     try
                     {
-                        _userDAL.SaveChanges();
+                        _classInfoDAL.SaveChanges();
                         result.Status = true;
                     }
                     catch (Exception ex)
@@ -176,6 +177,11 @@ namespace AlumniBook.BLL.UserService
                     }
                 }
                 
+            }
+            else
+            {
+                result.Status = false;
+                result.Msg = "用户类型不确定";
             }
             return result;
         }
@@ -191,6 +197,7 @@ namespace AlumniBook.BLL.UserService
             return _userDAL.GetModels(con => con.Id == userId).FirstOrDefault().UserClass.FirstOrDefault();
 
         }
+        
         /// <summary>
         /// 获取所有用户
         /// </summary>
@@ -259,11 +266,69 @@ namespace AlumniBook.BLL.UserService
             return result;
         }
 
+        /// <summary>
+        /// 修改用户信息
+        /// </summary>
+        /// <param name="updUser"></param>
+        /// <returns></returns>
+        public ResultBaseOutput UpdateUser(UserInfoUpdateInput updUser)
+        {
+            var result = new ResultBaseOutput();
 
-        //public List<UserInfoOutput> GetAllUserInfo()
-        //{
+            
+            var user = _userDAL.GetModels(con => con.Id == updUser.Id).FirstOrDefault();
+            updUser.UserName = user.UserName;
+            if (string.IsNullOrEmpty(updUser.Password))
+            {
+                updUser.Password = user.Password;
+            }
+            else
+            {
+                var md5 = new MD5CryptoServiceProvider();
+                updUser.Password = BitConverter
+                    .ToString(md5.ComputeHash(Encoding.Default.GetBytes(updUser.UserName + updUser.Password)))
+                    .Replace("-", "");
+            }
+            Mapper.Map(updUser, user);
+            
+            try
+            {
+                _userDAL.Update(user);
+                _userDAL.SaveChanges();
+                result.Status = true;
+                result.Data = user;
+            }
+            catch(Exception ex)
+            {
+                result.Status = false;
+                result.Msg = "删除失败";
+                result.Data = ex;
+            }
+            return result;
+        }
 
-        //}
+        /// <summary>
+        /// 根据关键字获取班级所有学生
+        /// </summary>
+        /// <param name="keyWords"></param>
+        /// <returns></returns>
+        public List<UserInfoOutput> GetAllClassUserByKeyWord(string keyWords)
+        {
+            var users = new List<UserInfoOutput>();
+            users.AddRange(Mapper.Map<List<UserInfoOutput>>(
+                _userDAL.GetModels(con => con.UserName.Contains(keyWords)
+                || con.Addr.Contains(keyWords)
+                || con.RealName.Contains(keyWords)
+                || con.QqId.Contains(keyWords)
+                ).ToList()));
+            //users.AddRange(Mapper.Map<List<UserInfoOutput>>(
+            //    _userDAL.GetModels(con => con.Addr.Contains(keyWords)).ToList()));
+            //users.AddRange(Mapper.Map<List<UserInfoOutput>>(
+            //    _userDAL.GetModels(con => con.RealName.Contains(keyWords)).ToList()));
+            //users.AddRange(Mapper.Map<List<UserInfoOutput>>(
+            //    _userDAL.GetModels(con => con.QqId.Contains(keyWords)).ToList()));
 
+            return users;
+        }
     }
 }

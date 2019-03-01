@@ -47,5 +47,20 @@ namespace AlumniBook.BLL.UserService
         /// </summary>
         /// <param name="userId"></param>
         ResultBaseOutput DeleteUserById(int userId);
+
+        /// <summary>
+        /// 修改用户信息
+        /// </summary>
+        /// <param name="updUser"></param>
+        /// <returns></returns>
+        ResultBaseOutput UpdateUser(UserInfoUpdateInput updUser);
+
+
+        /// <summary>
+        /// 根据关键字获取班级所有学生
+        /// </summary>
+        /// <param name="keyWords"></param>
+        /// <returns></returns>
+        List<UserInfoOutput> GetAllClassUserByKeyWord(string keyWords);
     }
 }
